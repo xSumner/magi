@@ -1,0 +1,2 @@
+# magi
+content of DataMagi
