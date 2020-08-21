@@ -766,29 +766,29 @@ pip install loguru
 
 ### Ready to use out of the box without boilerplate
 
-The main concept of Loguru is that **there is one and only one** [`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger).
+The main concept of Loguru is that **there is one and only one** <kbd>[`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd>.
 
-For convenience, it is pre-configured and outputs to `stderr` to begin with (but that’s entirely configurable).
+For convenience, it is pre-configured and outputs to <kbd>`stderr`</kbd> to begin with (but that’s entirely configurable).
 
-```
+```python
 from loguru import logger
 
 logger.debug("That's it, beautiful and simple logging!")
 ```
 
-The [`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) is just an interface which dispatches log messages to configured handlers. Simple, right?
+The <kbd>[`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd> is just an interface which dispatches log messages to configured handlers. Simple, right?
 
 ### No Handler, no Formatter, no Filter: one function to rule them all
 
 How to add a handler? How to set up logs formatting? How to filter messages? How to set level?
 
-One answer: the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) function.
+One answer: the <kbd>[`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add)</kbd> function.
 
-```
+```python
 logger.add(sys.stderr, format="{time} {level} {message}", filter="my_module", level="INFO")
 ```
 
-This function should be used to register [sinks](https://loguru.readthedocs.io/en/stable/api/logger.html#sink) which are responsible for managing [log messages](https://loguru.readthedocs.io/en/stable/api/logger.html#message) contextualized with a [record dict](https://loguru.readthedocs.io/en/stable/api/logger.html#record). A sink can take many forms: a simple function, a string path, a file-like object, a coroutine function or a built-in Handler.
+This function should be used to register <kbd>[sinks](https://loguru.readthedocs.io/en/stable/api/logger.html#sink)</kbd> which are responsible for managing [log messages](https://loguru.readthedocs.io/en/stable/api/logger.html#message) contextualized with a [record dict](https://loguru.readthedocs.io/en/stable/api/logger.html#record). A sink can take many forms: a simple function, a string path, a file-like object, a coroutine function or a built-in Handler.
 
 Note that you may also [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) a previously added handler by using the identifier returned while adding it. This is particularly useful if you want to supersede the default `stderr` handler: just call `logger.remove()` to make a fresh start.
 
@@ -796,7 +796,7 @@ Note that you may also [`remove()`](https://loguru.readthedocs.io/en/stable/api/
 
 If you want to send logged messages to a file, you just have to use a string path as the sink. It can be automatically timed too for convenience:
 
-```
+```python
 logger.add("file_{time}.log")
 ```
 
@@ -2198,11 +2198,6 @@ if __name__ == "__main__":
 ```
 
 Independently of the operating system, note that the process in which a handler is added with `enqueue=True` is in charge of the queue internally used. This means that you should avoid to `.remove()` such handler from the parent process is any child is likely to continue using it. More importantly, note that a [`Thread`](https://docs.python.org/3/library/threading.html#threading.Thread) is started internally to consume the queue. Therefore, it is recommended to call [`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete) before leaving [`Process`](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.Process) to make sure the queue is left in a stable state.
-
-
-
-
-
 
 
 
