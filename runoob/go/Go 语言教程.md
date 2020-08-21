@@ -2858,7 +2858,7 @@ Go 语言标准库提供了多种可动用的内置的函数。例如，len() �
 
 Go 语言函数定义格式如下：
 
-```
+```go
 func function_name( [parameter list] ) [return_types] {
    函数体
 }
@@ -2879,15 +2879,15 @@ func function_name( [parameter list] ) [return_types] {
 ```go
 /* 函数返回两个数的最大值 */
 func max(num1, num2 int) int {
-  /* 声明局部变量 */
-  var result int
+   /* 声明局部变量 */
+   var result int
 
-  if (num1 > num2) {
-   result = num1
-  } else {
-   result = num2
-  }
-  return result
+   if (num1 > num2) {
+      result = num1
+   } else {
+      result = num2
+   }
+   return result
 }
 ```
 
@@ -2907,28 +2907,28 @@ package main
 import "fmt"
 
 func main() {
-  /* 定义局部变量 */
-  var a int = 100
-  var b int = 200
-  var ret int
+   /* 定义局部变量 */
+   var a int = 100
+   var b int = 200
+   var ret int
 
-  /* 调用函数并返回最大值 */
-  ret = max(a, b)
+   /* 调用函数并返回最大值 */
+   ret = max(a, b)
 
-  fmt.Printf( "最大值是 : %d\n", ret )
+   fmt.Printf( "最大值是 : %d\n", ret )
 }
 
 /* 函数返回两个数的最大值 */
 func max(num1, num2 int) int {
-  /* 定义局部变量 */
-  var result int
+   /* 定义局部变量 */
+   var result int
 
-  if (num1 > num2) {
-   result = num1
-  } else {
-   result = num2
-  }
-  return result
+   if (num1 > num2) {
+      result = num1
+   } else {
+      result = num2
+   }
+   return result
 }
 ```
 
@@ -2952,18 +2952,18 @@ package main
 import "fmt"
 
 func swap(x, y string) (string, string) {
-  return y, x
+   return y, x
 }
 
 func main() {
-  a, b := swap("Google", "Runoob")
-  fmt.Println(a, b)
+   a, b := swap("Google", "Runoob")
+   fmt.Println(a, b)
 }
 ```
 
 以上实例执行结果为：
 
-```
+```python
 Runoob Google
 ```
 
@@ -2982,7 +2982,141 @@ Runoob Google
 | [值传递](https://www.runoob.com/go/go-function-call-by-value.html) | 值传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。 |
 | [引用传递](https://www.runoob.com/go/go-function-call-by-reference.html) | 引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。 |
 
+> 默认情况下，Go 语言使用的是值传递，即在调用过程中不会影响到实际参数。
+
+### Go 语言函数值传递值
+
+传递是指在调用函数时将实际参数复制一份传递到函数中，这样在函数中如果对参数进行修改，将不会影响到实际参数。
+
 默认情况下，Go 语言使用的是值传递，即在调用过程中不会影响到实际参数。
+
+以下定义了 swap() 函数：
+
+```go
+/* 定义相互交换值的函数 */
+func swap(x, y int) int {
+   var temp int
+
+   temp = x /* 保存 x 的值 */
+   x = y    /* 将 y 值赋给 x */
+   y = temp /* 将 temp 值赋给 y*/
+
+   return temp;
+}
+```
+
+接下来，让我们使用值传递来调用 swap() 函数：
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+   /* 定义局部变量 */
+   var a int = 100
+   var b int = 200
+
+   fmt.Printf("交换前 a 的值为 : %d\n", a )
+   fmt.Printf("交换前 b 的值为 : %d\n", b )
+
+   /* 通过调用函数来交换值 */
+   swap(a, b)
+
+   fmt.Printf("交换后 a 的值 : %d\n", a )
+   fmt.Printf("交换后 b 的值 : %d\n", b )
+}
+
+/* 定义相互交换值的函数 */
+func swap(x, y int) int {
+   var temp int
+
+   temp = x /* 保存 x 的值 */
+   x = y    /* 将 y 值赋给 x */
+   y = temp /* 将 temp 值赋给 y*/
+
+   return temp;
+}
+```
+
+以下代码执行结果为：
+
+```go
+交换前 a 的值为 : 100
+交换前 b 的值为 : 200
+交换后 a 的值 : 100
+交换后 b 的值 : 200
+```
+
+程序中使用的是值传递, 所以两个值并没有实现交互，我们可以使用 [引用传递](https://www.runoob.com/go/go-function-call-by-reference.html) 来实现交换效果。
+
+交换值可以这么写：
+
+```go
+a := 100
+b := 200
+a, b = b, a
+// a == 200
+// b == 100
+```
+
+### Go 语言函数引用传递值
+
+引用传递是指在调用函数时将实际参数的地址传递到函数中，那么在函数中对参数所进行的修改，将影响到实际参数。
+
+引用传递指针参数传递到函数内，以下是交换函数 swap() 使用了引用传递：
+
+```go
+/* 定义交换值函数*/
+func swap(x *int, y *int) {
+   var temp int
+   temp = *x    /* 保持 x 地址上的值 */
+   *x = *y      /* 将 y 值赋给 x */
+   *y = temp    /* 将 temp 值赋给 y */
+}
+```
+
+以下我们通过使用引用传递来调用 swap() 函数：
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+   /* 定义局部变量 */
+   var a int = 100
+   var b int= 200
+
+   fmt.Printf("交换前，a 的值 : %d\n", a )
+   fmt.Printf("交换前，b 的值 : %d\n", b )
+
+   /* 调用 swap() 函数
+   * &a 指向 a 指针，a 变量的地址
+   * &b 指向 b 指针，b 变量的地址
+   */
+   swap(&a, &b)
+
+   fmt.Printf("交换后，a 的值 : %d\n", a )
+   fmt.Printf("交换后，b 的值 : %d\n", b )
+}
+
+func swap(x *int, y *int) {
+   var temp int
+   temp = *x    /* 保存 x 地址上的值 */
+   *x = *y      /* 将 y 值赋给 x */
+   *y = temp    /* 将 temp 值赋给 y */
+}
+```
+
+以上代码执行结果为：
+
+```go
+交换前，a 的值 : 100
+交换前，b 的值 : 200
+交换后，a 的值 : 200
+交换后，b 的值 : 100
+```
 
 ------
 
@@ -2993,6 +3127,310 @@ Runoob Google
 | [函数作为另外一个函数的实参](https://www.runoob.com/go/go-function-as-values.html) | 函数定义后可作为另外一个函数的实参数传入 |
 | [闭包](https://www.runoob.com/go/go-function-closures.html)  | 闭包是匿名函数，可在动态编程中使用       |
 | [方法](https://www.runoob.com/go/go-method.html)             | 方法就是一个包含了接受者的函数           |
+
+### Go 语言函数作为实参
+
+Go 语言可以很灵活的创建函数，并作为另外一个函数的实参。以下实例中我们在定义的函数中初始化一个变量，该函数仅仅是为了使用内置函数 **math.sqrt()**，实例为：
+
+**实例**
+
+```go
+package main
+
+import (
+   "fmt"
+   "math"
+)
+
+func main(){
+   /* 声明函数变量 */
+   getSquareRoot := func(x float64) float64 {
+      return math.Sqrt(x)
+   }
+
+   /* 使用函数 */
+   fmt.Println(getSquareRoot(9))
+
+}
+```
+
+以上代码执行结果为：
+
+```go
+3
+```
+
+函数作为参数传递，实现回调。
+
+```go
+package main
+import "fmt"
+
+// 声明一个函数类型
+type cb func(int) int
+
+func main() {
+    testCallBack(1, callBack)
+    testCallBack(2, func(x int) int {
+        fmt.Printf("我是回调，x：%d\n", x)
+        return x
+    })
+}
+
+func testCallBack(x int, f cb) {
+    f(x)
+}
+
+func callBack(x int) int {
+    fmt.Printf("我是回调，x：%d\n", x)
+    return x
+}
+```
+
+### Go 语言函数闭包
+
+Go 语言支持匿名函数，可作为闭包。匿名函数是一个"内联"语句或表达式。匿名函数的优越性在于可以直接使用函数内的变量，不必申明。
+
+以下实例中，我们创建了函数 getSequence() ，返回另外一个函数。该函数的目的是在闭包中递增 i 变量，代码如下：
+
+**实例**
+
+```go
+package main
+
+import "fmt"
+
+func getSequence() func() int {
+   i:=0
+   return func() int {
+      i+=1
+     return i  
+   }
+}
+
+func main(){
+   /* nextNumber 为一个函数，函数 i 为 0 */
+   nextNumber := getSequence()  
+
+   /* 调用 nextNumber 函数，i 变量自增 1 并返回 */
+   fmt.Println(nextNumber())
+   fmt.Println(nextNumber())
+   fmt.Println(nextNumber())
+   
+   /* 创建新的函数 nextNumber1，并查看结果 */
+   nextNumber1 := getSequence()  
+   fmt.Println(nextNumber1())
+   fmt.Println(nextNumber1())
+}
+```
+
+以上代码执行结果为：
+
+```go
+1
+2
+3
+1
+2
+```
+
+带参数的闭包函数调用:
+
+```go
+package main
+
+import "fmt"
+func main() {
+    add_func := add(1,2)
+    fmt.Println(add_func())
+    fmt.Println(add_func())
+    fmt.Println(add_func())
+}
+
+// 闭包使用方法
+func add(x1, x2 int) func()(int,int)  {
+    i := 0
+    return func() (int,int){
+        i++
+        return i,x1+x2
+    }
+}
+```
+
+闭包带参数补充:
+
+```go
+package main
+import "fmt"
+func main() {
+    add_func := add(1,2)
+    fmt.Println(add_func(1,1))
+    fmt.Println(add_func(0,0))
+    fmt.Println(add_func(2,2))
+} 
+// 闭包使用方法
+func add(x1, x2 int) func(x3 int,x4 int)(int,int,int)  {
+    i := 0
+    return func(x3 int,x4 int) (int,int,int){ 
+       i++
+       return i,x1+x2,x3+x4
+    }
+}
+```
+
+闭包带参数继续补充：
+
+```go
+package main
+
+import "fmt"
+
+// 闭包使用方法，函数声明中的返回值(闭包函数)不用写具体的形参名称
+func add(x1, x2 int) func(int, int) (int, int, int) {
+  i := 0
+  return func(x3, x4 int) (int, int, int) {
+    i += 1
+    return i, x1 + x2, x3 + x4
+  }
+}
+
+func main() {
+  add_func := add(1, 2)
+  fmt.Println(add_func(4, 5))
+  fmt.Println(add_func(1, 3))
+  fmt.Println(add_func(2, 2)) 
+}
+```
+
+### Go 语言函数方法
+
+Go 语言中同时有函数和方法。一个方法就是一个包含了接受者的函数，接受者可以是命名类型或者结构体类型的一个值或者是一个指针。所有给定类型的方法属于该类型的方法集。语法格式如下：
+
+```go
+func (variable_name variable_data_type) function_name() [return_type]{
+   /* 函数体*/
+}
+```
+
+下面定义一个结构体类型和该类型的一个方法：
+
+**实例**
+
+```go
+package main
+
+import (
+   "fmt"  
+)
+
+/* 定义结构体 */
+type Circle struct {
+  radius float64
+}
+
+func main() {
+  var c1 Circle
+  c1.radius = 10.00
+  fmt.Println("圆的面积 = ", c1.getArea())
+}
+
+//该 method 属于 Circle 类型对象中的方法
+func (c Circle) getArea() float64 {
+  //c.radius 即为 Circle 类型对象中的属性
+  return 3.14 * c.radius * c.radius
+}
+```
+
+以上代码执行结果为：
+
+```go
+圆的面积 =  314
+```
+
+Go 没有面向对象，而我们知道常见的 Java。
+
+C++ 等语言中，实现类的方法做法都是编译器隐式的给函数加一个 this 指针，而在 Go 里，这个 this 指针需要明确的申明出来，其实和其它 OO 语言并没有很大的区别。
+
+在 C++ 中是这样的:
+
+```c++
+class Circle {
+  public:
+    float getArea() {
+       return 3.14 * radius * radius;
+    }
+  private:
+    float radius;
+}
+
+// 其中 getArea 经过编译器处理大致变为
+float getArea(Circle *const c) {
+  ...
+}
+```
+
+在 Go 中则是如下:
+
+```go
+func (c Circle) getArea() float64 {
+  //c.radius 即为 Circle 类型对象中的属性
+  return 3.14 * c.radius * c.radius
+}
+```
+
+关于值和指针，如果想在方法中改变结构体类型的属性，需要对方法传递指针，体会如下对结构体类型改变的方法 changRadis() 和普通的函数 change() 中的指针操作:
+
+```go
+package main
+
+import (
+   "fmt"  
+)
+
+/* 定义结构体 */
+type Circle struct {
+  radius float64
+}
+
+
+func main()  { 
+   var c Circle
+   fmt.Println(c.radius)
+   c.radius = 10.00
+   fmt.Println(c.getArea())
+   c.changeRadius(20)
+   fmt.Println(c.radius)
+   change(&c, 30)
+   fmt.Println(c.radius)
+}
+func (c Circle) getArea() float64  {
+   return c.radius * c.radius
+}
+// 注意如果想要更改成功c的值，这里需要传指针
+func (c *Circle) changeRadius(radius float64)  {
+   c.radius = radius
+}
+
+// 以下操作将不生效
+//func (c Circle) changeRadius(radius float64)  {
+//   c.radius = radius
+//}
+// 引用类型要想改变值需要传指针
+func change(c *Circle, radius float64)  {
+   c.radius = radius
+}
+```
+
+输出为：
+
+```go
+0
+100
+20
+30
+```
+
+
 
 # Go 语言变量作用域
 

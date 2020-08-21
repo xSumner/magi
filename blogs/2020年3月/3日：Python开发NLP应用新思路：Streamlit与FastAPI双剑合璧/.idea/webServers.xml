@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ce5807bf-da1b-406b-b15c-39f688bb06f5" name="my_Alicloud" url="http://47.97.180.15">
+        <fileTransfer host="47.97.180.15" port="22" rootFolder="/home/sumner/" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

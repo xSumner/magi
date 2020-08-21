@@ -1,0 +1,67 @@
+document.write('<link rel="stylesheet" type="text/css" href="'+CopyRightcss+'">');
+
+var _sdgCopyrightLink = 'http://www.shengqugames.com/cn/shulongzs';
+var _sdgCopyrightHtml = '';
+_sdgCopyrightHtml +=''
+
++'<div class="SDGCOPYRIGHT-wrap20130425">' 
++'	<div id="SDGCOPYRIGHT">'
+//盛趣游戏LOGO和合作媒体LOGO
++'		<div class="SDGCOPYRIGHT-logo" style="width:222px;">'
++'			<a href="http://www.shengqugames.com/" target="_blank" class="SDGCOPYRIGHT-logo1">盛趣游戏</a>'
++'			<a href=" http://chuanshi.sdo.com/" target="_blank">'
++'				<img src="https://static.web.sdo.com/copyright/pic/woool/sublogo2.png" alt="传世工作室">'
++'			</a>'
++'		</div>'
+
+
+//版权主体信息
++'		<div class="SDGCOPYRIGHT-con">'
+
+
+//每个项目组自己的版权号
++'			<p>'
++'				<span class="SDGCOPYRIGHT-pr3">科技与数字[2010]304号</span>'
++'				文网游备字[2018]M-RPG 1170号'
++'			</p>'
+
+//公司统一的版权号
++'      <div class="HJ-1" id ="containerDiv"></div>'
++'		</div>'
+//右侧网络警察3个图标
++'		<div class="SDGCOPYRIGHT-priv">'
++'        <div class="HJ-2" id ="pxDiv"></div>'
++'		</div>'
+
++'	</div>'
++'</div>'
+
+document.write(_sdgCopyrightHtml);
+
+//统一官网标签
+(function(d, s) {
+   var js = d.createElement(s);
+   var sc = d.getElementsByTagName(s)[0];
+   js.src="https://static.web.sdo.com/copyright/js/copyrightcommon_new.js";
+   sc.parentNode.appendChild(js);
+}(document, "script"));
+
+(function(d, s) {
+   var js = d.createElement(s);
+   var sc = d.getElementsByTagName(s)[0];
+   js.src="https://static.web.sdo.com/copyright/js/pxcommon.js";
+   sc.parentNode.appendChild(js);
+}(document, "script"));
+
+//监控代码
+(function(d, s) {
+  window.config ={
+  bw_enabled:false,
+  bw_base:"https://static.web.sdo.com/yxzm/pic/",
+  siteid:"SDG-08113-10"
+};
+   var js = d.createElement(s);
+   var sc = d.getElementsByTagName(s)[0];
+   js.src="https://static.web.sdo.com/yxzm/js/ac.js";
+   sc.parentNode.insertBefore(js, sc);
+}(document, "script"));
