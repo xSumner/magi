@@ -679,5 +679,703 @@ KR2ML Workshop at NeurIPS 2019
 
 
 
+# 【智能问答】从入门到放弃——DBQA与机器阅读理解
+
+## DBQA与MRC入门
+
+- - Abstract
+
+  - Task of MRC
+
+  - History of MRC
+
+  - Dataset of MRC
+
+  - - SQuAD
+    - DuReader
+    - DuReader_robust
+    - CMRC 2018
+    - DRCD
+
+  - Models of MRC
+
+  - - Stanford Attentive Reader
+    - BiDAF
+    - Others
+
+  - Metric of MRC
+
+  - Product in Clould
+
+  - Conclusion
+
+  - Reference
+
+> DBQA是document-based Question and Answer 的简称，MRC是Machine Reading Comprehension机器阅读理解的简称。
+> 按照个人浅薄的理解，**DBQA更加偏向于系统**，业务场景会比目前的阅读理解更复杂，**MRC则比较偏于任务本身**，用于指定内容（文档）中找答案（可以拒识）。如果简单的从文档中抽取出部分内容作为回答这个任务角度上，可以简单的把两者等价化，或者换句话说，我们可以用阅读理解的思路去实现DBQA。因此，虽然本文主要整理的是MRC也归类在问答中了（大部分参考斯坦福课程cs224n）
+> PS：侧重于中文MRC，涉及论文较少（待后续补充）
+
+### Abstract
+
+机器阅读理解基础任务是根据问题（`Question`），在非结构化文档（`Passege`）寻找合适的答案（`Answer`）.
+
+`MCTestReading`
+
+![img](img/1.webp)
+
+通常来讲，基于文档的搜索（可以是QA）可以分为2个部分。
+
+1. 从Query中识别特征，召回相关文档。这个过程一般成为（information retrieval），可以通过传统的信息检索/web搜索处理（tf-idf，BM25，etc...）
+2. 从文档中检索出我们想要的答案，这个过程即MRC。
+
+### Task of MRC
+
+总的来看MRC任务大致可以分为四种类型
+
+- **完形填空**
+  该任务相对比较早，比较有代表性的有The Children’s Book Test，CMRC2017等。
+- **多项选择/多项选择式**
+  数据集为（文档，问题，候选答案集，答案）四元组形式，机器阅读文档和问题后，从候选答案集合中挑选正确的答案，如 MCTest 和 RACE。其中RACE 数据集源自`初高中英语考试`（英语阅读理解不好，可以学NLP，手动滑稽~）试题，包含约2.8万篇文章和10万个专家问题，用于测试机器的理解和推理能力。
+- **片段抽取**
+  片段抽取式任务要求从原文中抽取一段连续的句子或短语作为问题的答案，相比于完形填空任务填充单一实体，该任务面临更大的搜索空间，因此更具挑战性。SQuAD主要就是这样的问题。
+- **自由作答**
+  理想的境界，自由作答式阅读理解的答案形式更加灵活，正确答案可能需要从原文进行推理或归纳总结，不限制于是否来自原文句子片段，与现实人类作答习惯最为贴近。代表数据集有 CoQA、MS-MARCO、DuReader 等，通常涉及到多轮问答、多跳推理等技术。
+
+### History of MRC
+
+> A Brief History of Open-domain Question Answering
+
+Simmons et al. (1964) 首先探索了如何基于匹配问题和答案的依赖关系解析，从说明性文本中回答问题
+Murax(Kupiec1993) 旨在使用IR和浅层语言处理在在线百科全书上回答问题
+NIST TREC QA track 始于1999年，首次严格调查了对大量文档的事实问题的回答
+IBM的冒险！System (DeepQA, 2011)提出了一个版本的问题;它使用了许多方法的集合
+DrQA(Chen et al. 2016)采用IR结合神经阅读理解，将深度学习引入开放领域的QA
+
+补充：2018年以后，BERT及改进的预训练模型成为主流。
+
+### Dataset of MRC
+
+#### SQuAD
+
+机器阅读理解，绕不开Stanford Question Answering Dataset（SQuAD），MRC界非常出名（最？）的评测数据集。
+
+- `SQuAD 1.0` 所有问题都包括在文本段落中。
+
+1. 100k examples
+2. Answer must be a span in the passage
+3. Extractive question answering/reading comprehension
+
+*PS：SQuAD 1.1 评价方式改为F1&EM*
+
+- `SQuAD 2.0` 新增了没有回答的问题。
+
+1. Gold Answers: <No Answer>
+
+- 局限性
+
+1. 答案需直接截取自段落中的文字，没有是非判断、计数等问题。
+2. 问题的选择依赖于段落，可能与实际中的信息获取需求不同那个。
+3. 几乎没有跨句子之间的理解与推断（难！！！）
+
+#### DuReader
+
+> DuReader是百度发布的面向真实应用的、开放域的、最大规模的中文问答阅读理解数据集。
+> 下载地址：https://ai.baidu.com/broad/introduction?dataset=dureader
+> 评测地址：http://lic2019.ccf.org.cn/
+
+主要特点如下：
+（1）数据来源真实：DuReader的问题是百度搜索中用户提出的真实问题，文档来自于百度搜索和百度知道，并且答案都是人工标注的。
+（2）问题类型丰富：DuReader提供了更加丰富的问题类型标注，每个问题的类型标注属于两个维度：第一个维度包括了实体类、描述类和是非类，第二个维度包括了事实类和观点类。（3）数据规模大：DuReader包含了30万问题，72万答案和150万文档。
+
+#### DuReader_robust
+
+> 数据集重点关注阅读理解模型在真实应用场景中的鲁棒性，挑战模型的过敏感性、过稳定性以及泛化能力等。(baidu)
+> 数据下载地址：https://github.com/PaddlePaddle/Research/tree/master/NLP/DuReader-Robust-BASELINE
+> 评测地址：http://lic2020.cipsc.org.cn/
+
+该数据集共包含约21K问题，其中包括15K训练集，约1.4K领域内开发集和5K测试集。测试集包含了领域内测试集和鲁棒性测试集，其中鲁棒性测试集包括了过敏感测试集、过稳定测试集以及泛化能力测试集
+
+#### CMRC 2018
+
+> CMRC 2018数据集是哈工大讯飞联合实验室发布的中文机器阅读理解数据。
+> 下载地址：https://github.com/ymcui/cmrc2018
+> 评测地址：https://hfl-rc.github.io/cmrc2018/
+
+该数据集聚焦于『篇章片段抽取型阅读理解』（Span-Extraction Reading Comprehension）。根据给定的一个段落和一个问题，机器需要从该段落中抽取出问题的答案。其中答案是段落中的某个连续片段，即预测答案在篇章中的起始位置和终止位置，并把对应的文本抽取出来。
+
+#### DRCD
+
+> DRCD（Delta Reading Comprehension Dataset）是由中国台湾台达研究院发布的面向通用领域的繁体中文机器阅读理解数据集。
+> 下载地址：https://github.com/DRCKnowledgeTeam/DRCD
+> 评测地址：N/A
+
+该数据集是基于繁体中文的抽取式阅读理解数据集，其形式与SQuAD相同。该数据集中的文档来自于维基百科，包括了从2,108篇维基词条中整理出的10,014个段落，并针对这些段落标注了30,000多个问题。
+
+### Models of MRC
+
+#### Stanford Attentive Reader
+
+Stanford Attentive Reader几乎是最简单的深度学习QA模型，其表现虽不及state-of-the-art模型，但是也不差，可以作为baseline。此外该模型对Attention的灵活运用也很值得学习。
+
+![img](img/2.webp)
+
+#### BiDAF
+
+BiDAF在机器阅读理解领域所作的贡献十分的显著，提出的双向注意力机制更是成为了一种通用编码器或者推理单元基础架构中的一部分。
+
+![img](img/3.webp)
+
+#### Others
+
+其他还包括R-Net、DrQA（基于wiki）等，这边不一一展开，推荐斯坦福课程课件。
+
+### Metric of MRC
+
+目前主要的评价方式有以下几种（目前主流是EM以及F1）：
+
+- Exact Match（EM）：即模型回答与任意一个标准答案匹配即计数为1，否则为零。统计整体的准确率。
+- F1: 将标准答案与回答都算作BOW。
+- 其他: 包括Bleu-4以及Rouge-L等。
+
+### Apps of MRC (AI Could)
+
+- 百度云
+  百度云这个能力藏的比较深，在百度智能对话定制与服务平台--> 自定义技能-> 对话式文档文档。简单来说，上传文档，训练模型，即可以实现问答中问答对的抽取，事实类答案效果（如果文档中有的话）效果还好，如果不在文档中，或者文档复杂一点，答案就相对比较差了。
+
+  ![img](img/4.webp)
+
+  ![img](img/5.webp)
+
+  ![img](img/6.webp)
+
+  ![img](img/7.webp)
+
+- 阿里云
+  阿里目前还在公测，目测无法拿到公测资格~
+
+  虽然名字叫MRC但是在API文档中又叫智能语义理解，包括2个功能：1、文本相似度计算。2、机器阅读理解（阿里推荐用于百科、客服类机器人）
+
+![img](img/8.webp)
+
+   地址：https://cn.aliyun.com/product/iqa_mrc_pre
+
+### Conclusion
+
+基于MRC实现DBQA在限定领域，比如事实型检索，可以得到相对可以接受的结果。比如目前基于DuReader的SOTA，可以达到F1=82%以及EM=72%，但是对于开放领域的数据集，比如谷歌的NQ（https://ai.google.com/research/NaturalQuestions/leaderboard），截止2020-06-09，long answer SOTA的F1为77.78%，shot answer的SOTA答案为64.11%。
+
+另外，从目前的调研结果来看，MRC整体是一个End-to-End的模型。且阅读理解目前工业应用虽然**不是特别成熟**，但是已经有头部厂商开始尝试（目测无限公测？），具体后续效果如何，拭目以待。
+
+### Reference
+
+- [1] CS224n: Natural Language Processing with Deep Learning (http://web.stanford.edu/class/cs224n)
+- [2] Rajpurkar P , Zhang J , Lopyrev K , et al. SQuAD: 100,000+ Questions for Machine Comprehension of Text[J]. 2016.
+- [3] Seo M , Kembhavi A , Farhadi A , et al. Bidirectional Attention Flow for Machine Comprehension[J]. 2016.
+
+
+
+# 【智能问答】从入门到放弃——自然语言与数据库
+
+- 背景
+
+- NLP与DB的结合
+
+- 数据库智能查询（NL2SQL）
+
+- - NL2SQL
+
+  - NL2SQL比赛&数据
+
+  - - wikiSQL
+    - Spider
+    - 追一科技NL2SQL（2019）
+    - 百度语义解析任务（2020）
+
+  - NL2SQL产品
+
+  - - C-Phrase（AWS云市场）
+    - nlsql（app）
+    - Analyza（google）
+    - DBPal
+    - thoughtspot【典型】
+    - 阿里云 Quick BI【典型】
+
+- 数据库性能优化
+
+- - SQL语句智能分析
+
+- 数据库智能分析（智能运维）
+
+- 总结
+
+- Reference
+
+## 背景
+
+> 近期笔者比较困惑，兜兜转转了一圈发现除了QA之外NLP很难在云上形成一个比较卖座的通用产品。然鹅，我司QA目前已被其他团队占坑（类似于百度的`理解与交互技术平台UNIT`），那么如何为NLP寻找足够有价值的、有技术前景的、有成就感的（~~后面两点对于血汗工厂来说，一般不重要!!!~~）的方向就摆到了面上来了。既然独立挣钱的路子走不通，那么只能考虑傍大腿了，本文即从傍大腿的角度做了一些调研与思考。
+> 傍大腿，顾名思义找到云上最好卖的产品，捆绑销售！考虑到云上最卖座（最好卖）是资源类产品，云主机、硬盘之类的和NLP也没啥关系，然后兜兜转转），也就数据库这块还有一点搞头，所以本着学习的态度，怀揣着可不可以应用的动机从数据库和NLP结合角度，进行了一些粗浅的调研与分析（学术分析不到位的话，见谅~），虽然调研到最后又歪了。
+
+## NLP与DB的结合
+
+NLP与DB结合这块，着实找了不少时间，但是不管是国内云市场也好，相关产品也好。通过开脑洞+调研检索，发现在2个方向数据库和NLP有点关系（都是在SQL输入阶段）：
+
+- 数据的查询检索（NL2SQL、也有叫Text2SQL的）
+- 数据库的质量分析（未上线的SQL质量检查）
+- 数据库的运维管理（已上线的数据库质量监控）
+
+*PS：本处不讨论KGQA（还包括一些noSQL），主要概念有点大。虽然KG领域的QA最常用的手段之一就是Query转SPARQL，本质上其实和NL2SQL是一致的，但是除此之外KGQA还会涉及图谱构建（关系抽取、实体识别、etc...），图谱查询（实体链指、实体消歧），整体问题的复杂度会比NL2SQL的大很多，所以这边暂时不涉及，有需要的话，后续可以开多个系列讲~*
+
+## 数据库智能查询（NL2SQL）
+
+### NL2SQL
+
+> 数据库的智能查询，这边主要特指NL2SQL，包括简介、具体方法、落地情况等等。
+
+NL2SQL的起源，这边就不另外阐述了，自行百度应该能找到不少。
+
+什么是NL2SQL，下面这种图可以很好的进行解释：
+
+![img](img/1.png)
+
+该技术最主要的功能就是将自然语言翻译为规范的、可查询的SQL语句，然后通过SQL预计进行数据查询。
+
+通过直观的自然语言界面（你需要会编程、不需要考虑数据结构，只要会思考、会将你的想法落实到问题/要求）允许用户查找，比较，分析，操纵数据仓库中的现有信息（一般以查询分析为主）。`将数据分析学习成本降低为0！`不再需要通过excel、SQL进行数据分析
+
+主要方法包括：基于策略模板、基于机器学习、基于机器翻译（Seq2SQL）等等。
+
+### NL2SQL比赛&数据
+
+> 毕竟不是无监督任务，没有数据说不过去，有了数据，不知道能做到啥样，不也是无解吗？
+
+#### wikiSQL
+
+WikiSQL是Salesforce在2017年提出的一个大型标注NL2SQL数据集，也是目前规模最大的NL2SQL数据集。其中包含了26,375张表、87,726条自然语言问句及相应的SQL语句。下图是其中的一条数据样例，包括一个table、一条SQL语句及该条SQL语句所对应的自然语言语句。
+
+![img](img/2.png)
+
+目前最高的效果（基于监督学习）可以达到92.2%，弱监督可以达到83.9%：
+地址：https://github.com/salesforce/WikiSQL
+
+![img](img/3.png)
+
+![img](img/4.png)
+
+
+
+#### Spider
+
+Spider是耶鲁大学在2018年新提出的一个较大规模的NL2SQL数据集，最大的特点是引入了更多的SQL问法，比如group by，Order by。甚至还包括Join，更加贴近于真实场景，带来的问题就是准确率被极大的降低了，目前最高的准确率只有62.2%。
+
+![img](img/5.png)
+
+#### 追一科技NL2SQL（2019）
+
+首届中文NL2SQL挑战赛，使用金融以及通用领域的表格数据作为数据源，提供在此基础上标注的自然语言与SQL语句的匹配对，因为NL2SQL本身算是偏冷门的研究领域
+
+该任务甚至比wikiSQL还要简单，总体来说准确率也非常高，第一名达到了92.2%。
+
+![img](img/6.png)
+
+#### 百度语义解析任务（2020）
+
+提供大规模开放领域的复杂中文Text-to-SQL数据集（目前来说，应该是最大的中文SQL类的数据集了），难度相对于去年2019年的难度要大不少，最终准确率在76%左右。
+
+为了验证泛化能力，还包括了数据库无关性、表无关性，每个Database包含若干张表格（2-11张，平均4.1张），表与表之间还存在链接操作（这是向Spider靠齐了~）
+
+![img](img/7.png)
+
+### NL2SQL产品
+
+> 没有产品说个鬼，总不能停留在理论层面吧，本文从商用角度找应用产品（并没有列全，列出了部分，有兴趣的大家可以自己进行检索）
+
+#### C-Phrase（AWS云市场）
+
+关键词检索NLP&DB，这个是唯一能够检索到的（独苗啊！），简单来说，这个产品就是可以通过自然语言对数据库进行插入、查询，用户不需要知道select语句怎么写，就能够实现数据的插入，更新等。
+PS：标签是Business Applications、Machine learing
+
+![img](img/8.png)
+
+#### nlsql（app）
+
+https://www.nlsql.com/solutions/
+也是非常费劲才找到的，产品形态就是问答机器人（app），可以实现数据库的查询，点出了不少应用点。比如：Healthcare BI、Natural Language Interface for SAP、HR Analytics 
+
+![img](img/9.png)
+
+#### Analyza（google）
+
+2017年谷歌发布的一款基于表格（可以是电子表格/数据库表格）中实现自然语言查询与分析的一款产品。
+
+PS：图片引自Analyza
+
+![img](img/10.png)
+
+#### DBPal
+
+论文的产物，不过最近一篇还提供弱监督的方法，没有体验过，不好评价，总得来说，还是定位为数据探索工具。18年开始发布工具，19年为弱监督工具，20年变成了可插拔的Pipeline训练工具。
+
+#### thoughtspot【典型】
+
+用户无需关心数据、无需关心报表格式等一切问题，只需要告诉thoughtspot，自己想要的数据，thoughtspot就会马上给出答案
+
+![img](img/11.png)
+
+#### 阿里云 Quick BI【典型】
+
+智能小Q，如果不是从增强分析、检索到阿里云的Quick BI、然后再检索还真是不好找（典型的数据增强应用场景，划个重点，后续再研究研究，文档的最近更新日期是2019年10月份）。
+
+![img](img/12.png)
+
+## 数据库性能优化
+
+#### SQL语句智能分析
+
+对SQL语句结合DB的数据，索引进行分析，并给出具体建议。
+比如：SOAR(SQL Optimizer And Rewriter) 是一个对 SQL 进行优化和改写的自动化工具。由小米人工智能与云平台的数据库团队开发与维护。
+
+![img](img/13.png)
+
+感觉人家已经做了不少了，需要大量技术积累。
+
+## 数据库智能分析（智能运维）
+
+包括访问控制、访问统计、健康检查、健康度、流量监控、故障定位、业务异常等，智能运维监控系统最终形成了一个监控闭环，包含问题发现、分析决策和问题的解决，具体的组成包括异常检测、报警收敛、关联分析、故障定位和自动处理五部分内容。
+
+PS：内容有点大，和ML的关系更大，其中和NLP有关系的，类似于构建智能知识库（决策库），用于辅助解决，这部分不单独列出
+
+## 总结
+
+NLP与数据库的结合总体来看，`NL2SQL相对比较有应用市场`，且是和NLP关联度比较高的应用点，其他的其实和业务关联度比较高（偏智能运维、偏ML）。
+
+而NL2SQL目前主要的应用场景在**`增强分析`**场景，引用Gartner 2020年最新发布的魔力象限报告的话来说：增强型分析功能是 BI 产品发展的最重要、也是最显著的发展趋势之一。
+
+其实这也比较容易理解：当前企业使用的数据的规模和复杂度已经逐渐超过人类可以处理的程度，静态报表、仪表板等传统工具已经不能满足需求，智能分析场景可以让我们更快速的对数据进行分析，增强分析确实是一个比较好的场景（额，结论好像歪楼了，和数据库关系没有那么直接了~~）
+
+## Reference
+
+1. Victor Zhong, Caiming Xiong, and Richard Socher. 2017. Seq2SQL: Generating Structured Queries from Natural Language using Reinforcement Learning.
+2. Weir N, Utama P, Galakatos A, et al. DBPal: A Fully Pluggable NL2SQL Training Pipeline[C]//Proceedings of the 2020 ACM SIGMOD International Conference on Management of Data. 2020: 2347-2361.
+3. Basik F, Hättasch B, Ilkhechi A, et al. DBPal: A learned NL-interface for databases[C]//Proceedings of the 2018 International Conference on Management of Data. 2018: 1765-1768.
+4. Weir N, Utama P, Galakatos A, et al. DBPal: A Fully Pluggable NL2SQL Training Pipeline[C]//Proceedings of the 2020 ACM SIGMOD International Conference on Management of Data. 2020: 2347-2361.
+5. https://hackernoon.com/how-to-use-nlp-to-sql-api-i31tu30cc
+6. https://yale-lily.github.io/spider
+7. https://github.com/XiaoMi/soar
+
+
+
+# 【知识图谱】从入门到放弃——KBQA数据整理
+
+- CCKS KBQA相关数据调研
+
+- - PKUBASE图谱数据说明
+
+  - - 原始数据说明
+    - neo4j格式数据说明
+
+  - CCKS2019 Task6 数据说明
+
+  - CCKS2020 实体链指数据说明
+
+## PKUBASE图谱数据说明
+
+### 原始数据说明
+
+> pkubase-complete.txt
+> 以三元组的形式存储
+
+```
+<美国奥可斯（香港）国际控股集团>        <类型>  <文学作品> .
+<美国奥可斯（香港）国际控股集团>        <类型>  <文化> .
+<寻美中国>      <类型>  <品牌> .
+<青春是我和你一杯酒的深>        <类型>  <文学作品> .
+<青春是我和你一杯酒的深>        <类型>  <网络小说> .
+<青春是我和你一杯酒的深>        <类型>  <小说作品> .
+<青春是我和你一杯酒的深>        <类型>  <小说> .
+<青春是我和你一杯酒的深>        <类型>  <娱乐作品> .
+<青春是我和你一杯酒的深>        <类型>  <书籍> .
+<青春是我和你一杯酒的深>        <类型>  <中国文学> .
+```
+
+
+
+### neo4j格式数据说明
+
+我们认为所有节点都是实体。
+三元组的关系为：`Entity1`,`Relation`,`Entity2`
+将三元组拆分为neo4j可以导入的格式，包括实体集合以及关系集合。
+
+> node.csv
+
+```
+id:ID,name,:LABEL
+1,<美国奥可斯（香港）国际控股集团>,Entity
+2,<文学作品>,Entity
+3,<文化>,Entity
+4,<寻美中国>,Entity
+5,<品牌>,Entity
+6,<青春是我和你一杯酒的深>,Entity
+7,<网络小说>,Entity
+8,<小说作品>,Entity
+9,<小说>,Entity
+```
+
+> relation.csv
+
+```
+:START_ID,:END_ID,:TYPE,name
+1,2,Relation,<类型>
+1,3,Relation,<类型>
+3370673,25574421,Relation,<openkg_uri>
+1183059,25574422,Relation,<openkg_uri>
+25449392,25574423,Relation,<openkg_uri>
+4601818,25574424,Relation,<openkg_uri>
+7221504,25574425,Relation,<openkg_uri>
+```
+
+顺便提一下在验证CCKS2019第四名方案的时候导入neo4j的时候发现的一个坑。
+
+- 数据的key长度超长无法建node索引
+
+- - 导致问题：查询时间超长，约5s以上
+  - 建议方案：1、将长度超过64(看neo4j字段说明8K以内即可)的node节点单独拉出来作为LongEntity。2、将以引号开头的节点作为Attribute。
+  - 最终效果:
+
+![img](img/14.png)
+
+![img](img/9.webp)
+
+## CCKS2019 Task6 数据说明
+
+数据主要分为3段式，包括问句ID&问句文本、SPARQL、答案，`example:`
+
+```
+q1:莫妮卡·贝鲁奇的代表作？
+select ?x where { <莫妮卡·贝鲁奇> <代表作品> ?x. }
+<西西里的美丽传说>
+```
+
+SPARQL语法规范：https://www.w3.org/TR/rdf-sparql-query/
+
+## CCKS2020 实体链指数据说明
+
+此次任务的输入输出定义如下：
+
+输入：中文短文本以及该短文本中的实体集合（即实体提及已经做完了！）
+输出：输出文本此中文短文本的实体链指结果。每个结果包含：实体 mention、在中文短文本中的位置偏移、其在给定知识库中的 id，如果为 NIL 情况，需要再给出实体的上位概念类型。
+
+```json
+{
+    "text_id":"1",
+    "text":"《琅琊榜》海宴_【原创小说|权谋小说】",
+    "mention_data":[
+        {
+            "mention":"琅琊榜",
+            "offset":"1"
+        },
+        {
+            "mention":"海宴",
+            "offset":"5"
+        },
+        {
+            "mention":"原创小说",
+            "offset":"9"
+        },
+        {
+            "mention":"权谋小说",
+            "offset":"14"
+        }
+    ]
+}
+```
+
+输出实体为：
+
+```json
+{
+    "text_id":"1",
+    "text":"《琅琊榜》海宴_【原创小说|权谋小说】",
+    "mention_data":[
+        {
+            "kb_id":"2135131",
+            "mention":"琅琊榜",
+            "offset":"1"
+        },
+        {
+            "kb_id":"10572965",
+            "mention":"海宴",
+            "offset":"5"
+        },
+        {
+            "kb_id":"215143",
+            "mention":"原创小说",
+            "offset":"9"
+        },
+        {
+            "kb_id":" NIL_Work ",
+            "mention":"权谋小说",
+            "offset":"14"
+        }
+    ]
+}
+```
+
+上位实体概念：即对不在图谱中的数据进行基本实体类型识别。比如：`NIL_WORK`。
+部分概念如下，具体见百度竞赛任务书：https://www.biendata.xyz/competition/ccks_2020_el/
+
+
+
+
+
+# 【智能问答】从入门到放弃——NLP与增强分析
+
+背景与概述
+
+- 什么是增强分析
+- NLP的增强分析场景
+
+NLP增强分析技术
+
+- NL2SQL
+
+- linguistic schema
+
+- - 文本纠错技术
+  - 知识图谱技术（增强类技术）
+
+- NLG（场景待深入调研）
+
+典型产品技术汇总
+
+- Quick BI
+- Power BI
+- 帆软FineBI
+
+方案总结
+
+附录
+
+Reference
+
+
+
+> 如前文提到的NLP与BI的结合主要还在于增强分析，那么增强分析是什么，以及如果将NLP使用到增强分析里面去呢？这就是本文要进行讨论的。
+
+## 背景与概述
+
+> 增强分析是做什么的？自然语言处理与增强分析有什么关系？
+
+`BI是什么`：Gartner将BI定义为一个概括性术语（Umbrella Term），泛指业务分析中用到的工具、基础设施设备、程序与软件，通过获取和处理数据，进而分析数据，获取有价值的信息以改进并优化决策和绩效，指导各种商业行为。
+BI的本质是技术和工具和商业逻辑的结合，通过处理原始数据，以商务逻辑分析数据，为商业运营提供基于历史、当下和未来的分析视角，形成对商业行为有价值的洞察（insight）。
+
+`传统BI场景`：由专业的业务分析师定制需要分析的项目，通过技术人员开发实施各种分析查询报表和报告等功能，然后部署成系统，最终发布给业务人员使用。
+`敏捷BI场景`：也称之为自助式BI，数据分析的主角由专业的数据分析师、研发人员转变为没有技术基础的业务人员。
+
+### 什么是增强分析
+
+`增强分析`：Gartner在2017年[1]提出了“增强分析（Augmented Analytics）”这个概念，“增强分析”被誉为数据与分析市场内的下一波颠覆性技术，是数据分析的未来。
+
+简单的来说，增强分析就是AI+BI，使用机器学习（包括自然语言处理）的手段来提高分析的效率以及效果。
+
+- `增强数据准备`：包括自动化数据集成和数据湖（关于数据仓库、数据湖可以参考附录1）管理，简而言之就是简化了数据准备阶段的难度。可通过拖拉拽的方式实现多表、多数据库的数据映射，通过增强分析将一个个数据孤岛链接了起来，在终端上就可以完成数据的全流程获取。（结合了ETL以及数据管理）
+- `增强商务智能（ML+NLP）`：此处商务智能增强的主要对象是指一般业务员（或者成为民间科学家），他们不需要是专业的统计分析领域的专家。增强分析能够实现自动的寻找数据之间的相关规律，并将结果可以以可视化的方式展示出来，从而可以让业务人员通过界面实现数据的探索、通过自然语言的方式实现重要数据的查找与展示，`简单来说，可以为业务员提供更广阔的数据洞察与探索空间`。
+- `增强模型分析（ML+DM）`：这部分主要指的是，模型的分析能力的增强，能够实现模型的自动化建模、特征的自动选择等，让业务员更精于业务，让数据分析专家更精于研究创造性的模型。`或者说提供各种常见的业务分析算法，能够为业务员提供更多的数据分析纬度，而数据分析专家只需要提供更准确的分析手段即可`。
+
+### NLP的增强分析场景
+
+`场景1`：用户可以通过自然语言进行数据模型的建模，这种方式可以有更强的解释性。（当可选数据类型有成百上千个的时候，采用筛选与拖拉拽的方式也会显得很低效）。
+
+`场景2`：手机端、移动端如何进行快速的数据分析呢？手机端很难提供一个完全版本的客户端，各种拖拉拽也相对比较麻烦，使用NLP交互，很显然可以提供更好的交互分析方式，用户可以通过手机端，移动端进行快速的数据分析，数据浏览。
+
+`场景3`：现有政企单位内部（领导一般都喜欢看）、展会的信息展示，都非常喜欢大屏展示。但是单个大屏可以显示的内容相对比较有限，而实际显示的时候也不可以通过鼠标来回选择你想知道什么，那么通过语音的方式实现对大屏数据进行交互展示是否更酷呢？
+
+`场景4`：可以预定义（发布与检索）各种分析组合，通过自然语言的方式可以一键式的进行查询与展示。比如业务员A做好了业务经营报表，发出出来之后，业务员B可以通过描述检索到相关的报表，从而不需要从头开始对数据进行分析与处理。
+
+## NLP增强分析技术与场景
+
+> 说了那么多BI的增强分析，那么自然语言处理如何落到增强分析的场景里面去呢？
+
+### NL2SQL
+
+> 简单来说就是将自然语言转换为SQL语句
+
+比如在Text2SQL的比赛中有这样一句话[2]: `按作品数量降序给出在1812年2月7号之后出生作者姓名以及国籍`
+转换成的SQL为：`select 姓名 , 国籍 from 作者 where 出生日期 > '1812-02-07' order by 作品数量 desc`
+
+最常见的Baseline就是曾经wikiSQL[3]的SOTA模型X-SQL[4]，简单来说，就是以wikiSQL数据集为例，为SQL设计了一种结构化（模板）表示方法，将SQL语句进行了拆分如下:
+
+- 使用sel定义查询目标列，其值是表格中对应列的序号；
+- 使用agg定义聚合操作的编号，可能出现的聚合操作有['', 'MAX', 'MIN', 'COUNT', 'SUM', 'AVG']共6种；
+- 使用conds定义筛选条件，可以有多个。每个条件用一个三元组(column_index, operator_index, condition)表示，可能的operator_index共有['=', '>', '<', 'OP']四种。
+
+![img](img/15.png)
+
+PS：此处不详细讨论NL2SQL细节，另外纯粹的使用模型在实际落地中是不靠谱的，可以增加文本解析等技术增强NL2SQL的问答能力[5]。
+
+### linguistic schema
+
+> 这部分的定义主要参考了PowerBI，总体来说就是通过各种语法、语义上的技术实现对能力的增强。
+
+#### 文本纠错技术
+
+也可以称为语义词典，在实际的问题中，存在专有名词，但是数据库中的词表与现有的名词无法对应起来，尤其对于中文来说，专业词典可以更有效的辅助分词的准确。一般对于数据问答来说，专业词典可以有效提高召回。
+
+#### 知识图谱技术（增强类技术）
+
+数据湖中的数据之间相互之间是如何关联的？数据表和数据表之间存在什么样的关系？如果没有知识图谱，相互之间的关系就只能是一种关系，无法定义多种关系的结合。
+
+简单来说，如果存在N张数据表，那么如果你想知道一家公司的发展趋势，那么发展趋势和哪些指标能够关联起来？如果统计了按月的时间粒度公司GDP的发展趋势，如何引申到其他类型的指标呢？
+
+知识图谱可以定义指标与指标之间的关系，通过预先关系的定义可以实现相关分析纬度的推荐，相关分析的洞察。
+
+### NLG（场景待深入调研）
+
+对于已经生成的图来说，如何通过图生成自然语言描述？这部分涉及到自然语言生成（NLG）技术。
+
+最简单的自然语言生成技术即模板，通过预定义大量模板，将趋势信息，特征信息进行填充，从而可以实现描述信息生成。
+
+其他相关待研究（其实是暂时想不到~）
+
+## 典型产品技术汇总
+
+### Quick BI
+
+Quick BI需要指定数据源（初步来看，未看到可以映射表间关系），可以定制同义词，此外还可以配置推荐问答（常用为问题推荐，没有看到和QA的关系）。整体还处于初步阶段。
+
+![img](img/16.png)
+
+### Power BI
+
+PowerBI提供了NLP组件，可以使用自然语言的形式生成图标，此外组件还提供了自定义词表，以及问题回顾与纠错的功能。（这部分和完整的QA很相似）
+
+![img](img/17.png)
+
+![img](img/10.webp)
+
+### 帆软FineBI
+
+目前并未看到使用NLP。国内帆软主要还是以拖拉拽的方式满足用户数据分析需求。
+
+## 方案总结
+
+NLP在BI领域的应用主要还是集中在基于问答的数据查询与分析（也可以理解为NL2SQL）。从BI产品的本身的定位来说，当数据量（或者说字段数）不大的情况下，基于NLP的问答可能有一些多余，但是当数据结构越是复杂，相关数据越多的情况下，基于问答的数据分析则更加简单有效，NLG的应用目前没有找到，可能找的资料不够多，后续如果遇到的话会补充。
+
+## 附录
+
+1. 数据仓库、数据湖的概念：https://zhuanlan.zhihu.com/p/150478169
+
+## Reference
+
+1. https://www.gartner.com/en/documents/3773164/augmented-analytics-is-the-future-of-data-and-analytics
+2. https://aistudio.baidu.com/aistudio/competition/detail/30?isFromCcf=true
+3. Hwang W, Yim J, Park S, et al. A comprehensive exploration on wikisql with table-aware word contextualization[J]. arXiv preprint arXiv:1902.01069, 2019.
+4. He P, Mao Y, Chakrabarti K, et al. X-SQL: reinforce schema representation with context[J]. arXiv preprint arXiv:1908.08113, 2019.
+5. https://zhuanlan.zhihu.com/p/90170864
+6. https://zhuanlan.zhihu.com/p/150478169
+
+
+
+
+
+
+
 
 
