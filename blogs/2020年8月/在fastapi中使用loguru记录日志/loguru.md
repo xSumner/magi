@@ -790,7 +790,7 @@ logger.add(sys.stderr, format="{time} {level} {message}", filter="my_module", le
 
 This function should be used to register <kbd>[sinks](https://loguru.readthedocs.io/en/stable/api/logger.html#sink)</kbd> which are responsible for managing [log messages](https://loguru.readthedocs.io/en/stable/api/logger.html#message) contextualized with a [record dict](https://loguru.readthedocs.io/en/stable/api/logger.html#record). A sink can take many forms: a simple function, a string path, a file-like object, a coroutine function or a built-in Handler.
 
-Note that you may also [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) a previously added handler by using the identifier returned while adding it. This is particularly useful if you want to supersede the default `stderr` handler: just call `logger.remove()` to make a fresh start.
+Note that you may also <kbd>[`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove)</kbd> a previously added handler by using the identifier returned while adding it. This is particularly useful if you want to supersede the default <kbd>`stderr`</kbd> handler: just call <kbd>`logger.remove()`</kbd> to make a fresh start.
 
 ### Easier file logging with rotation / retention / compression
 
@@ -814,7 +814,7 @@ logger.add("file_Y.log", compression="zip")    # Save some loved space
 
 ### Modern string formatting using braces style
 
-Loguru favors the much more elegant and powerful `{}` formatting over `%`, logging functions are actually equivalent to `str.format()`.
+Loguru favors the much more elegant and powerful `{}` formatting over `%`, logging functions are actually equivalent to <kbd>`str.format()`</kbd>.
 
 ```
 logger.info("If you're using Python {}, prefer {feature} of course!", 3.6, feature="f-strings")
@@ -822,9 +822,9 @@ logger.info("If you're using Python {}, prefer {feature} of course!", 3.6, featu
 
 ### Exceptions catching within threads or main
 
-Have you ever seen your program crashing unexpectedly without seeing anything in the log file? Did you ever noticed that exceptions occurring in threads were not logged? This can be solved using the [`catch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.catch) decorator / context manager which ensures that any error is correctly propagated to the [`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger).
+Have you ever seen your program crashing unexpectedly without seeing anything in the log file? Did you ever noticed that exceptions occurring in threads were not logged? This can be solved using the <kbd>[`catch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.catch)</kbd> decorator / context manager which ensures that any error is correctly propagated to the <kbd>[`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd>.
 
-```
+```python
 @logger.catch
 def my_function(x, y, z):
     # An error? It's caught anyway!
@@ -835,27 +835,27 @@ def my_function(x, y, z):
 
 Loguru automatically adds colors to your logs if your terminal is compatible. You can define your favorite style by using [markup tags](https://loguru.readthedocs.io/en/stable/api/logger.html#color) in the sink format.
 
-```
+```python
 logger.add(sys.stdout, colorize=True, format="<green>{time}</green> <level>{message}</level>")
 ```
 
 ### Asynchronous, Thread-safe, Multiprocess-safe
 
-All sinks added to the [`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) are thread-safe by default. They are not multiprocess-safe, but you can `enqueue` the messages to ensure logs integrity. This same argument can also be used if you want async logging.
+All sinks added to the <kbd>[`logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd> are thread-safe by default. They are not multiprocess-safe, but you can <kbd>`enqueue`</kbd> the messages to ensure logs integrity. This same argument can also be used if you want async logging.
 
-```
+```python
 logger.add("somefile.log", enqueue=True)
 ```
 
-Coroutine functions used as sinks are also supported and should be awaited with [`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete).
+Coroutine functions used as sinks are also supported and should be awaited with <kbd>[`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete)</kbd>.
 
 ### Fully descriptive exceptions
 
-Logging exceptions that occur in your code is important to track bugs, but it’s quite useless if you don’t know why it failed. Loguru helps you identify problems by allowing the entire stack trace to be displayed, including values of variables (thanks [`better_exceptions`](https://github.com/Qix-/better-exceptions) for this!).
+Logging exceptions that occur in your code is important to track bugs, but it’s quite useless if you don’t know why it failed. Loguru helps you identify problems by allowing the entire stack trace to be displayed, including values of variables (thanks <kbd>[`better_exceptions`](https://github.com/Qix-/better-exceptions)</kbd> for this!).
 
 The code:
 
-```
+```python
 logger.add("output.log", backtrace=True, diagnose=True)  # Set 'False' to not leak sensitive data in prod
 
 def func(a, b):
@@ -872,7 +872,7 @@ nested(0)
 
 Would result in:
 
-```
+```python
 2018-07-17 01:38:43.975 | ERROR    | __main__:nested:10 - What?!
 Traceback (most recent call last):
 
@@ -895,15 +895,15 @@ ZeroDivisionError: division by zero
 
 ### Structured logging as needed
 
-Want your logs to be serialized for easier parsing or to pass them around? Using the `serialize` argument, each log message will be converted to a JSON string before being sent to the configured sink.
+Want your logs to be serialized for easier parsing or to pass them around? Using the <kbd><font color=red>`serialize`</font></kbd> argument, each log message will be converted to a JSON string before being sent to the configured sink.
 
-```
+```python
 logger.add(custom_sink_function, serialize=True)
 ```
 
-Using [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) you can contextualize your logger messages by modifying the extra record attribute.
+Using <kbd>[`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind)</kbd> you can contextualize your logger messages by modifying the extra record attribute.
 
-```
+```python
 logger.add("file.log", format="{extra[ip]} {extra[user]} {message}")
 context_logger = logger.bind(ip="192.168.0.1", user="someone")
 context_logger.info("Contextualize your logger easily")
@@ -911,34 +911,34 @@ context_logger.bind(user="someone_else").info("Inline binding of extra attribute
 context_logger.info("Use kwargs to add context during formatting: {user}", user="anybody")
 ```
 
-It is possible to modify a context-local state temporarily with [`contextualize()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.contextualize):
+It is possible to modify a context-local state temporarily with <kbd>[`contextualize()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.contextualize)</kbd>:
 
-```
+```python
 with logger.contextualize(task=task_id):
     do_something()
     logger.info("End of task")
 ```
 
-You can also have more fine-grained control over your logs by combining [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) and `filter`:
+You can also have more fine-grained control over your logs by combining <kbd>[`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind)</kbd> and <kbd>`filter`</kbd>:
 
-```
+```python
 logger.add("special.log", filter=lambda record: "special" in record["extra"])
 logger.debug("This message is not logged to the file")
 logger.bind(special=True).info("This message, though, is logged to the file!")
 ```
 
-Finally, the [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) method allows dynamic values to be attached to the record dict of each new message:
+Finally, the <kbd>[`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch)</kbd> method allows dynamic values to be attached to the record dict of each new message:
 
-```
+```python
 logger.add(sys.stderr, format="{extra[utc]} {message}")
 logger = logger.patch(lambda record: record["extra"].update(utc=datetime.utcnow()))
 ```
 
 ### Lazy evaluation of expensive functions
 
-Sometime you would like to log verbose information without performance penalty in production, you can use the [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) method to achieve this.
+Sometime you would like to log verbose information without performance penalty in production, you can use the <kbd>[`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt)</kbd> method to achieve this.
 
-```
+```python
 logger.opt(lazy=True).debug("If sink level <= DEBUG: {x}", x=lambda: expensive_function(2**64))
 
 # By the way, "opt()" serves many usages
@@ -952,9 +952,9 @@ logger.opt(capture=False).info("Keyword arguments not added to {dest} dict", des
 
 ### Customizable levels
 
-Loguru comes with all standard [logging levels](https://loguru.readthedocs.io/en/stable/api/logger.html#levels) to which [`trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace) and [`success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success) are added. Do you need more? Then, just create it by using the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) function.
+Loguru comes with all standard [logging levels](https://loguru.readthedocs.io/en/stable/api/logger.html#levels) to which <kbd>[`trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace)</kbd> and <kbd>[`success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success)</kbd> are added. Do you need more? Then, just create it by using the <kbd>[`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level)</kbd> function.
 
-```
+```python
 new_level = logger.level("SNAKY", no=38, color="<yellow>", icon="🐍")
 
 logger.log("SNAKY", "Here we go!")
@@ -962,17 +962,17 @@ logger.log("SNAKY", "Here we go!")
 
 ### Better datetime handling
 
-The standard logging is bloated with arguments like `datefmt` or `msecs`, `%(asctime)s` and `%(created)s`, naive datetimes without timezone information, not intuitive formatting, etc. Loguru [fixes it](https://loguru.readthedocs.io/en/stable/api/logger.html#time):
+The standard logging is bloated with arguments like <kbd>`datefmt`</kbd> or <kbd>`msecs`</kbd>, <kbd>`%(asctime)s`</kbd> and <kbd>`%(created)s`</kbd>, naive datetimes without timezone information, not intuitive formatting, etc. Loguru [fixes it](https://loguru.readthedocs.io/en/stable/api/logger.html#time):
 
-```
+```python
 logger.add("file.log", format="{time:YYYY-MM-DD at HH:mm:ss} | {level} | {message}")
 ```
 
 ### Suitable for scripts and libraries
 
-Using the logger in your scripts is easy, and you can [`configure()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.configure) it at start. To use Loguru from inside a library, remember to never call [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) but use [`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable) instead so logging functions become no-op. If a developer wishes to see your library’s logs, he can [`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable) it again.
+Using the logger in your scripts is easy, and you can <kbd>[`configure()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.configure)</kbd> it at start. To use Loguru from inside a library, remember to never call <kbd>[`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add)</kbd> but use <kbd>[`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable)</kbd> instead so logging functions become no-op. If a developer wishes to see your library’s logs, he can <kbd>[`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable)</kbd> it again.
 
-```
+```python
 # For scripts
 config = {
     "handlers": [
@@ -992,16 +992,16 @@ logger.info("This message however is propagated to the sinks")
 
 ### Entirely compatible with standard logging
 
-Wish to use built-in logging `Handler` as a Loguru sink?
+Wish to use built-in logging <kbd>`Handler`</kbd> as a _Loguru_ sink?
 
-```
+```python
 handler = logging.handlers.SysLogHandler(address=('localhost', 514))
 logger.add(handler)
 ```
 
 Need to propagate Loguru messages to standard logging?
 
-```
+```python
 class PropagateHandler(logging.Handler):
     def emit(self, record):
         logging.getLogger(record.name).handle(record)
@@ -1011,7 +1011,7 @@ logger.add(PropagateHandler(), format="{message}")
 
 Want to intercept standard logging messages toward your Loguru sinks?
 
-```
+```python
 class InterceptHandler(logging.Handler):
     def emit(self, record):
         # Get corresponding Loguru level if it exists
@@ -1033,9 +1033,9 @@ logging.basicConfig(handlers=[InterceptHandler()], level=0)
 
 ### Personalizable defaults through environment variables
 
-Don’t like the default logger formatting? Would prefer another `DEBUG` color? [No problem](https://loguru.readthedocs.io/en/stable/api/logger.html#env):
+Don’t like the default logger formatting? Would prefer another <kbd>`DEBUG`</kbd> color? [No problem](https://loguru.readthedocs.io/en/stable/api/logger.html#env):
 
-```
+```shell
 # Linux / OSX
 export LOGURU_FORMAT="{time} | <lvl>{message}</lvl>"
 
@@ -1045,9 +1045,9 @@ setx LOGURU_DEBUG_COLOR "<green>"
 
 ### Convenient parser
 
-It is often useful to extract specific information from generated logs, this is why Loguru provides a [`parse()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.parse) method which helps to deal with logs and regexes.
+It is often useful to extract specific information from generated logs, this is why Loguru provides a <kbd>[`parse()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.parse)</kbd> method which helps to deal with logs and regexes.
 
-```
+```python
 pattern = r"(?P<time>.*) - (?P<level>[0-9]+) - (?P<message>.*)"  # Regex with named groups
 caster_dict = dict(time=dateutil.parser.parse, level=int)        # Transform matching groups
 
@@ -1058,9 +1058,9 @@ for groups in logger.parse("file.log", pattern, cast=caster_dict):
 
 ### Exhaustive notifier
 
-Loguru can easily be combined with the great [`notifiers`](https://github.com/notifiers/notifiers) library (must be installed separately) to receive an e-mail when your program fail unexpectedly or to send many other kind of notifications.
+Loguru can easily be combined with the great <kbd>[`notifiers`](https://github.com/notifiers/notifiers)</kbd> library (must be installed separately) to receive an e-mail when your program fail unexpectedly or to send many other kind of notifications.
 
-```
+```python
 import notifiers
 
 params = {
@@ -1080,8 +1080,6 @@ handler = NotificationHandler("gmail", defaults=params)
 logger.add(handler, level="ERROR")
 ```
 
-
-
 **~~10x faster than built-in logging~~**
 
 Although logging impact on performances is in most cases negligible, a zero-cost logger would allow to use it anywhere without much concern. In an upcoming release, Loguru’s critical functions will be implemented in C for maximum speed.
@@ -1090,11 +1088,11 @@ Although logging impact on performances is in most cases negligible, a zero-cost
 
 The Loguru library provides a pre-instanced logger to facilitate dealing with logging in Python.
 
-Just `from loguru import logger`.
+Just <kbd><font color=red>`from loguru import logger`</font></kbd>.
 
-- [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)
+- <kbd>[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd>
 
-  > - [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add)
+  > - <kbd>[`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add)</kbd>
   >
   >   > - [The sink parameter](https://loguru.readthedocs.io/en/stable/api/logger.html#sink)
   >   > - [The logged message](https://loguru.readthedocs.io/en/stable/api/logger.html#message)
@@ -1105,55 +1103,1026 @@ Just `from loguru import logger`.
   >   > - [The color markups](https://loguru.readthedocs.io/en/stable/api/logger.html#color)
   >   > - [The environment variables](https://loguru.readthedocs.io/en/stable/api/logger.html#env)
   >
-  > - [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove)
+  > - <kbd>[`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove)</kbd>
   >
-  > - [`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete)
+  > - <kbd>[`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete)</kbd>
   >
-  > - [`catch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.catch)
+  > - <kbd>[`catch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.catch)</kbd>
   >
-  > - [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt)
+  > - <kbd>[`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt)</kbd>
   >
-  > - [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind)
+  > - <kbd>[`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind)</kbd>
   >
-  > - [`contextualize()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.contextualize)
+  > - <kbd>[`contextualize()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.contextualize)</kbd>
   >
-  > - [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch)
+  > - <kbd>[`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch)</kbd>
   >
-  > - [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level)
+  > - <kbd>[`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level)</kbd>
   >
-  > - [`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable)
+  > - <kbd>[`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable)</kbd>
   >
-  > - [`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable)
+  > - <kbd>[`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable)</kbd>
   >
-  > - [`configure()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.configure)
+  > - <kbd>[`configure()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.configure)</kbd>
   >
-  > - [`parse()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.parse)
+  > - <kbd>[`parse()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.parse)</kbd>
   >
-  > - [`trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace)
+  > - <kbd>[`trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace)</kbd>
   >
-  > - [`debug()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.debug)
+  > - <kbd>[`debug()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.debug)</kbd>
   >
-  > - [`info()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.info)
+  > - <kbd>[`info()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.info)</kbd>
   >
-  > - [`success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success)
+  > - <kbd>[`success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success)</kbd>
   >
-  > - [`warning()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.warning)
+  > - <kbd>[`warning()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.warning)</kbd>
   >
-  > - [`error()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.error)
+  > - <kbd>[`error()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.error)</kbd>
   >
-  > - [`critical()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.critical)
+  > - <kbd>[`critical()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.critical)</kbd>
   >
-  > - [`log()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.log)
+  > - <kbd>[`log()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.log)</kbd>
   >
-  > - [`exception()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.exception)
+  > - <kbd>[`exception()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.exception)</kbd>
 
 - [Type hints](https://loguru.readthedocs.io/en/stable/api/type_hints.html#type-hints)
 
-# `loguru.logger`
+# <kbd><font color=red>`loguru.logger`</font></kbd>
 
-- *class*`Logger`[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger)
+> *class*  `Logger`  [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger)
 
-  An object to dispatch logging messages to configured handlers.The [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) is the core object of `loguru`, every logging configuration and usage pass through a call to one of its methods. There is only one logger, so there is no need to retrieve one before usage.Once the `logger` is imported, it can be used to write messages about events happening in your code. By reading the output logs of your application, you gain a better understanding of the flow of your program and you more easily track and debug unexpected behaviors.Handlers to which the logger sends log messages are added using the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) method. Note that you can use the [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) right after import as it comes pre-configured (logs are emitted to [`sys.stderr`](https://docs.python.org/3/library/sys.html#sys.stderr) by default). Messages can be logged with different severity levels and using braces attributes like the [`str.format()`](https://docs.python.org/3/library/stdtypes.html#str.format) method do.When a message is logged, a “record” is associated with it. This record is a dict which contains information about the logging context: time, function, file, line, thread, level… It also contains the `__name__` of the module, this is why you don’t need named loggers.You should not instantiate a [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) by yourself, use `from loguru import logger` instead.`add`(*sink*, ***, *level='DEBUG'*, *format='<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>'*, *filter=None*, *colorize=None*, *serialize=False*, *backtrace=True*, *diagnose=True*, *enqueue=False*, *catch=True*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.add)Add a handler sending log messages to a sink adequately configured.Parameters:**sink** ([`file-like object`](https://docs.python.org/3/glossary.html#term-file-object), [`str`](https://docs.python.org/3/library/stdtypes.html#str), [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path), [`callable`](https://docs.python.org/3/library/functions.html#callable), [`coroutine function`](https://docs.python.org/3/glossary.html#term-coroutine-function) or [`logging.Handler`](https://docs.python.org/3/library/logging.html#logging.Handler)) – An object in charge of receiving formatted logging messages and propagating them to an appropriate endpoint.**level** ([`int`](https://docs.python.org/3/library/functions.html#int) or [`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The minimum severity level from which logged messages should be sent to the sink.**format** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – The template used to format logged messages before being sent to the sink.**filter** ([`callable`](https://docs.python.org/3/library/functions.html#callable), [`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A directive optionally used to decide for each logged message whether it should be sent to the sink or not.**colorize** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the color markups contained in the formatted message should be converted to ansi codes for terminal coloration, or stripped otherwise. If `None`, the choice is automatically made based on the sink being a tty or not.**serialize** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the logged message and its records should be first converted to a JSON string before being sent to the sink.**backtrace** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception trace formatted should be extended upward, beyond the catching point, to show the full stacktrace which generated the error.**diagnose** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception trace should display the variables values to eases the debugging. This should be set to `False` in production to avoid leaking sensitive data.**enqueue** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the messages to be logged should first pass through a multiprocess-safe queue before reaching the sink. This is useful while logging to a file through multiple processes. This also has the advantage of making logging calls non-blocking.**catch** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether errors occurring while sink handles logs messages should be automatically caught. If `True`, an exception message is displayed on [`sys.stderr`](https://docs.python.org/3/library/sys.html#sys.stderr) but the exception is not propagated to the caller, preventing your app to crash.***\*kwargs** – Additional parameters that are only valid to configure a coroutine or file sink (see below).If and only if the sink is a coroutine function, the following parameter applies:Parameters:**loop** ([`AbstractEventLoop`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.AbstractEventLoop), optional) – The event loop in which the asynchronous logging task will be scheduled and executed. If `None`, the loop returned by [`asyncio.get_event_loop()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) is used.If and only if the sink is a file path, the following parameters apply:Parameters:**rotation** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`int`](https://docs.python.org/3/library/functions.html#int), [`datetime.time`](https://docs.python.org/3/library/datetime.html#datetime.time), [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A condition indicating whenever the current logged file should be closed and a new one started.**retention** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`int`](https://docs.python.org/3/library/functions.html#int), [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A directive filtering old files that should be removed during rotation or end of program.**compression** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A compression or archive format to which log files should be converted at closure.**delay** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the file should be created as soon as the sink is configured, or delayed until first logged message. It defaults to `False`.**mode** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The opening mode as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. It defaults to `"a"` (open the file in appending mode).**buffering** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – The buffering policy as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. It defaults to `1` (line buffered file).**encoding** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The file encoding as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. If `None`, it defaults to [`locale.getpreferredencoding()`](https://docs.python.org/3/library/locale.html#locale.getpreferredencoding).***\*kwargs** – Others parameters are passed to the built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function.Returns:[`int`](https://docs.python.org/3/library/functions.html#int) – An identifier associated with the added sink and which should be used to [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) it.NotesExtended summary follows.The sink parameterThe `sink` handles incoming log messages and proceed to their writing somewhere and somehow. A sink can take many forms:A [`file-like object`](https://docs.python.org/3/glossary.html#term-file-object) like `sys.stderr` or `open("somefile.log", "w")`. Anything with a `.write()` method is considered as a file-like object. Custom handlers may also implement `flush()` (called after each logged message), `stop()` (called at sink termination) and `complete()` (awaited by the eponymous method).A file path as [`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path). It can be parametrized with some additional parameters, see below.A [`callable`](https://docs.python.org/3/library/functions.html#callable) (such as a simple function) like `lambda msg: print(msg)`. This allows for logging procedure entirely defined by user preferences and needs.A asynchronous [`coroutine function`](https://docs.python.org/3/glossary.html#term-coroutine-function) defined with the `async def` statement. The coroutine object returned by such function will be added to the event loop using [`loop.create_task()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task). The tasks should be awaited before ending the loop by using [`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete).A built-in [`logging.Handler`](https://docs.python.org/3/library/logging.html#logging.Handler) like `logging.StreamHandler`. In such a case, the Loguru records are automatically converted to the structure expected by the [`logging`](https://docs.python.org/3/library/logging.html#module-logging) module.Note that you should avoid using the `logger` inside any of your sinks as this would result in infinite recursion or dead lock if the module’s sink was not explicitly disabled.The logged messageThe logged message passed to all added sinks is nothing more than a string of the formatted log, to which a special attribute is associated: the `.record` which is a dict containing all contextual information possibly needed (see below).Logged messages are formatted according to the `format` of the added sink. This format is usually a string containing braces fields to display attributes from the record dict.If fine-grained control is needed, the `format` can also be a function which takes the record as parameter and return the format template string. However, note that in such a case, you should take care of appending the line ending and exception field to the returned format, while `"\n{exception}"` is automatically appended for convenience if `format` is a string.The `filter` attribute can be used to control which messages are effectively passed to the sink and which one are ignored. A function can be used, accepting the record as an argument, and returning `True` if the message should be logged, `False` otherwise. If a string is used, only the records with the same `name` and its children will be allowed. One can also pass a `dict` mapping module names to minimum required level. In such case, each log record will search for it’s closest parent in the `dict` and use the associated level as the filter. The `dict` values can be `int` severity, `str` level name or `True` and `False` to respectively authorize and discard all module logs unconditionally. In order to set a default level, the `""` module name should be used as it is the parent of all modules (it does not suppress global `level` threshold, though).Note that while calling a logging method, the keyword arguments (if any) are automatically added to the `extra` dict for convenient contextualization (in addition to being used for formatting).The severity levelsEach logged message is associated with a severity level. These levels make it possible to prioritize messages and to choose the verbosity of the logs according to usages. For example, it allows to display some debugging information to a developer, while hiding it to the end user running the application.The `level` attribute of every added sink controls the minimum threshold from which log messages are allowed to be emitted. While using the `logger`, you are in charge of configuring the appropriate granularity of your logs. It is possible to add even more custom levels by using the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) method.Here are the standard levels with their default severity value, each one is associated with a logging method of the same name:Level nameSeverity valueLogger method`TRACE`5[`logger.trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace)`DEBUG`10[`logger.debug()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.debug)`INFO`20[`logger.info()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.info)`SUCCESS`25[`logger.success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success)`WARNING`30[`logger.warning()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.warning)`ERROR`40[`logger.error()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.error)`CRITICAL`50[`logger.critical()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.critical)The record dictThe record is just a Python dict, accessible from sinks by `message.record`. It contains all contextual information of the logging call (time, function, file, line, level, etc.).Each of its key can be used in the handler’s `format` so the corresponding value is properly displayed in the logged message (e.g. `"{level}"` -> `"INFO"`). Some record’s values are objects with two or more attributes, these can be formatted with `"{key.attr}"` (`"{key}"` would display one by default). [Formatting directives](https://docs.python.org/3/library/string.html#format-string-syntax) like `"{key: >3}"` also works and is particularly useful for time (see below).KeyDescriptionAttributeselapsedThe time elapsed since the start of the programSee [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta)exceptionThe formatted exception if any, `None` otherwise`type`, `value`, `traceback`extraThe dict of attributes bound by the user (see [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind))NonefileThe file where the logging call was made`name` (default), `path`functionThe function from which the logging call was madeNonelevelThe severity used to log the message`name` (default), `no`, `icon`lineThe line number in the source codeNonemessageThe logged message (not yet formatted)NonemoduleThe module where the logging call was madeNonenameThe `__name__` where the logging call was madeNoneprocessThe process in which the logging call was made`name`, `id` (default)threadThe thread in which the logging call was made`name`, `id` (default)timeThe aware local time when the logging call was madeSee [`datetime.datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime)The time formattingTo use your favorite time representation, you can set it directly in the time formatter specifier of your handler format, like for example `format="{time:HH:mm:ss} {message}"`. Note that this datetime represents your local time, and it is also made timezone-aware, so you can display the UTC offset to avoid ambiguities.The time field can be formatted using more human-friendly tokens. These constitute a subset of the one used by the [Pendulum](https://pendulum.eustace.io/docs/#tokens) library of [@sdispater](https://github.com/sdispater). To escape a token, just add square brackets around it, for example `"[YY]"` would display literally `"YY"`.If you prefer to display UTC rather than local time, you can add `"!UTC"` at the very end of the time format, like `{time:HH:mm:ss!UTC}`. Doing so will convert the `datetime` to UTC before formatting.If no time formatter specifier is used, like for example if `format="{time} {message}"`, the default one will use ISO 8601. TokenOutputYearYYYY2000, 2001, 2002 … 2012, 2013YY00, 01, 02 … 12, 13QuarterQ1 2 3 4MonthMMMMJanuary, February, March …MMMJan, Feb, Mar …MM01, 02, 03 … 11, 12M1, 2, 3 … 11, 12Day of YearDDDD001, 002, 003 … 364, 365DDD1, 2, 3 … 364, 365Day of MonthDD01, 02, 03 … 30, 31D1, 2, 3 … 30, 31Day of WeekddddMonday, Tuesday, Wednesday …dddMon, Tue, Wed …d0, 1, 2 … 6Days of ISO WeekE1, 2, 3 … 7HourHH00, 01, 02 … 23, 24H0, 1, 2 … 23, 24hh01, 02, 03 … 11, 12h1, 2, 3 … 11, 12Minutemm00, 01, 02 … 58, 59m0, 1, 2 … 58, 59Secondss00, 01, 02 … 58, 59s0, 1, 2 … 58, 59Fractional SecondS0 1 … 8 9SS00, 01, 02 … 98, 99SSS000 001 … 998 999SSSS…000[0..] 001[0..] … 998[0..] 999[0..]SSSSSS000000 000001 … 999998 999999AM / PMAAM, PMTimezoneZ-07:00, -06:00 … +06:00, +07:00ZZ-0700, -0600 … +0600, +0700zzEST CST … MST PSTSeconds timestampX1381685817, 1234567890.123Microseconds timestampx1234567890123The file sinksIf the sink is a [`str`](https://docs.python.org/3/library/stdtypes.html#str) or a [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path), the corresponding file will be opened for writing logs. The path can also contain a special `"{time}"` field that will be formatted with the current date at file creation.The `rotation` check is made before logging each message. If there is already an existing file with the same name that the file to be created, then the existing file is renamed by appending the date to its basename to prevent file overwriting. This parameter accepts:an [`int`](https://docs.python.org/3/library/functions.html#int) which corresponds to the maximum file size in bytes before that the current logged file is closed and a new one started over.a [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) which indicates the frequency of each new rotation.a [`datetime.time`](https://docs.python.org/3/library/datetime.html#datetime.time) which specifies the hour when the daily rotation should occur.a [`str`](https://docs.python.org/3/library/stdtypes.html#str) for human-friendly parametrization of one of the previously enumerated types. Examples: `"100 MB"`, `"0.5 GB"`, `"1 month 2 weeks"`, `"4 days"`, `"10h"`, `"monthly"`, `"18:00"`, `"sunday"`, `"w0"`, `"monday at 12:00"`, …a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before logging. It should accept two arguments: the logged message and the file object, and it should return `True` if the rotation should happen now, `False` otherwise.The `retention` occurs at rotation or at sink stop if rotation is `None`. Files are selected if they match the pattern `"basename(.*).ext(.*)"` (possible time fields are beforehand replaced with `.*`) based on the sink file. This parameter accepts:an [`int`](https://docs.python.org/3/library/functions.html#int) which indicates the number of log files to keep, while older files are removed.a [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) which specifies the maximum age of files to keep.a [`str`](https://docs.python.org/3/library/stdtypes.html#str) for human-friendly parametrization of the maximum age of files to keep. Examples: `"1 week, 3 days"`, `"2 months"`, …a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before the retention process. It should accept the list of log files as argument and process to whatever it wants (moving files, removing them, etc.).The `compression` happens at rotation or at sink stop if rotation is `None`. This parameter accepts:a [`str`](https://docs.python.org/3/library/stdtypes.html#str) which corresponds to the compressed or archived file extension. This can be one of: `"gz"`, `"bz2"`, `"xz"`, `"lzma"`, `"tar"`, `"tar.gz"`, `"tar.bz2"`, `"tar.xz"`, `"zip"`.a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before file termination. It should accept the path of the log file as argument and process to whatever it wants (custom compression, network sending, removing it, etc.).Either way, if you use a custom function designed according to your preferences, you must be very careful not to use the `logger` within your function. Otherwise, there is a risk that your program hang because of a deadlock.The color markupsTo add colors to your logs, you just have to enclose your format string with the appropriate tags (e.g. `<red>some message</red>`). These tags are automatically removed if the sink doesn’t support ansi codes. For convenience, you can use `</>` to close the last opening tag without repeating its name (e.g. `<red>another message</>`).The special tag `<level>` (abbreviated with `<lvl>`) is transformed according to the configured color of the logged message level.Tags which are not recognized will raise an exception during parsing, to inform you about possible misuse. If you wish to display a markup tag literally, you can escape it by prepending a `\` like for example `\<blue>`. If, for some reason, you need to escape a string programmatically, note that the regex used internally to parse markup tags is `r"\\?</?((?:[fb]g\s)?[^<>\s]*)>"`.Note that when logging a message with `opt(colors=True)`, color tags present in the formatting arguments (`args` and `kwargs`) are completely ignored. This is important if you need to log strings containing markups that might interfere with the color tags (in this case, do not use f-string).Here are the available tags (note that compatibility may vary depending on terminal):Color (abbr)Styles (abbr)Black (k)Bold (b)Blue (e)Dim (d)Cyan (c)Normal (n)Green (g)Italic (i)Magenta (m)Underline (u)Red (r)Strike (s)White (w)Reverse (v)Yellow (y)Blink (l) Hide (h)Usage:DescriptionExamplesForegroundBackgroundBasic colors`<red>`, `<r>``<GREEN>`, `<G>`Light colors`<light-blue>`, `<le>``<LIGHT-CYAN>`, `<LC>`8-bit colors`<fg 86>`, `<fg 255>``<bg 42>`, `<bg 9>`Hex colors`<fg #00005f>`, `<fg #EE1>``<bg #AF5FD7>`, `<bg #fff>`RGB colors`<fg 0,95,0>``<bg 72,119,65>`Stylizing`<bold>`, `<b>`, `<underline>`, `<u>`The environment variablesThe default values of sink parameters can be entirely customized. This is particularly useful if you don’t like the log format of the pre-configured sink.Each of the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) default parameter can be modified by setting the `LOGURU_[PARAM]` environment variable. For example on Linux: `export LOGURU_FORMAT="{time} - {message}"` or `export LOGURU_DIAGNOSE=NO`.The default levels’ attributes can also be modified by setting the `LOGURU_[LEVEL]_[ATTR]` environment variable. For example, on Windows: `setx LOGURU_DEBUG_COLOR "<blue>"` or `setx LOGURU_TRACE_ICON "🚀"`. If you use the `set` command, do not include quotes but escape special symbol as needed, e.g. `set LOGURU_DEBUG_COLOR=^<blue^>`.If you want to disable the pre-configured sink, you can set the `LOGURU_AUTOINIT` variable to `False`.On Linux, you will probably need to edit the `~/.profile` file to make this persistent. On Windows, don’t forget to restart your terminal for the change to be taken into account.Examples>>>`>>> logger.add(sys.stdout, format="{time} - {level} - {message}", filter="sub.module") `>>>`>>> logger.add("file_{time}.log", level="TRACE", rotation="100 MB") `>>>`>>> def debug_only(record): ...     return record["level"].name == "DEBUG" ... >>> logger.add("debug.log", filter=debug_only)  # Other levels are filtered out `>>>`>>> def my_sink(message): ...     record = message.record ...     update_db(message, time=record["time"], level=record["level"]) ... >>> logger.add(my_sink) `>>>`>>> level_per_module = { ...     "": "DEBUG", ...     "third.lib": "WARNING", ...     "anotherlib": False ... } >>> logger.add(lambda m: print(m, end=""), filter=level_per_module, level=0) `>>>`>>> async def publish(message): ...     await api.post(message) ... >>> logger.add(publish, serialize=True) `>>>`>>> from logging import StreamHandler >>> logger.add(StreamHandler(sys.stderr), format="{message}") `>>>`>>> class RandomStream: ...     def __init__(self, seed, threshold): ...         self.threshold = threshold ...         random.seed(seed) ...     def write(self, message): ...         if random.random() > self.threshold: ...             print(message) ... >>> stream_object = RandomStream(seed=12345, threshold=0.25) >>> logger.add(stream_object, level="INFO") ``remove`(*handler_id=None*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.remove)Remove a previously added handler and stop sending logs to its sink.Parameters:**handler_id** ([`int`](https://docs.python.org/3/library/functions.html#int) or `None`) – The id of the sink to remove, as it was returned by the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) method. If `None`, all handlers are removed. The pre-configured handler is guaranteed to have the index `0`.Raises:[**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) – If `handler_id` is not `None` but there is no active handler with such id.Examples>>>`>>> i = logger.add(sys.stderr, format="{message}") >>> logger.info("Logging") Logging >>> logger.remove(i) >>> logger.info("No longer logging") ``complete`()[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.complete)Wait for the end of enqueued messages and asynchronous tasks scheduled by handlers.This method proceeds in two steps: first it waits for all logging messages added to handlers with `enqueue=True` to be processed, then it returns an object that can be awaited to finalize all logging tasks added to the event loop by coroutine sinks.It can be called from non-asynchronous code. This is especially recommended when the `logger` is utilized with `multiprocessing` to ensure messages put to the internal queue have been properly transmitted before leaving a child process.The returned object should be awaited before the end of a coroutine executed by [`asyncio.run()`](https://docs.python.org/3/library/asyncio-task.html#asyncio.run) or [`loop.run_until_complete()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_until_complete) to ensure all asynchronous logging messages are processed. The function [`asyncio.get_event_loop()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) is called beforehand, only tasks scheduled in the same loop that the current one will be awaited by the method.Returns:[awaitable](https://docs.python.org/3/glossary.html#term-awaitable) – An awaitable object which ensures all asynchronous logging calls are completed when awaited.Examples>>>`>>> async def sink(message): ...     await asyncio.sleep(0.1)  # IO processing... ...     print(message, end="") ... >>> async def work(): ...     logger.info("Start") ...     logger.info("End") ...     await logger.complete() ... >>> logger.add(sink) 1 >>> asyncio.run(work()) Start End `>>>`>>> def process(): ...     logger.info("Message sent from the child") ...     logger.complete() ... >>> logger.add(sys.stderr, enqueue=True) 1 >>> process = multiprocessing.Process(target=process) >>> process.start() >>> process.join() Message sent from the child ``catch`(*exception=<class 'Exception'>*, ***, *level='ERROR'*, *reraise=False*, *onerror=None*, *exclude=None*, *default=None*, *message="An error has been caught in function '{record[function]}'*, *process '{record[process].name}' ({record[process].id})*, *thread '{record[thread].name}' ({record[thread].id}):"*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.catch)Return a decorator to automatically log possibly caught error in wrapped function.This is useful to ensure unexpected exceptions are logged, the entire program can be wrapped by this method. This is also very useful to decorate [`Thread.run()`](https://docs.python.org/3/library/threading.html#threading.Thread.run) methods while using threads to propagate errors to the main logger thread.Note that the visibility of variables values (which uses the great [`better_exceptions`](https://github.com/Qix-/better-exceptions) library from [@Qix-](https://github.com/Qix-)) depends on the `diagnose` option of each configured sink.The returned object can also be used as a context manager.Parameters:**exception** ([`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – The type of exception to intercept. If several types should be caught, a tuple of exceptions can be used too.**level** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`int`](https://docs.python.org/3/library/functions.html#int), optional) – The level name or severity with which the message should be logged.**reraise** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception should be raised again and hence propagated to the caller.**onerror** ([`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A function that will be called if an error occurs, once the message has been logged. It should accept the exception instance as it sole argument.**exclude** ([`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – A type of exception (or a tuple of types) that will be purposely ignored and hence propagated to the caller without being logged.**default** (*optional*) – The value to be returned by the decorated function if an error occurred without being re-raised.**message** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The message that will be automatically logged if an exception occurs. Note that it will be formatted with the `record` attribute.Returns:[decorator](https://docs.python.org/3/glossary.html#term-decorator) / [context manager](https://docs.python.org/3/glossary.html#term-context-manager) – An object that can be used to decorate a function or as a context manager to log exceptions possibly caught.Examples`>>> @logger.catch ... def f(x): ...     100 / x ... >>> def g(): ...     f(10) ...     f(0) ... >>> g() ERROR - An error has been caught in function 'g', process 'Main' (367), thread 'ch1' (1398): Traceback (most recent call last):  File "program.py", line 12, in <module>    g()    └ <function g at 0x7f225fe2bc80> > File "program.py", line 10, in g    f(0)    └ <function f at 0x7f225fe2b9d8>  File "program.py", line 6, in f    100 / x          └ 0 ZeroDivisionError: division by zero `>>>`>>> with logger.catch(message="Because we never know..."): ...    main()  # No exception, no logs `>>>`>>> # Use 'onerror' to prevent the program exit code to be 0 (if 'reraise=False') while >>> # also avoiding the stacktrace to be duplicated on stderr (if 'reraise=True'). >>> @logger.catch(onerror=lambda _: sys.exit(1)) ... def main(): ...     1 / 0 ``opt`(***, *exception=None*, *record=False*, *lazy=False*, *colors=False*, *raw=False*, *capture=True*, *depth=0*, *ansi=False*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.opt)Parametrize a logging call to slightly change generated log message.Note that it’s not possible to chain [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) calls, the last one takes precedence over the others as it will “reset” the options to their default values.Parameters:**exception** ([`bool`](https://docs.python.org/3/library/functions.html#bool), [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple) or [`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – If it does not evaluate as `False`, the passed exception is formatted and added to the log message. It could be an [`Exception`](https://docs.python.org/3/library/exceptions.html#Exception) object or a `(type, value, traceback)` tuple, otherwise the exception information is retrieved from [`sys.exc_info()`](https://docs.python.org/3/library/sys.html#sys.exc_info).**record** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the record dict contextualizing the logging call can be used to format the message by using `{record[key]}` in the log message.**lazy** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the logging call attribute to format the message should be functions which will be called only if the level is high enough. This can be used to avoid expensive functions if not necessary.**colors** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, logged message will be colorized according to the markups it possibly contains.**raw** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the formatting of each sink will be bypassed and the message will be sent as is.**capture** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `False`, the `**kwargs` of logged message will not automatically populate the `extra` dict (although they are still used for formatting).**depth** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – Specify which stacktrace should be used to contextualize the logged message. This is useful while using the logger from inside a wrapped function to retrieve worthwhile information.**ansi** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Deprecated since version 0.4.1: the `ansi` parameter will be removed in Loguru 1.0.0, it is replaced by `colors` which is a more appropriate name.Returns:[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but transforming logged message adequately before sending.Examples>>>`>>> try: ...     1 / 0 ... except ZeroDivisionError: ...    logger.opt(exception=True).debug("Exception logged with debug level:") ... [18:10:02] DEBUG in '<module>' - Exception logged with debug level: Traceback (most recent call last, catch point marked): > File "<stdin>", line 2, in <module> ZeroDivisionError: division by zero `>>>`>>> logger.opt(record=True).info("Current line is: {record[line]}") [18:10:33] INFO in '<module>' - Current line is: 1 `>>>`>>> logger.opt(lazy=True).debug("If sink <= DEBUG: {x}", x=lambda: math.factorial(2**5)) [18:11:19] DEBUG in '<module>' - If sink <= DEBUG: 263130836933693530167218012160000000 `>>>`>>> logger.opt(colors=True).warning("We got a <red>BIG</red> problem") [18:11:30] WARNING in '<module>' - We got a BIG problem `>>>`>>> logger.opt(raw=True).debug("No formatting\n") No formatting `>>>`>>> logger.opt(capture=False).info("Displayed but not captured: {value}", value=123) [18:11:41] Displayed but not captured: 123 `>>>`>>> def wrapped(): ...     logger.opt(depth=1).info("Get parent context") ... >>> def func(): ...     wrapped() ... >>> func() [18:11:54] DEBUG in 'func' - Get parent context ``bind`(***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.bind)Bind attributes to the `extra` dict of each logged message record.This is used to add custom context to each logging call.Parameters:***\*kwargs** – Mapping between keys and values that will be added to the `extra` dict.Returns:[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but which sends record with the customized `extra` dict.Examples>>>`>>> logger.add(sys.stderr, format="{extra[ip]} - {message}") >>> class Server: ...     def __init__(self, ip): ...         self.ip = ip ...         self.logger = logger.bind(ip=ip) ...     def call(self, message): ...         self.logger.info(message) ... >>> instance_1 = Server("192.168.0.200") >>> instance_2 = Server("127.0.0.1") >>> instance_1.call("First instance") 192.168.0.200 - First instance >>> instance_2.call("Second instance") 127.0.0.1 - Second instance ``contextualize`(***kwds*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.contextualize)Bind attributes to the context-local `extra` dict while inside the `with` block.Contrary to [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) there is no `logger` returned, the `extra` dict is modified in-place and updated globally. Most importantly, it uses [`contextvars`](https://docs.python.org/3/library/contextvars.html#module-contextvars) which means that contextualized values are unique to each threads and asynchronous tasks.The `extra` dict will retrieve its initial state once the context manager is exited.Parameters:***\*kwargs** – Mapping between keys and values that will be added to the context-local `extra` dict.Returns:[context manager](https://docs.python.org/3/glossary.html#term-context-manager) / [decorator](https://docs.python.org/3/glossary.html#term-decorator) – A context manager (usable as a decorator too) that will bind the attributes once entered and restore the initial state of the `extra` dict while exited.Examples>>>`>>> logger.add(sys.stderr, format="{message} | {extra}") 1 >>> def task(): ...     logger.info("Processing!") ... >>> with logger.contextualize(task_id=123): ...     task() ... Processing! | {'task_id': 123} >>> logger.info("Done.") Done. | {} ``patch`(*patcher*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.patch)Attach a function to modify the record dict created by each logging call.The `patcher` may be used to update the record on-the-fly before it’s propagated to the handlers. This allows the “extra” dict to be populated with dynamic values and also permits advanced modifications of the record emitted while logging a message. The function is called once before sending the log message to the different handlers.It is recommended to apply modification on the `record["extra"]` dict rather than on the `record` dict itself, as some values are used internally by Loguru, and modify them may produce unexpected results.Parameters:**patcher** ([`callable`](https://docs.python.org/3/library/functions.html#callable)) – The function to which the record dict will be passed as the sole argument. This function is in charge of updating the record in-place, the function does not need to return any value, the modified record object will be re-used.Returns:[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but which records are passed through the `patcher` function before being sent to the added handlers.Examples>>>`>>> logger.add(sys.stderr, format="{extra[utc]} {message}") >>> logger = logger.patch(lambda record: record["extra"].update(utc=datetime.utcnow()) >>> logger.info("That's way, you can log messages with time displayed in UTC") `>>>`>>> def wrapper(func): ...     @functools.wraps(func) ...     def wrapped(*args, **kwargs): ...         logger.patch(lambda r: r.update(function=func.__name__)).info("Wrapped!") ...         return func(*args, **kwargs) ...     return wrapped `>>>`>>> def recv_record_from_network(pipe): ...     record = pickle.loads(pipe.read()) ...     level, message = record["level"], record["message"] ...     logger.patch(lambda r: r.update(record)).log(level, message) ``level`(*name*, *no=None*, *color=None*, *icon=None*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.level)Add, update or retrieve a logging level.Logging levels are defined by their `name` to which a severity `no`, an ansi `color` tag and an `icon` are associated and possibly modified at run-time. To [`log()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.log) to a custom level, you should necessarily use its name, the severity number is not linked back to levels name (this implies that several levels can share the same severity).To add a new level, its `name` and its `no` are required. A `color` and an `icon` can also be specified or will be empty by default.To update an existing level, pass its `name` with the parameters to be changed. It is not possible to modify the `no` of a level once it has been added.To retrieve level information, the `name` solely suffices.Parameters:**name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The name of the logging level.**no** ([`int`](https://docs.python.org/3/library/functions.html#int)) – The severity of the level to be added or updated.**color** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The color markup of the level to be added or updated.**icon** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The icon of the level to be added or updated.Returns:`Level` – A [`namedtuple`](https://docs.python.org/3/library/collections.html#collections.namedtuple) containing information about the level.Raises:[**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) – If there is no level registered with such `name`.Examples>>>`>>> level = logger.level("ERROR") >>> print(level) Level(name='ERROR', no=40, color='<red><bold>', icon='❌') >>> logger.add(sys.stderr, format="{level.no} {level.icon} {message}") 1 >>> logger.level("CUSTOM", no=15, color="<blue>", icon="@") Level(name='CUSTOM', no=15, color='<blue>', icon='@') >>> logger.log("CUSTOM", "Logging...") 15 @ Logging... >>> logger.level("WARNING", icon=r"/!\") Level(name='WARNING', no=30, color='<yellow><bold>', icon='/!\\') >>> logger.warning("Updated!") 30 /!\ Updated! ``disable`(*name*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.disable)Disable logging of messages coming from `name` module and its children.Developers of library using Loguru should absolutely disable it to avoid disrupting users with unrelated logs messages.Note that in some rare circumstances, it is not possible for Loguru to determine the module’s `__name__` value. In such situation, `record["name"]` will be equal to `None`, this is why `None` is also a valid argument.Parameters:**name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or `None`) – The name of the parent module to disable.Examples>>>`>>> logger.info("Allowed message by default") [22:21:55] Allowed message by default >>> logger.disable("my_library") >>> logger.info("While publishing a library, don't forget to disable logging") ``enable`(*name*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.enable)Enable logging of messages coming from `name` module and its children.Logging is generally disabled by imported library using Loguru, hence this function allows users to receive these messages anyway.To enable all logs regardless of the module they are coming from, an empty string `""` can be passed.Parameters:**name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or `None`) – The name of the parent module to re-allow.Examples>>>`>>> logger.disable("__main__") >>> logger.info("Disabled, so nothing is logged.") >>> logger.enable("__main__") >>> logger.info("Re-enabled, messages are logged.") [22:46:12] Re-enabled, messages are logged. ``configure`(***, *handlers=None*, *levels=None*, *extra=None*, *patcher=None*, *activation=None*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.configure)Configure the core logger.It should be noted that `extra` values set using this function are available across all modules, so this is the best way to set overall default values.Parameters:**handlers** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A list of each handler to be added. The list should contain dicts of params passed to the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) function as keyword arguments. If not `None`, all previously added handlers are first removed.**levels** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A list of each level to be added or updated. The list should contain dicts of params passed to the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) function as keyword arguments. This will never remove previously created levels.**extra** ([`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A dict containing additional parameters bound to the core logger, useful to share common properties if you call [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) in several of your files modules. If not `None`, this will remove previously configured `extra` dict.**patcher** ([`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A function that will be applied to the record dict of each logged messages across all modules using the logger. It should modify the dict in-place without returning anything. The function is executed prior to the one possibly added by the [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) method. If not `None`, this will replace previously configured `patcher` function.**activation** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple), optional) – A list of `(name, state)` tuples which denotes which loggers should be enabled (if `state` is `True`) or disabled (if `state` is `False`). The calls to [`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable) and [`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable) are made accordingly to the list order. This will not modify previously activated loggers, so if you need a fresh start prepend your list with `("", False)` or `("", True)`.Returns:[`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`int`](https://docs.python.org/3/library/functions.html#int) – A list containing the identifiers of added sinks (if any).Examples>>>`>>> logger.configure( ...     handlers=[ ...         dict(sink=sys.stderr, format="[{time}] {message}"), ...         dict(sink="file.log", enqueue=True, serialize=True), ...     ], ...     levels=[dict(name="NEW", no=13, icon="¤", color="")], ...     extra={"common_to_all": "default"}, ...     patcher=lambda record: record["extra"].update(some_value=42), ...     activation=[("my_module.secret", False), ("another_library.module", True)], ... ) [1, 2] `>>>`>>> # Set a default "extra" dict to logger across all modules, without "bind()" >>> extra = {"context": "foo"} >>> logger.configure(extra=extra) >>> logger.add(sys.stderr, format="{extra[context]} - {message}") >>> logger.info("Context without bind") >>> # => "foo - Context without bind" >>> logger.bind(context="bar").info("Suppress global context") >>> # => "bar - Suppress global context" `*static*`parse`(*file*, *pattern*, ***, *cast={}*, *chunk=65536*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.parse)Parse raw logs and extract each entry as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).The logging format has to be specified as the regex `pattern`, it will then be used to parse the `file` and retrieve each entry based on the named groups present in the regex.Parameters:**file** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path) or [`file-like object`](https://docs.python.org/3/glossary.html#term-file-object)) – The path of the log file to be parsed, or an already opened file object.**pattern** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`re.Pattern`](https://docs.python.org/3/library/re.html#re-objects)) – The regex to use for logs parsing, it should contain named groups which will be included in the returned dict.**cast** ([`callable`](https://docs.python.org/3/library/functions.html#callable) or [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A function that should convert in-place the regex groups parsed (a dict of string values) to more appropriate types. If a dict is passed, it should be a mapping between keys of parsed log dict and the function that should be used to convert the associated value.**chunk** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – The number of bytes read while iterating through the logs, this avoids having to load the whole file in memory.Yields:[`dict`](https://docs.python.org/3/library/stdtypes.html#dict) – The dict mapping regex named groups to matched values, as returned by [`re.Match.groupdict()`](https://docs.python.org/3/library/re.html#re.Match.groupdict) and optionally converted according to `cast` argument.Examples>>>`>>> reg = r"(?P<lvl>[0-9]+): (?P<msg>.*)"    # If log format is "{level.no} - {message}" >>> for e in logger.parse("file.log", reg):  # A file line could be "10 - A debug message" ...     print(e)                             # => {'lvl': '10', 'msg': 'A debug message'} `>>>`>>> caster = dict(lvl=int)                   # Parse 'lvl' key as an integer >>> for e in logger.parse("file.log", reg, cast=caster): ...     print(e)                             # => {'lvl': 10, 'msg': 'A debug message'} `>>>`>>> def cast(groups): ...     if "date" in groups: ...         groups["date"] = datetime.strptime(groups["date"], "%Y-%m-%d %H:%M:%S") ... >>> with open("file.log") as file: ...     for log in logger.parse(file, reg, cast=cast): ...         print(log["date"], log["something_else"]) ``trace`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.trace)Log `message.format(*args, **kwargs)` with severity `'TRACE'`.`debug`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.debug)Log `message.format(*args, **kwargs)` with severity `'DEBUG'`.`info`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.info)Log `message.format(*args, **kwargs)` with severity `'INFO'`.`success`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.success)Log `message.format(*args, **kwargs)` with severity `'SUCCESS'`.`warning`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.warning)Log `message.format(*args, **kwargs)` with severity `'WARNING'`.`error`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.error)Log `message.format(*args, **kwargs)` with severity `'ERROR'`.`critical`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.critical)Log `message.format(*args, **kwargs)` with severity `'CRITICAL'`.`exception`(*_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.exception)Convenience method for logging an `'ERROR'` with exception information.`log`(*_Logger__level*, *_Logger__message*, **args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.log)Log `message.format(*args, **kwargs)` with severity `level`.`start`(**args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.start)Deprecated function to [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) a new handler.Warning*Deprecated since version 0.2.2:* `start()` will be removed in Loguru 1.0.0, it is replaced by `add()` which is a less confusing name.`stop`(**args*, ***kwargs*)[[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.stop)Deprecated function to [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) an existing handler.Warning*Deprecated since version 0.2.2:* `stop()` will be removed in Loguru 1.0.0, it is replaced by `remove()` which is a less confusing name.
+An object to dispatch logging messages to configured handlers.
+
+The <kbd>[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd> is the core object of <kbd>`loguru`</kbd>, every logging configuration and usage pass through a call to one of its methods. There is only one logger, so there is no need to retrieve one before usage.
+
+Once the <kbd>`logger`</kbd> is imported, it can be used to write messages about events happening in your code. By reading the output logs of your application, you gain a better understanding of the flow of your program and you more easily track and debug unexpected behaviors.
+
+Handlers to which the logger sends log messages are added using the <kbd>[`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add)</kbd> method. Note that you can use the <kbd>[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd> right after import as it comes pre-configured (logs are emitted to <kbd>[`sys.stderr`](https://docs.python.org/3/library/sys.html#sys.stderr)</kbd> by default). Messages can be logged with different severity levels and using braces attributes like the <kbd>[`str.format()`](https://docs.python.org/3/library/stdtypes.html#str.format)</kbd> method do.
+
+When a message is logged, a “record” is associated with it. This record is a dict which contains information about the logging context: time, function, file, line, thread, level… It also contains the <kbd>`__name__`</kbd> of the module, this is why you don’t need named loggers.
+
+You should not instantiate a <kbd>[`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger)</kbd> by yourself, use <kbd><font color=red>`from loguru import logger`</font></kbd> instead.
+
+> `add(sink, *, level='DEBUG', format='<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | <level>{level: <8}</level> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>', filter=None, colorize=None, serialize=False, backtrace=True, diagnose=True, enqueue=False, catch=True, **kwargs)`  [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.add)
+
+Add a handler sending log messages to a sink adequately configured.
+
+Parameters:
+
+**sink** ([`file-like object`](https://docs.python.org/3/glossary.html#term-file-object), [`str`](https://docs.python.org/3/library/stdtypes.html#str), [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path), [`callable`](https://docs.python.org/3/library/functions.html#callable), [`coroutine function`](https://docs.python.org/3/glossary.html#term-coroutine-function) or [`logging.Handler`](https://docs.python.org/3/library/logging.html#logging.Handler)) – An object in charge of receiving formatted logging messages and propagating them to an appropriate endpoint.
+
+**level** ([`int`](https://docs.python.org/3/library/functions.html#int) or [`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The minimum severity level from which logged messages should be sent to the sink.
+
+**format** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – The template used to format logged messages before being sent to the sink.
+
+**filter** ([`callable`](https://docs.python.org/3/library/functions.html#callable), [`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A directive optionally used to decide for each logged message whether it should be sent to the sink or not.
+
+**colorize** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the color markups contained in the formatted message should be converted to ansi codes for terminal coloration, or stripped otherwise. If `None`, the choice is automatically made based on the sink being a tty or not.
+
+**serialize** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the logged message and its records should be first converted to a JSON string before being sent to the sink.
+
+**backtrace** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception trace formatted should be extended upward, beyond the catching point, to show the full stacktrace which generated the error.
+
+**diagnose** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception trace should display the variables values to eases the debugging. This should be set to `False` in production to avoid leaking sensitive data.
+
+**enqueue** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the messages to be logged should first pass through a multiprocess-safe queue before reaching the sink. This is useful while logging to a file through multiple processes. This also has the advantage of making logging calls non-blocking.
+
+**catch** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether errors occurring while sink handles logs messages should be automatically caught. If `True`, an exception message is displayed on [`sys.stderr`](https://docs.python.org/3/library/sys.html#sys.stderr) but the exception is not propagated to the caller, preventing your app to crash.
+
+***\*kwargs** – Additional parameters that are only valid to configure a coroutine or file sink (see below).
+
+If and only if the sink is a coroutine function, the following parameter applies:
+
+Parameters:**loop** ([`AbstractEventLoop`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.AbstractEventLoop), optional) – The event loop in which the asynchronous logging task will be scheduled and executed. If `None`, the loop returned by [`asyncio.get_event_loop()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) is used.
+
+If and only if the sink is a file path, the following parameters apply:
+
+Parameters:
+
+**rotation** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`int`](https://docs.python.org/3/library/functions.html#int), [`datetime.time`](https://docs.python.org/3/library/datetime.html#datetime.time), [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A condition indicating whenever the current logged file should be closed and a new one started.
+
+**retention** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`int`](https://docs.python.org/3/library/functions.html#int), [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A directive filtering old files that should be removed during rotation or end of program.
+
+**compression** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A compression or archive format to which log files should be converted at closure.
+
+**delay** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the file should be created as soon as the sink is configured, or delayed until first logged message. It defaults to `False`.
+
+**mode** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The opening mode as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. It defaults to `"a"` (open the file in appending mode).
+
+**buffering** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – The buffering policy as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. It defaults to `1` (line buffered file).
+
+**encoding** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The file encoding as for built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function. If `None`, it defaults to [`locale.getpreferredencoding()`](https://docs.python.org/3/library/locale.html#locale.getpreferredencoding).
+
+***\*kwargs** – Others parameters are passed to the built-in [`open()`](https://docs.python.org/3/library/functions.html#open) function.
+
+Returns:[`int`](https://docs.python.org/3/library/functions.html#int) – An identifier associated with the added sink and which should be used to [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) it.
+
+Notes
+
+Extended summary follows.
+
+The sink parameter
+
+The `sink` handles incoming log messages and proceed to their writing somewhere and somehow. A sink can take many forms:
+
+A [`file-like object`](https://docs.python.org/3/glossary.html#term-file-object) like `sys.stderr` or `open("somefile.log", "w")`. Anything with a `.write()` method is considered as a file-like object. Custom handlers may also implement `flush()` (called after each logged message), `stop()` (called at sink termination) and `complete()` (awaited by the eponymous method).
+
+A file path as [`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path). It can be parametrized with some additional parameters, see below.
+
+A [`callable`](https://docs.python.org/3/library/functions.html#callable) (such as a simple function) like `lambda msg: print(msg)`. This allows for logging procedure entirely defined by user preferences and needs.
+
+A asynchronous [`coroutine function`](https://docs.python.org/3/glossary.html#term-coroutine-function) defined with the `async def` statement. The coroutine object returned by such function will be added to the event loop using [`loop.create_task()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.create_task). The tasks should be awaited before ending the loop by using [`complete()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete).
+
+A built-in [`logging.Handler`](https://docs.python.org/3/library/logging.html#logging.Handler) like `logging.StreamHandler`. In such a case, the Loguru records are automatically converted to the structure expected by the [`logging`](https://docs.python.org/3/library/logging.html#module-logging) module.
+
+Note that you should avoid using the `logger` inside any of your sinks as this would result in infinite recursion or dead lock if the module’s sink was not explicitly disabled.
+
+The logged message
+
+The logged message passed to all added sinks is nothing more than a string of the formatted log, to which a special attribute is associated: the `.record` which is a dict containing all contextual information possibly needed (see below).
+
+Logged messages are formatted according to the `format` of the added sink. This format is usually a string containing braces fields to display attributes from the record dict.
+
+If fine-grained control is needed, the `format` can also be a function which takes the record as parameter and return the format template string. However, note that in such a case, you should take care of appending the line ending and exception field to the returned format, while `"\n{exception}"` is automatically appended for convenience if `format` is a string.
+
+The `filter` attribute can be used to control which messages are effectively passed to the sink and which one are ignored. A function can be used, accepting the record as an argument, and returning `True` if the message should be logged, `False` otherwise. If a string is used, only the records with the same `name` and its children will be allowed. One can also pass a `dict` mapping module names to minimum required level. In such case, each log record will search for it’s closest parent in the `dict` and use the associated level as the filter. The `dict` values can be `int` severity, `str` level name or `True` and `False` to respectively authorize and discard all module logs unconditionally. In order to set a default level, the `""` module name should be used as it is the parent of all modules (it does not suppress global `level` threshold, though).
+
+Note that while calling a logging method, the keyword arguments (if any) are automatically added to the `extra` dict for convenient contextualization (in addition to being used for formatting).
+
+The severity levels
+
+Each logged message is associated with a severity level. These levels make it possible to prioritize messages and to choose the verbosity of the logs according to usages. For example, it allows to display some debugging information to a developer, while hiding it to the end user running the application.
+
+The `level` attribute of every added sink controls the minimum threshold from which log messages are allowed to be emitted. While using the `logger`, you are in charge of configuring the appropriate granularity of your logs. It is possible to add even more custom levels by using the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) method.
+
+Here are the standard levels with their default severity value, each one is associated with a logging method of the same name:
+
+| Level name | Severity value | Logger method                                                |
+| ---------- | -------------- | ------------------------------------------------------------ |
+| `TRACE`    | 5              | [`logger.trace()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.trace) |
+| `DEBUG`    | 10             | [`logger.debug()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.debug) |
+| `INFO`     | 20             | [`logger.info()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.info) |
+| `SUCCESS`  | 25             | [`logger.success()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.success) |
+| `WARNING`  | 30             | [`logger.warning()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.warning) |
+| `ERROR`    | 40             | [`logger.error()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.error) |
+| `CRITICAL` | 50             | [`logger.critical()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.critical) |
+
+The record dict
+
+The record is just a Python dict, accessible from sinks by `message.record`. It contains all contextual information of the logging call (time, function, file, line, level, etc.).
+
+Each of its key can be used in the handler’s `format` so the corresponding value is properly displayed in the logged message (e.g. `"{level}"` -> `"INFO"`). Some record’s values are objects with two or more attributes, these can be formatted with `"{key.attr}"` (`"{key}"` would display one by default). [Formatting directives](https://docs.python.org/3/library/string.html#format-string-syntax) like `"{key: >3}"` also works and is particularly useful for time (see below).
+
+| Key       | Description                                                  | Attributes                                                   |
+| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| elapsed   | The time elapsed since the start of the program              | See [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) |
+| exception | The formatted exception if any, `None` otherwise             | `type`, `value`, `traceback`                                 |
+| extra     | The dict of attributes bound by the user (see [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind)) | None                                                         |
+| file      | The file where the logging call was made                     | `name` (default), `path`                                     |
+| function  | The function from which the logging call was made            | None                                                         |
+| level     | The severity used to log the message                         | `name` (default), `no`, `icon`                               |
+| line      | The line number in the source code                           | None                                                         |
+| message   | The logged message (not yet formatted)                       | None                                                         |
+| module    | The module where the logging call was made                   | None                                                         |
+| name      | The `__name__` where the logging call was made               | None                                                         |
+| process   | The process in which the logging call was made               | `name`, `id` (default)                                       |
+| thread    | The thread in which the logging call was made                | `name`, `id` (default)                                       |
+| time      | The aware local time when the logging call was made          | See [`datetime.datetime`](https://docs.python.org/3/library/datetime.html#datetime.datetime) |
+
+The time formatting
+
+To use your favorite time representation, you can set it directly in the time formatter specifier of your handler format, like for example `format="{time:HH:mm:ss} {message}"`. Note that this datetime represents your local time, and it is also made timezone-aware, so you can display the UTC offset to avoid ambiguities.
+
+The time field can be formatted using more human-friendly tokens. These constitute a subset of the one used by the [Pendulum](https://pendulum.eustace.io/docs/#tokens) library of [@sdispater](https://github.com/sdispater). To escape a token, just add square brackets around it, for example `"[YY]"` would display literally `"YY"`.
+
+If you prefer to display UTC rather than local time, you can add `"!UTC"` at the very end of the time format, like `{time:HH:mm:ss!UTC}`. Doing so will convert the `datetime` to UTC before formatting.
+
+If no time formatter specifier is used, like for example if `format="{time} {message}"`, the default one will use ISO 8601. 
+
+<table>
+    <thead valign="bottom">
+        <tr class="row-odd">
+            <th class="head">&#160;</th>
+            <th class="head">Token</th>
+            <th class="head">Output</th>
+        </tr>
+    </thead><tbody valign="top">
+    <tr class="row-even">
+        <td rowspan="2">Year</td>
+        <td>YYYY</td>
+        <td>2000, 2001, 2002 … 2012, 2013</td>
+    </tr>
+    <tr class="row-odd">
+        <td>YY</td>
+        <td>00, 01, 02 … 12, 13</td>
+    </tr>
+    <tr class="row-even">
+        <td>Quarter</td>
+        <td>Q</td>
+        <td>1 2 3 4</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="4">Month</td>
+        <td>MMMM</td>
+        <td>January, February, March …</td>
+    </tr>
+    <tr class="row-even">
+        <td>MMM</td>
+        <td>Jan, Feb, Mar …</td>
+    </tr>
+    <tr class="row-odd">
+        <td>MM</td>
+        <td>01, 02, 03 … 11, 12</td>
+    </tr>
+    <tr class="row-even">
+        <td>M</td>
+        <td>1, 2, 3 … 11, 12</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="2">Day of Year</td>
+        <td>DDDD</td>
+        <td>001, 002, 003 … 364, 365</td>
+    </tr>
+    <tr class="row-even">
+        <td>DDD</td>
+        <td>1, 2, 3 … 364, 365</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="2">Day of Month</td>
+        <td>DD</td>
+        <td>01, 02, 03 … 30, 31</td>
+    </tr>
+    <tr class="row-even">
+        <td>D</td>
+        <td>1, 2, 3 … 30, 31</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="3">Day of Week</td>
+        <td>dddd</td>
+        <td>Monday, Tuesday, Wednesday …</td>
+    </tr>
+    <tr class="row-even">
+        <td>ddd</td>
+        <td>Mon, Tue, Wed …</td>
+    </tr>
+    <tr class="row-odd">
+        <td>d</td>
+        <td>0, 1, 2 … 6</td>
+    </tr>
+    <tr class="row-even">
+        <td>Days of ISO Week</td>
+        <td>E</td>
+        <td>1, 2, 3 … 7</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="4">Hour</td>
+        <td>HH</td>
+        <td>00, 01, 02 … 23, 24</td>
+    </tr>
+    <tr class="row-even">
+        <td>H</td>
+        <td>0, 1, 2 … 23, 24</td>
+    </tr>
+    <tr class="row-odd">
+        <td>hh</td>
+        <td>01, 02, 03 … 11, 12</td>
+    </tr>
+    <tr class="row-even">
+        <td>h</td>
+        <td>1, 2, 3 … 11, 12</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="2">Minute</td>
+        <td>mm</td>
+        <td>00, 01, 02 … 58, 59</td>
+    </tr>
+    <tr class="row-even">
+        <td>m</td>
+        <td>0, 1, 2 … 58, 59</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="2">Second</td>
+        <td>ss</td>
+        <td>00, 01, 02 … 58, 59</td>
+    </tr>
+    <tr class="row-even">
+        <td>s</td>
+        <td>0, 1, 2 … 58, 59</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="5">Fractional Second</td>
+        <td>S</td>
+        <td>0 1 … 8 9</td>
+    </tr>
+    <tr class="row-even">
+        <td>SS</td>
+        <td>00, 01, 02 … 98, 99</td>
+    </tr>
+    <tr class="row-odd">
+        <td>SSS</td>
+        <td>000 001 … 998 999</td>
+    </tr>
+    <tr class="row-even">
+        <td>SSSS…</td>
+        <td>000[0..] 001[0..] … 998[0..] 999[0..]</td>
+    </tr>
+    <tr class="row-odd">
+        <td>SSSSSS</td>
+        <td>000000 000001 … 999998 999999</td>
+    </tr>
+    <tr class="row-even">
+        <td>AM / PM</td>
+        <td>A</td>
+        <td>AM, PM</td>
+    </tr>
+    <tr class="row-odd">
+        <td rowspan="3">Timezone</td>
+        <td>Z</td>
+        <td>-07:00, -06:00 … +06:00, +07:00</td>
+    </tr>
+    <tr class="row-even">
+        <td>ZZ</td>
+        <td>-0700, -0600 … +0600, +0700</td>
+    </tr>
+    <tr class="row-odd">
+        <td>zz</td>
+        <td>EST CST … MST PST</td>
+    </tr>
+    <tr class="row-even">
+        <td>Seconds timestamp</td>
+        <td>X</td>
+        <td>1381685817, 1234567890.123</td>
+    </tr>
+    <tr class="row-odd">
+        <td>Microseconds timestamp</td>
+        <td>x</td>
+        <td>1234567890123</td>
+    </tr>
+    </tbody>
+</table>
+
+The file sinks
+
+If the sink is a [`str`](https://docs.python.org/3/library/stdtypes.html#str) or a [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path), the corresponding file will be opened for writing logs. The path can also contain a special `"{time}"` field that will be formatted with the current date at file creation.
+
+The `rotation` check is made before logging each message. If there is already an existing file with the same name that the file to be created, then the existing file is renamed by appending the date to its basename to prevent file overwriting. This parameter accepts:
+
+- an [`int`](https://docs.python.org/3/library/functions.html#int) which corresponds to the maximum file size in bytes before that the current logged file is closed and a new one started over.
+- a [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) which indicates the frequency of each new rotation.
+- a [`datetime.time`](https://docs.python.org/3/library/datetime.html#datetime.time) which specifies the hour when the daily rotation should occur.
+- a [`str`](https://docs.python.org/3/library/stdtypes.html#str) for human-friendly parametrization of one of the previously enumerated types. Examples: `"100 MB"`, `"0.5 GB"`, `"1 month 2 weeks"`, `"4 days"`, `"10h"`, `"monthly"`, `"18:00"`, `"sunday"`, `"w0"`, `"monday at 12:00"`, …
+- a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before logging. It should accept two arguments: the logged message and the file object, and it should return `True` if the rotation should happen now, `False` otherwise.
+
+The `retention` occurs at rotation or at sink stop if rotation is `None`. Files are selected if they match the pattern `"basename(.*).ext(.*)"` (possible time fields are beforehand replaced with `.*`) based on the sink file. This parameter accepts:
+
+- an [`int`](https://docs.python.org/3/library/functions.html#int) which indicates the number of log files to keep, while older files are removed.
+- a [`datetime.timedelta`](https://docs.python.org/3/library/datetime.html#datetime.timedelta) which specifies the maximum age of files to keep.
+- a [`str`](https://docs.python.org/3/library/stdtypes.html#str) for human-friendly parametrization of the maximum age of files to keep. Examples: `"1 week, 3 days"`, `"2 months"`, …
+- a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before the retention process. It should accept the list of log files as argument and process to whatever it wants (moving files, removing them, etc.).
+
+The `compression` happens at rotation or at sink stop if rotation is `None`. This parameter accepts:
+
+- a [`str`](https://docs.python.org/3/library/stdtypes.html#str) which corresponds to the compressed or archived file extension. This can be one of: `"gz"`, `"bz2"`, `"xz"`, `"lzma"`, `"tar"`, `"tar.gz"`, `"tar.bz2"`, `"tar.xz"`, `"zip"`.
+- a [`callable`](https://docs.python.org/3/library/functions.html#callable) which will be invoked before file termination. It should accept the path of the log file as argument and process to whatever it wants (custom compression, network sending, removing it, etc.).
+
+Either way, if you use a custom function designed according to your preferences, you must be very careful not to use the `logger` within your function. Otherwise, there is a risk that your program hang because of a deadlock.
+
+The color markups
+
+To add colors to your logs, you just have to enclose your format string with the appropriate tags (e.g. `<red>some message</red>`). These tags are automatically removed if the sink doesn’t support ansi codes. For convenience, you can use `</>` to close the last opening tag without repeating its name (e.g. `<red>another message</>`).
+
+The special tag `<level>` (abbreviated with `<lvl>`) is transformed according to the configured color of the logged message level.
+
+Tags which are not recognized will raise an exception during parsing, to inform you about possible misuse. If you wish to display a markup tag literally, you can escape it by prepending a `\` like for example `\<blue>`. If, for some reason, you need to escape a string programmatically, note that the regex used internally to parse markup tags is `r"\\?</?((?:[fb]g\s)?[^<>\s]*)>"`.
+
+Note that when logging a message with `opt(colors=True)`, color tags present in the formatting arguments (`args` and `kwargs`) are completely ignored. This is important if you need to log strings containing markups that might interfere with the color tags (in this case, do not use f-string).
+
+Here are the available tags (note that compatibility may vary depending on terminal):
+
+| Color (abbr) | Styles (abbr) |
+| :----------: | :-----------: |
+|  Black (k)   |   Bold (b)    |
+|   Blue (e)   |    Dim (d)    |
+|   Cyan (c)   |  Normal (n)   |
+|  Green (g)   |  Italic (i)   |
+| Magenta (m)  | Underline (u) |
+|   Red (r)    |  Strike (s)   |
+|  White (w)   |  Reverse (v)  |
+|  Yellow (y)  |   Blink (l)   |
+|              |   Hide (h)    |
+
+Usage:
+
+<table>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head" rowspan="2">Description</th>
+<th class="head" colspan="2">Examples</th>
+</tr>
+<tr class="row-even"><th class="head">Foreground</th>
+<th class="head">Background</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-odd"><td>Basic colors</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;red&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;r&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;GREEN&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;G&gt;</span></code></td>
+</tr>
+<tr class="row-even"><td>Light colors</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;light-blue&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;le&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;LIGHT-CYAN&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;LC&gt;</span></code></td>
+</tr>
+<tr class="row-odd"><td>8-bit colors</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;fg</span> <span class="pre">86&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;fg</span> <span class="pre">255&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;bg</span> <span class="pre">42&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;bg</span> <span class="pre">9&gt;</span></code></td>
+</tr>
+<tr class="row-even"><td>Hex colors</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;fg</span> <span class="pre">#00005f&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;fg</span> <span class="pre">#EE1&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;bg</span> <span class="pre">#AF5FD7&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;bg</span> <span class="pre">#fff&gt;</span></code></td>
+</tr>
+<tr class="row-odd"><td>RGB colors</td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;fg</span> <span class="pre">0,95,0&gt;</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">&lt;bg</span> <span class="pre">72,119,65&gt;</span></code></td>
+</tr>
+<tr class="row-even"><td>Stylizing</td>
+<td colspan="2"><code class="docutils literal notranslate"><span class="pre">&lt;bold&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;b&gt;</span></code>,  <code class="docutils literal notranslate"><span class="pre">&lt;underline&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">&lt;u&gt;</span></code></td>
+</tr>
+</tbody>
+
+The environment variables
+
+The default values of sink parameters can be entirely customized. This is particularly useful if you don’t like the log format of the pre-configured sink.
+
+Each of the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) default parameter can be modified by setting the `LOGURU_[PARAM]` environment variable. For example on Linux: `export LOGURU_FORMAT="{time} - {message}"` or `export LOGURU_DIAGNOSE=NO`.
+
+The default levels’ attributes can also be modified by setting the `LOGURU_[LEVEL]_[ATTR]` environment variable. For example, on Windows: `setx LOGURU_DEBUG_COLOR "<blue>"` or `setx LOGURU_TRACE_ICON "🚀"`. If you use the `set` command, do not include quotes but escape special symbol as needed, e.g. `set LOGURU_DEBUG_COLOR=^<blue^>`.
+
+If you want to disable the pre-configured sink, you can set the `LOGURU_AUTOINIT` variable to `False`.On Linux, you will probably need to edit the `~/.profile` file to make this persistent. On Windows, don’t forget to restart your terminal for the change to be taken into account.
+
+**Examples**
+
+```python
+>>> logger.add(sys.stdout, format="{time} - {level} - {message}", filter="sub.module")
+```
+
+```python
+>>> logger.add("file_{time}.log", level="TRACE", rotation="100 MB")
+```
+
+```python
+>>> def debug_only(record): 
+...     return record["level"].name == "DEBUG" 
+... 
+>>> logger.add("debug.log", filter=debug_only)  # Other levels are filtered out
+```
+
+```python
+>>> def my_sink(message): 
+...     record = message.record 
+...     update_db(message, time=record["time"], level=record["level"]) 
+... 
+>>> logger.add(my_sink)
+```
+
+```python
+>>> level_per_module = { 
+...     "": "DEBUG", 
+...     "third.lib": "WARNING", 
+...     "anotherlib": False 
+... } 
+>>> logger.add(lambda m: print(m, end=""), filter=level_per_module, level=0)
+```
+
+```python
+>>> async def publish(message): 
+...     await api.post(message) 
+... 
+>>> logger.add(publish, serialize=True)
+```
+
+```python
+>>> from logging import StreamHandler 
+>>> logger.add(StreamHandler(sys.stderr), format="{message}")
+```
+
+```python
+>>> class RandomStream:
+...     def __init__(self, seed, threshold): 
+...         self.threshold = threshold 
+...         random.seed(seed) 
+...     def write(self, message): 
+...         if random.random() > self.threshold: 
+...             print(message) 
+... 
+>>> stream_object = RandomStream(seed=12345, threshold=0.25) 
+>>> logger.add(stream_object, level="INFO") 
+```
+
+> `remove(handler_id=None)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.remove)
+
+Remove a previously added handler and stop sending logs to its sink.
+
+Parameters:    **handler_id** ([`int`](https://docs.python.org/3/library/functions.html#int) or `None`) – The id of the sink to remove, as it was returned by the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) method. If `None`, all handlers are removed. The pre-configured handler is guaranteed to have the index `0`.
+
+Raises:    [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) – If `handler_id` is not `None` but there is no active handler with such id.
+
+Examples
+
+```python
+>>> i = logger.add(sys.stderr, format="{message}") 
+>>> logger.info("Logging") 
+Logging 
+>>> logger.remove(i) 
+>>> logger.info("No longer logging") 
+```
+
+> `complete`()    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.complete)
+
+Wait for the end of enqueued messages and asynchronous tasks scheduled by handlers.
+
+This method proceeds in two steps: first it waits for all logging messages added to handlers with `enqueue=True` to be processed, then it returns an object that can be awaited to finalize all logging tasks added to the event loop by coroutine sinks.
+
+It can be called from non-asynchronous code. This is especially recommended when the `logger` is utilized with `multiprocessing` to ensure messages put to the internal queue have been properly transmitted before leaving a child process.
+
+The returned object should be awaited before the end of a coroutine executed by [`asyncio.run()`](https://docs.python.org/3/library/asyncio-task.html#asyncio.run) or [`loop.run_until_complete()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.loop.run_until_complete) to ensure all asynchronous logging messages are processed. The function [`asyncio.get_event_loop()`](https://docs.python.org/3/library/asyncio-eventloop.html#asyncio.get_event_loop) is called beforehand, only tasks scheduled in the same loop that the current one will be awaited by the method.
+
+Returns:    [awaitable](https://docs.python.org/3/glossary.html#term-awaitable) – An awaitable object which ensures all asynchronous logging calls are completed when awaited.
+
+Examples
+
+```python
+>>> async def sink(message): 
+...     await asyncio.sleep(0.1)  # IO processing... 
+...     print(message, end="") 
+... 
+>>> async def work(): 
+...     logger.info("Start") 
+...     logger.info("End") 
+...     await logger.complete() 
+... 
+>>> logger.add(sink) 
+1 
+>>> asyncio.run(work()) 
+Start 
+End 
+```
+
+```python
+>>> def process(): 
+...     logger.info("Message sent from the child") 
+...     logger.complete() 
+... 
+>>> logger.add(sys.stderr, enqueue=True) 
+1 
+>>> process = multiprocessing.Process(target=process) 
+>>> process.start() 
+>>> process.join() 
+Message sent from the child
+```
+
+> `catch(exception=<class 'Exception'>, *, level='ERROR', reraise=False, onerror=None, exclude=None, default=None, message="An error has been caught in function '{record[function]}', process '{record[process].name}' ({record[process].id}), thread '{record[thread].name}' ({record[thread].id}):")`     [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.catch)
+
+Return a decorator to automatically log possibly caught error in wrapped function.
+
+This is useful to ensure unexpected exceptions are logged, the entire program can be wrapped by this method. This is also very useful to decorate [`Thread.run()`](https://docs.python.org/3/library/threading.html#threading.Thread.run) methods while using threads to propagate errors to the main logger thread.
+
+Note that the visibility of variables values (which uses the great [`better_exceptions`](https://github.com/Qix-/better-exceptions) library from [@Qix-](https://github.com/Qix-)) depends on the `diagnose` option of each configured sink.
+
+The returned object can also be used as a context manager.
+
+Parameters:
+
+- **exception** ([`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – The type of exception to intercept. If several types should be caught, a tuple of exceptions can be used too.
+- **level** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`int`](https://docs.python.org/3/library/functions.html#int), optional) – The level name or severity with which the message should be logged.
+- **reraise** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Whether the exception should be raised again and hence propagated to the caller.
+- **onerror** ([`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A function that will be called if an error occurs, once the message has been logged. It should accept the exception instance as it sole argument.
+- **exclude** ([`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – A type of exception (or a tuple of types) that will be purposely ignored and hence propagated to the caller without being logged.
+- **default** (*optional*) – The value to be returned by the decorated function if an error occurred without being re-raised.
+- **message** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), optional) – The message that will be automatically logged if an exception occurs. Note that it will be formatted with the `record` attribute.
+
+Returns:    [decorator](https://docs.python.org/3/glossary.html#term-decorator) / [context manager](https://docs.python.org/3/glossary.html#term-context-manager) – An object that can be used to decorate a function or as a context manager to log exceptions possibly caught.
+
+Examples
+
+```python
+>>> @logger.catch 
+... def f(x): 
+...     100 / x 
+... 
+>>> def g(): 
+...     f(10) 
+...     f(0) 
+... 
+>>> g() 
+ERROR - An error has been caught in function 'g', process 'Main' (367), thread 'ch1' (1398): 
+Traceback (most recent call last):  
+    File "program.py", line 12, in <module>    
+    g()    
+    └ <function g at 0x7f225fe2bc80> 
+> File "program.py", line 10, in g    
+    f(0)    
+    └ <function f at 0x7f225fe2b9d8>  
+  File "program.py", line 6, in f    
+    100 / x          
+          └ 0 
+ZeroDivisionError: division by zero 
+```
+
+```python
+>>> with logger.catch(message="Because we never know..."): 
+...    main()  # No exception, no logs 
+```
+
+```python
+>>> # Use 'onerror' to prevent the program exit code to be 0 (if 'reraise=False') while 
+>>> # also avoiding the stacktrace to be duplicated on stderr (if 'reraise=True'). 
+>>> @logger.catch(onerror=lambda _: sys.exit(1)) 
+... def main(): 
+...     1 / 0 
+```
+
+> opt(*, exception=None, record=False, lazy=False, colors=False, raw=False, capture=True, depth=0, ansi=False)    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.opt)
+
+Parametrize a logging call to slightly change generated log message.
+
+Note that it’s not possible to chain [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) calls, the last one takes precedence over the others as it will “reset” the options to their default values.
+
+Parameters:
+
+- **exception** ([`bool`](https://docs.python.org/3/library/functions.html#bool), [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple) or [`Exception`](https://docs.python.org/3/library/exceptions.html#Exception), optional) – If it does not evaluate as `False`, the passed exception is formatted and added to the log message. It could be an [`Exception`](https://docs.python.org/3/library/exceptions.html#Exception) object or a `(type, value, traceback)` tuple, otherwise the exception information is retrieved from [`sys.exc_info()`](https://docs.python.org/3/library/sys.html#sys.exc_info).
+- **record** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the record dict contextualizing the logging call can be used to format the message by using `{record[key]}` in the log message.
+- **lazy** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the logging call attribute to format the message should be functions which will be called only if the level is high enough. This can be used to avoid expensive functions if not necessary.
+- **colors** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, logged message will be colorized according to the markups it possibly contains.
+- **raw** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `True`, the formatting of each sink will be bypassed and the message will be sent as is.
+- **capture** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – If `False`, the `**kwargs` of logged message will not automatically populate the `extra` dict (although they are still used for formatting).
+- **depth** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – Specify which stacktrace should be used to contextualize the logged message. This is useful while using the logger from inside a wrapped function to retrieve worthwhile information.
+- **ansi** ([`bool`](https://docs.python.org/3/library/functions.html#bool), optional) – Deprecated since version 0.4.1: the `ansi` parameter will be removed in Loguru 1.0.0, it is replaced by `colors` which is a more appropriate name.
+
+Returns:    [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but transforming logged message adequately before sending.
+
+Examples
+
+```python
+>>> try: 
+...     1 / 0 
+... except ZeroDivisionError: 
+...    logger.opt(exception=True).debug("Exception logged with debug level:") 
+... 
+[18:10:02] DEBUG in '<module>' - Exception logged with debug level: 
+Traceback (most recent call last, catch point marked): 
+> File "<stdin>", line 2, in <module> 
+ZeroDivisionError: division by zero 
+```
+
+```python
+>>> logger.opt(record=True).info("Current line is: {record[line]}") 
+[18:10:33] INFO in '<module>' - Current line is: 1 
+```
+
+```python
+>>> logger.opt(lazy=True).debug("If sink <= DEBUG: {x}", x=lambda: math.factorial(2**5)) 
+[18:11:19] DEBUG in '<module>' - If sink <= DEBUG: 263130836933693530167218012160000000 
+```
+
+```python
+>>> logger.opt(colors=True).warning("We got a <red>BIG</red> problem") 
+[18:11:30] WARNING in '<module>' - We got a BIG problem 
+```
+
+```python
+>>> logger.opt(raw=True).debug("No formatting\n") 
+No formatting 
+```
+
+```python
+>>> logger.opt(capture=False).info("Displayed but not captured: {value}", value=123) 
+[18:11:41] Displayed but not captured: 123 
+```
+
+```python
+>>> def wrapped(): 
+...     logger.opt(depth=1).info("Get parent context") 
+... 
+>>> def func(): 
+...     wrapped() 
+... 
+>>> func() 
+[18:11:54] DEBUG in 'func' - Get parent context
+```
+
+
+
+> `bind(**kwargs)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.bind)
+
+ Bind attributes to the `extra` dict of each logged message record.
+
+This is used to add custom context to each logging call.
+
+Parameters:    ***\*kwargs** – Mapping between keys and values that will be added to the `extra` dict.
+
+Returns:    [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but which sends record with the customized `extra` dict.
+
+Examples
+
+```python
+>>> logger.add(sys.stderr, format="{extra[ip]} - {message}") 
+>>> class Server: 
+...     def __init__(self, ip): 
+...         self.ip = ip 
+...         self.logger = logger.bind(ip=ip) 
+...     def call(self, message): 
+...         self.logger.info(message) 
+... 
+>>> instance_1 = Server("192.168.0.200") 
+>>> instance_2 = Server("127.0.0.1") 
+>>> instance_1.call("First instance") 
+192.168.0.200 - First instance 
+>>> instance_2.call("Second instance") 
+127.0.0.1 - Second instance ``
+```
+
+
+
+> `contextualize(**kwds)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.contextualize)
+
+Bind attributes to the context-local `extra` dict while inside the `with` block.
+
+Contrary to [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) there is no `logger` returned, the `extra` dict is modified in-place and updated globally. Most importantly, it uses [`contextvars`](https://docs.python.org/3/library/contextvars.html#module-contextvars) which means that contextualized values are unique to each threads and asynchronous tasks.
+
+The `extra` dict will retrieve its initial state once the context manager is exited.
+
+Parameters:    ***\*kwargs** – Mapping between keys and values that will be added to the context-local `extra` dict.
+
+Returns:    [context manager](https://docs.python.org/3/glossary.html#term-context-manager) / [decorator](https://docs.python.org/3/glossary.html#term-decorator) – A context manager (usable as a decorator too) that will bind the attributes once entered and restore the initial state of the `extra` dict while exited.
+
+Examples
+
+```python
+>>> logger.add(sys.stderr, format="{message} | {extra}") 1 
+>>> def task(): 
+...     logger.info("Processing!") 
+... 
+>>> with logger.contextualize(task_id=123): 
+...     task() 
+... 
+Processing! | {'task_id': 123} 
+>>> logger.info("Done.") 
+Done. | {} 
+```
+
+> `patch(patcher)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.patch)
+
+Attach a function to modify the record dict created by each logging call.
+
+The `patcher` may be used to update the record on-the-fly before it’s propagated to the handlers. This allows the “extra” dict to be populated with dynamic values and also permits advanced modifications of the record emitted while logging a message. The function is called once before sending the log message to the different handlers.
+
+It is recommended to apply modification on the `record["extra"]` dict rather than on the `record` dict itself, as some values are used internally by Loguru, and modify them may produce unexpected results.
+
+Parameters:    **patcher** ([`callable`](https://docs.python.org/3/library/functions.html#callable)) – The function to which the record dict will be passed as the sole argument. This function is in charge of updating the record in-place, the function does not need to return any value, the modified record object will be re-used.
+
+Returns:    [`Logger`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger) – A logger wrapping the core logger, but which records are passed through the `patcher` function before being sent to the added handlers.
+
+Examples
+
+```python
+>>> logger.add(sys.stderr, format="{extra[utc]} {message}") 
+>>> logger = logger.patch(lambda record: record["extra"].update(utc=datetime.utcnow()) 
+>>> logger.info("That's way, you can log messages with time displayed in UTC") 
+```
+
+```python
+>>> def wrapper(func): 
+...     @functools.wraps(func) 
+...     def wrapped(*args, **kwargs): 
+...         logger.patch(lambda r: r.update(function=func.__name__)).info("Wrapped!") 
+...         return func(*args, **kwargs) 
+...     return wrapped 
+```
+
+```python
+>>> def recv_record_from_network(pipe): 
+...     record = pickle.loads(pipe.read()) 
+...     level, message = record["level"], record["message"] 
+...     logger.patch(lambda r: r.update(record)).log(level, message)
+```
+
+> `level(name, no=None, color=None, icon=None)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.level)
+
+Add, update or retrieve a logging level.
+
+Logging levels are defined by their `name` to which a severity `no`, an ansi `color` tag and an `icon` are associated and possibly modified at run-time. To [`log()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.log) to a custom level, you should necessarily use its name, the severity number is not linked back to levels name (this implies that several levels can share the same severity).
+
+To add a new level, its `name` and its `no` are required. A `color` and an `icon` can also be specified or will be empty by default.
+
+To update an existing level, pass its `name` with the parameters to be changed. It is not possible to modify the `no` of a level once it has been added.
+
+To retrieve level information, the `name` solely suffices.
+
+Parameters:
+
+- **name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The name of the logging level.
+- **no** ([`int`](https://docs.python.org/3/library/functions.html#int)) – The severity of the level to be added or updated.
+- **color** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The color markup of the level to be added or updated.
+- **icon** ([`str`](https://docs.python.org/3/library/stdtypes.html#str)) – The icon of the level to be added or updated.
+
+Returns:    `Level` – A [`namedtuple`](https://docs.python.org/3/library/collections.html#collections.namedtuple) containing information about the level.
+
+Raises:    [**ValueError**](https://docs.python.org/3/library/exceptions.html#ValueError) – If there is no level registered with such `name`.
+
+Examples
+
+```python
+>>> level = logger.level("ERROR") 
+>>> print(level) 
+Level(name='ERROR', no=40, color='<red><bold>', icon='❌') 
+>>> logger.add(sys.stderr, format="{level.no} {level.icon} {message}") 
+1 
+>>> logger.level("CUSTOM", no=15, color="<blue>", icon="@") 
+Level(name='CUSTOM', no=15, color='<blue>', icon='@') 
+>>> logger.log("CUSTOM", "Logging...") 
+15 @ Logging... 
+>>> logger.level("WARNING", icon=r"/!\") 
+Level(name='WARNING', no=30, color='<yellow><bold>', icon='/!\\') 
+>>> logger.warning("Updated!") 
+30 /!\ Updated!
+```
+
+> disable(name)    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.disable)
+
+Disable logging of messages coming from `name` module and its children.
+
+Developers of library using Loguru should absolutely disable it to avoid disrupting users with unrelated logs messages.
+
+Note that in some rare circumstances, it is not possible for Loguru to determine the module’s `__name__` value. In such situation, `record["name"]` will be equal to `None`, this is why `None` is also a valid argument.
+
+Parameters:    **name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or `None`) – The name of the parent module to disable.
+
+Examples
+
+```python
+>>> logger.info("Allowed message by default") 
+[22:21:55] Allowed message by default 
+>>> logger.disable("my_library") 
+>>> logger.info("While publishing a library, don't forget to disable logging")
+```
+
+> enable(name)    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.enable)
+
+Enable logging of messages coming from `name` module and its children.
+
+Logging is generally disabled by imported library using Loguru, hence this function allows users to receive these messages anyway.
+
+To enable all logs regardless of the module they are coming from, an empty string <kbd><font color=red>`""`</font></kbd> can be passed.
+
+Parameters:    **name** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or `None`) – The name of the parent module to re-allow.
+
+Examples
+
+```python
+>>> logger.disable("__main__") 
+>>> logger.info("Disabled, so nothing is logged.") 
+>>> logger.enable("__main__") 
+>>> logger.info("Re-enabled, messages are logged.") 
+[22:46:12] Re-enabled, messages are logged.
+```
+
+> `configure(*, handlers=None, levels=None, extra=None, patcher=None, activation=None)`    [source](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.configure)
+
+Configure the core logger.
+
+It should be noted that `extra` values set using this function are available across all modules, so this is the best way to set overall default values.
+
+Parameters:
+
+- **handlers** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A list of each handler to be added. The list should contain dicts of params passed to the [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) function as keyword arguments. If not `None`, all previously added handlers are first removed.
+- **levels** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A list of each level to be added or updated. The list should contain dicts of params passed to the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) function as keyword arguments. This will never remove previously created levels.
+- **extra** ([`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A dict containing additional parameters bound to the core logger, useful to share common properties if you call [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) in several of your files modules. If not `None`, this will remove previously configured `extra` dict.
+- **patcher** ([`callable`](https://docs.python.org/3/library/functions.html#callable), optional) – A function that will be applied to the record dict of each logged messages across all modules using the logger. It should modify the dict in-place without returning anything. The function is executed prior to the one possibly added by the [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) method. If not `None`, this will replace previously configured `patcher` function.
+- **activation** ([`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`tuple`](https://docs.python.org/3/library/stdtypes.html#tuple), optional) – A list of `(name, state)` tuples which denotes which loggers should be enabled (if `state` is `True`) or disabled (if `state` is `False`). The calls to [`enable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.enable) and [`disable()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.disable) are made accordingly to the list order. This will not modify previously activated loggers, so if you need a fresh start prepend your list with `("", False)` or `("", True)`.
+
+Returns:    [`list`](https://docs.python.org/3/library/stdtypes.html#list) of [`int`](https://docs.python.org/3/library/functions.html#int) – A list containing the identifiers of added sinks (if any).
+
+Examples
+
+```python
+>>> logger.configure( 
+...     handlers=[ 
+...         dict(sink=sys.stderr, format="[{time}] {message}"), 
+...         dict(sink="file.log", enqueue=True, serialize=True), 
+...     ], 
+...     levels=[dict(name="NEW", no=13, icon="¤", color="")], 
+...     extra={"common_to_all": "default"}, 
+...     patcher=lambda record: record["extra"].update(some_value=42), 
+...     activation=[("my_module.secret", False), ("another_library.module", True)], ... ) 
+[1, 2] 
+```
+
+```python
+>>> # Set a default "extra" dict to logger across all modules, without "bind()" 
+>>> extra = {"context": "foo"} 
+>>> logger.configure(extra=extra) 
+>>> logger.add(sys.stderr, format="{extra[context]} - {message}") 
+>>> logger.info("Context without bind") 
+>>> # => "foo - Context without bind" 
+>>> logger.bind(context="bar").info("Suppress global context") 
+>>> # => "bar - Suppress global context"
+```
+
+
+
+> static `parse(file, pattern, *, cast={}, chunk=65536)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.parse)
+
+Parse raw logs and extract each entry as a [`dict`](https://docs.python.org/3/library/stdtypes.html#dict).
+
+The logging format has to be specified as the regex `pattern`, it will then be used to parse the `file` and retrieve each entry based on the named groups present in the regex.
+
+Parameters:
+
+- **file** ([`str`](https://docs.python.org/3/library/stdtypes.html#str), [`pathlib.Path`](https://docs.python.org/3/library/pathlib.html#pathlib.Path) or [`file-like object`](https://docs.python.org/3/glossary.html#term-file-object)) – The path of the log file to be parsed, or an already opened file object.
+- **pattern** ([`str`](https://docs.python.org/3/library/stdtypes.html#str) or [`re.Pattern`](https://docs.python.org/3/library/re.html#re-objects)) – The regex to use for logs parsing, it should contain named groups which will be included in the returned dict.
+- **cast** ([`callable`](https://docs.python.org/3/library/functions.html#callable) or [`dict`](https://docs.python.org/3/library/stdtypes.html#dict), optional) – A function that should convert in-place the regex groups parsed (a dict of string values) to more appropriate types. If a dict is passed, it should be a mapping between keys of parsed log dict and the function that should be used to convert the associated value.
+- **chunk** ([`int`](https://docs.python.org/3/library/functions.html#int), optional) – The number of bytes read while iterating through the logs, this avoids having to load the whole file in memory.
+
+Yields:    [`dict`](https://docs.python.org/3/library/stdtypes.html#dict) – The dict mapping regex named groups to matched values, as returned by [`re.Match.groupdict()`](https://docs.python.org/3/library/re.html#re.Match.groupdict) and optionally converted according to `cast` argument.
+
+Examples
+
+```python
+>>> reg = r"(?P<lvl>[0-9]+): (?P<msg>.*)"    # If log format is "{level.no} - {message}" 
+>>> for e in logger.parse("file.log", reg):  # A file line could be "10 - A debug message" 
+...     print(e)                             # => {'lvl': '10', 'msg': 'A debug message'} 
+```
+
+```python
+>>> caster = dict(lvl=int)                   # Parse 'lvl' key as an integer 
+>>> for e in logger.parse("file.log", reg, cast=caster): 
+...     print(e)                             # => {'lvl': 10, 'msg': 'A debug message'} 
+```
+
+```python
+>>> def cast(groups): 
+...     if "date" in groups: 
+...         groups["date"] = datetime.strptime(groups["date"], "%Y-%m-%d %H:%M:%S") 
+... 
+>>> with open("file.log") as file: 
+...     for log in logger.parse(file, reg, cast=cast): 
+...         print(log["date"], log["something_else"]) ``
+```
+
+> `trace(_Logger__message, *args, **kwargs)`    [
+
+Log `message.format(*args, **kwargs)` with severity `'TRACE'`.
+
+> `debug(_Logger__message, *args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.debug)
+
+Log `message.format(*args, **kwargs)` with severity `'DEBUG'`.
+
+> `info(_Logger__message, *args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.info)
+
+Log `message.format(*args, **kwargs)` with severity `'INFO'`.
+
+> `success(_Logger__message, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.success)
+
+Log `message.format(*args, **kwargs)` with severity `'SUCCESS'`.
+
+> `warning(_Logger__message, *args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.warning)
+
+Log `message.format(*args, **kwargs)` with severity `'WARNING'`.
+
+> `error(_Logger__message, *args, **kwargs) `   [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.error)
+
+Log `message.format(*args, **kwargs)` with severity `'ERROR'`.
+
+> `critical(_Logger__message, *args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.critical)
+
+Log `message.format(*args, **kwargs)` with severity `'CRITICAL'`.
+
+> `exception(_Logger__message, *args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.exception)
+
+Convenience method for logging an `'ERROR'` with exception information.
+
+> `log(_Logger__level, _Logger__message, **args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.log)
+
+Log `message.format(*args, **kwargs)` with severity `level`.
+
+> `start(*args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.start)
+
+Deprecated function to [`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) a new handler.
+
+> Warning
+>
+> ---
+>
+> *Deprecated since version 0.2.2:* `start()` will be removed in Loguru 1.0.0, it is replaced by `add()` which is a less confusing name.
+
+> `stop(*args, **kwargs)`    [[source\]](https://loguru.readthedocs.io/en/stable/_modules/loguru/_logger.html#Logger.stop)    
+
+Deprecated function to [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) an existing handler.
+
+> Warning
+>
+> ---
+>
+> *Deprecated since version 0.2.2:* `stop()` will be removed in Loguru 1.0.0, it is replaced by `remove()` which is a less confusing name.
 
 
 
