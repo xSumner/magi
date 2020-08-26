@@ -2132,7 +2132,7 @@ Loguru relies on a [stub file](https://www.python.org/dev/peps/pep-0484/#stub-fi
 
 A basic usage example could look like this:
 
-```
+```python
 from __future__ import annotations
 
 import loguru
@@ -2145,6 +2145,9 @@ def bad_filter(record: loguru.Record):
     return record["invalid"]
 
 logger.add(good_sink, filter=bad_filter)
+```
+
+```python
 $ mypy test.py
 test.py:8: error: TypedDict "Record" has no key 'invalid'
 Found 1 error in 1 file (checked 1 source file)
@@ -2206,9 +2209,9 @@ See also: [Source code for type hints](https://loguru.readthedocs.io/en/stable/a
 
 
 
-# Switching from standard `logging` to `loguru`
+# Switching from standard <kbd><font color=red>`logging`</font></kbd> to  <kbd><font color=red>`loguru`</font></kbd>
 
-## Fundamental differences between `logging` and `loguru`
+## Fundamental differences between <kbd><font color=red>`logging`</font></kbd> and <kbd><font color=red>`loguru`</font></kbd>
 
 Although `loguru` is written “from scratch” and does not rely on standard `logging` internally, both libraries serve the same purpose: provide functionalities to implement a flexible event logging system. The main difference is that standard `logging` requires the user to explicitly instantiate named `Logger` and configure them with `Handler`, `Formatter` and `Filter`, while `loguru` tries to narrow down the amount of configuration steps.
 
@@ -2234,7 +2237,7 @@ For example, by calling `other_logger = logger.bind(name="other")`, each [messag
 
 Let suppose you want a sink to log only some very specific messages:
 
-```
+```python
 def specific_only(record):
     return "specific" in record["extra"]
 
@@ -2248,7 +2251,7 @@ specific_logger.info("Module message")  # This is accepted by the specific sink 
 
 Another example, if you want to attach one sink to one named logger:
 
-```
+```python
 # Only write messages from "a" logger
 logger.add("a.log", filter=lambda record: record["extra"].get("name") == "a")
 # Only write messages from "b" logger
@@ -2271,7 +2274,7 @@ Note that you don’t necessarily need to replace your [`Handler`](https://docs.
 
 In short, you can replace:
 
-```
+```python
 logger.setLevel(logging.DEBUG)
 
 fh = logging.FileHandler("spam.log")
@@ -2290,7 +2293,7 @@ logger.addHandler(ch)
 
 With:
 
-```
+```python
 fmt = "{time} - {name} - {level} - {message}"
 logger.add("spam.log", level="DEBUG", format=fmt)
 logger.add(sys.stderr, level="ERROR", format=fmt)
@@ -2316,7 +2319,7 @@ The formatted exception will include the whole stacktrace and variables. To prev
 
 To pass contextual information to log messages, replace `extra` by inlining [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) method:
 
-```
+```python
 context = {"clientip": "192.168.0.1", "user": "fbloggs"}
 
 logger.info("Protocol problem", extra=context)   # Standard logging
@@ -2325,14 +2328,14 @@ logger.bind(**context).info("Protocol problem")  # Loguru
 
 This will add context information to the `record["extra"]` dict of your logged message, so make sure to configure your handler format adequately:
 
-```
+```python
 fmt = "%(asctime)s %(clientip)s %(user)s %(message)s"     # Standard logging
 fmt = "{time} {extra[clientip]} {extra[user]} {message}"  # Loguru
 ```
 
 You can also replace [`LoggerAdapter`](https://docs.python.org/3/library/logging.html#logging.LoggerAdapter) by calling `logger = logger.bind(clientip="192.168.0.1")` before using it, or by assigning the bound logger to a class instance:
 
-```
+```python
 class MyClass:
 
     def __init__(self, clientip):
@@ -2346,14 +2349,14 @@ class MyClass:
 
 If you wish to log useful information for your debug logs, but don’t want to pay the performance penalty in release mode while no debug handler is configured, standard logging provides the [`isEnabledFor()`](https://docs.python.org/3/library/logging.html#logging.Logger.isEnabledFor) method:
 
-```
+```python
 if logger.isEnabledFor(logging.DEBUG):
     logger.debug("Message data: %s", expensive_func())
 ```
 
 You can replace this with the [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) method and `lazy` option:
 
-```
+```python
 # Arguments should be functions which will be called if needed
 logger.opt(lazy=True).debug("Message data: {}", expensive_func)
 ```
@@ -2362,14 +2365,14 @@ logger.opt(lazy=True).debug("Message data: {}", expensive_func)
 
 To add a new custom level, you can replace [`addLevelName()`](https://docs.python.org/3/library/logging.html#logging.addLevelName) with the [`level()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.level) function:
 
-```
+```python
 logging.addLevelName(33, "CUSTOM")                       # Standard logging
 logger.level("CUSTOM", no=45, color="<red>", icon="🚨")  # Loguru
 ```
 
 The same function can be used to replace [`getLevelName()`](https://docs.python.org/3/library/logging.html#logging.getLevelName):
 
-```
+```python
 logger.getLevelName(33)  # => "CUSTOM"
 logger.level("CUSTOM")   # => (name='CUSTOM', no=33, color="<red>", icon="🚨")
 ```
@@ -2386,7 +2389,7 @@ This does not accept `config.ini` files, though, so you have to handle that your
 
 [`pytest`](https://docs.pytest.org/en/latest/) is a very common testing framework. The [`caplog`](https://docs.pytest.org/en/latest/logging.html?highlight=caplog#caplog-fixture) fixture captures logging output so that it can be tested against. For example:
 
-```
+```python
 # `some_func` adds two numbers, and logs a warning if the first is < 1
 def test_some_func_logs_warning(caplog):
     assert some_func(-1, 3) == 2
@@ -2397,7 +2400,7 @@ If you’ve followed all the migration guidelines thus far, you’ll notice that
 
 So to fix things, we need to add a sink that propogates Loguru to `logging`. This is done on the fixture itself by mokeypatching [`caplog`](https://docs.pytest.org/en/latest/logging.html?highlight=caplog#caplog-fixture). In your `conftest.py` file, add the following:
 
-```
+```python
 import logging
 import pytest
 from _pytest.logging import caplog as _caplog
@@ -2424,7 +2427,7 @@ Once a handler has been added, it is actually not possible to update it. This is
 
 The most straightforward workaround is to [`remove()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove) your handler and then re-[`add()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add) it with the updated `level` parameter. To do so, you have to keep a reference to the identifier number returned while adding a handler:
 
-```
+```python
 handler_id = logger.add(sys.stderr, level="WARNING")
 
 logger.info("Logging 'WARNING' or higher messages only")
@@ -2439,7 +2442,7 @@ logger.debug("Logging 'DEBUG' messages too")
 
 Alternatively, you can combine the [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) method with the `filter` argument to provide a function dynamically filtering logs based on their level:
 
-```
+```python
 def my_filter(record):
     if record["extra"].get("warn_only"):  # "warn_only" is bound to the logger and set to 'True'
         return record["level"].no >= logger.level("WARNING").no
@@ -2459,7 +2462,7 @@ logger.debug("Back to debug messages")
 
 Finally, more advanced control over handler’s level can be achieved by using a callable object as the `filter`:
 
-```
+```python
 class MyFilter:
 
     def __init__(self, level):
@@ -2485,7 +2488,7 @@ It is possible to transmit logs between different processes and even between dif
 
 This can be achieved using a custom sink for the client and [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) for the server.
 
-```
+```python
 # client.py
 import sys
 import socket
@@ -2513,6 +2516,9 @@ logger.configure(handlers=[{"sink": SocketHandler('localhost', 9999)}])
 while 1:
     time.sleep(1)
     logger.info("Sending message from the client")
+```
+
+```python
 # server.py
 import socketserver
 import pickle
@@ -2548,7 +2554,7 @@ When you write a log message, the handler may need to encode the received [unico
 
 For example, this may happen while printing to the terminal:
 
-```
+```python
 print("天")
 # UnicodeEncodeError: 'charmap' codec can't encode character '\u5929' in position 0: character maps to <undefined>
 ```
@@ -2569,7 +2575,7 @@ For other types of handlers, you have to check if there is a way to parametrize 
 
 In some cases, it might be useful to log entry and exit values of a function. Although Loguru doesn’t provide such feature out of the box, it can be easily implemented by using Python decorators:
 
-```
+```python
 import functools
 from loguru import logger
 
@@ -2596,7 +2602,7 @@ def logger_wraps(*, entry=True, exit=True, level="DEBUG"):
 
 You could then use it like this:
 
-```
+```python
 @logger_wraps()
 def foo(a, b, c):
     logger.info("Inside the function")
@@ -2610,7 +2616,7 @@ bar()
 
 Which would result in:
 
-```
+```python
 2019-04-07 11:08:44.198 | DEBUG    | __main__:bar:30 - Entering 'foo' (args=(2, 4), kwargs={'c': 8})
 2019-04-07 11:08:44.198 | INFO     | __main__:foo:26 - Inside the function
 2019-04-07 11:08:44.198 | DEBUG    | __main__:bar:30 - Exiting 'foo' (result=64)
@@ -2618,7 +2624,7 @@ Which would result in:
 
 Here is another simple example to record timing of a function:
 
-```
+```python
 def timeit(func):
 
     def wrapped(*args, **kwargs):
@@ -2635,7 +2641,7 @@ def timeit(func):
 
 After adding a new level, it’s habitually used with the [`log()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.log) function:
 
-```
+```python
 logger.level("foobar", no=33, icon="🤖", color="<blue>")
 
 logger.log("foobar", "A message")
@@ -2643,7 +2649,7 @@ logger.log("foobar", "A message")
 
 For convenience, one can assign a new logging function which automatically uses the custom added level:
 
-```
+```python
 from functools import partialmethod
 
 logger.__class__.foobar = partialmethod(logger.__class__.log, "foobar")
@@ -2657,7 +2663,7 @@ The new method need to be added only once and will be usable across all your fil
 
 Supposing you wish to color each of your log messages without having to call `logger.opt(colors=True)` every time, you can add this at the very beginning of your module:
 
-```
+```python
 logger = logger.opt(colors=True)
 
 logger.info("It <green>works</>!")
@@ -2665,7 +2671,7 @@ logger.info("It <green>works</>!")
 
 However, it should be noted that it’s not possible to chain [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) calls, using this method again will reset the `colors` option to its default value (which is `False`). For this reason, it is also necessary to patch the [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) method so that all subsequent calls continue to use the desired value:
 
-```
+```python
 from functools import partial
 
 logger = logger.opt(colors=True)
@@ -2678,7 +2684,7 @@ logger.opt(raw=True).info("It <green>still</> works!\n")
 
 Each handler added with `serialize=True` will create messages by converting the logging record to a valid JSON string. Depending on the sink for which the messages are intended, it may be useful to make changes to the generated string. Instead of using the `serialize` parameter, you can implement your own serialization function and use it directly in your sink:
 
-```
+```python
 def serialize(record):
     subset = {"timestamp": record["time"].timestamp(), "message": record["message"]}
     return json.dumps(subset)
@@ -2692,7 +2698,7 @@ logger.add(sink)
 
 If you need to send structured logs to a file (or any kind of sink in general), a similar result can be obtained by using a custom `format` function:
 
-```
+```python
 def formatter(record):
     # Note this function returns the string to be formatted, not the actual message to be logged
     record["extra"]["serialized"] = serialize(record)
@@ -2703,7 +2709,7 @@ logger.add("file.log", format=formatter)
 
 You can also use [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) for this, so the serialization function will be called only once in case you want to use it in multiple sinks:
 
-```
+```python
 def patching(record):
     record["extra"]["serialized"] = serialize(record)
 
@@ -2718,7 +2724,7 @@ logger.add("file.log", format="{extra[serialized]}")
 
 The `rotation` argument of file sinks accept size or time limits but not both for simplification reasons. However, it is possible to create a custom function to support more advanced scenarios:
 
-```
+```python
 import datetime
 
 class Rotator:
@@ -2754,14 +2760,14 @@ The default formatter is unable to vertically align log messages because the len
 
 One workaround consists of using padding with some maximum value that should suffice most of the time, like this for example:
 
-```
+```python
 fmt = "{time} | {level: <8} | {name: ^15} | {function: ^15} | {line: >3} | {message}"
 logger.add(sys.stderr, format=fmt)
 ```
 
 Others solutions are possible by using a formatting function or class. For example, it is possible to dynamically adjust the padding length based on previously encountered values:
 
-```
+```python
 class Formatter:
 
     def __init__(self):
@@ -2784,7 +2790,7 @@ logger.add(sys.stderr, format=formatter.format)
 
 Loguru will automatically add the traceback of occurring exception while using `logger.exception()` or `logger.opt(exception=True)`:
 
-```
+```python
 def inverse(x):
     try:
         1 / x
@@ -2793,6 +2799,9 @@ def inverse(x):
 
 if __name__ == "__main__":
     inverse(0)
+```
+
+```python
 2019-11-15 10:01:13.703 | ERROR    | __main__:inverse:8 - Oups...
 Traceback (most recent call last):
 File "foo.py", line 6, in inverse
@@ -2802,7 +2811,7 @@ ZeroDivisionError: division by zero
 
 If the handler is added with `backtrace=True`, the traceback is extended to see where the exception came from:
 
-```
+```python
 2019-11-15 10:11:32.829 | ERROR    | __main__:inverse:8 - Oups...
 Traceback (most recent call last):
   File "foo.py", line 16, in <module>
@@ -2814,7 +2823,7 @@ ZeroDivisionError: division by zero
 
 If the handler is added with `diagnose=True`, then the traceback is annotated to see what caused the problem:
 
-```
+```python
 Traceback (most recent call last):
 
 File "foo.py", line 6, in inverse
@@ -2826,7 +2835,7 @@ ZeroDivisionError: division by zero
 
 It is possible to further personalize the formatting of exception by adding an handler with a custom `format` function. For example, supposing you want to format errors using the [`stackprinter`](https://github.com/cknd/stackprinter) library:
 
-```
+```python
 import stackprinter
 
 def format(record):
@@ -2839,6 +2848,9 @@ def format(record):
     return format_
 
 logger.add(sys.stderr, format=format)
+```
+
+```python
 2019-11-15T10:46:18.059964+0100 Oups...
 File foo.py, line 17, in inverse
     15   def inverse(x):
@@ -2852,11 +2864,13 @@ File foo.py, line 17, in inverse
 ZeroDivisionError: division by zero
 ```
 
+
+
 ## Displaying a stacktrace without using the error context
 
 It may be useful in some cases to display the traceback at the time your message is logged, while no exceptions have been raised. Although this feature is not built-in into Loguru as it is more related to debugging than logging, it is possible to [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) your logger and then display the stacktrace as needed (using the [`traceback`](https://docs.python.org/3/library/traceback.html#module-traceback) module):
 
-```
+```python
 import traceback
 
 def add_traceback(record):
@@ -2875,7 +2889,7 @@ logger.bind(with_traceback=True).info("With traceback")
 
 Here is another example that demonstrates how to prefix the logged message with the full call stack:
 
-```
+```python
 import traceback
 from itertools import takewhile
 
@@ -2903,7 +2917,7 @@ bar()
 
 You can temporarily log a message on a continuous line by combining the use of [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind), [`opt()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.opt) and a custom `format` function. This is especially useful if you want to illustrate a step-by-step process in progress, for example:
 
-```
+```python
 def formatter(record):
     end = record["extra"].get("end", "\n")
     return "[{time}] {message}" + end + "{exception}"
@@ -2929,7 +2943,7 @@ Note, however, that you may encounter difficulties depending on the sinks you us
 
 The use of logging should be privileged over [`print()`](https://docs.python.org/3/library/functions.html#print), yet, it may happen that you don’t have plain control over code executed in your application. If you wish to capture standard output, you can suppress [`sys.stdout`](https://docs.python.org/3/library/sys.html#sys.stdout) (and [`sys.stderr`](https://docs.python.org/3/library/sys.html#sys.stderr)) with a custom stream object using [`contextlib.redirect_stdout()`](https://docs.python.org/3/library/contextlib.html#contextlib.redirect_stdout). You have to take care of first removing the default handler, and not adding a new stdout sink once redirected or that would cause dead lock (you may use [`sys.__stdout__`](https://docs.python.org/3/library/sys.html#sys.__stdout__) instead):
 
-```
+```python
 import contextlib
 import sys
 from loguru import logger
@@ -2956,7 +2970,7 @@ with contextlib.redirect_stdout(stream):
 
 You may also capture warnings emitted by your application by replacing [`warnings.showwarning()`](https://docs.python.org/3/library/warnings.html#warnings.showwarning):
 
-```
+```python
 import warnings
 from loguru import logger
 
@@ -2975,7 +2989,7 @@ Loguru makes use of the global variable `__name__` to determine from where the l
 
 Similar considerations should be taken into account while dealing with the `filter` attribute. As `__name__` is missing, Loguru will assign the `None` value to the `record["name"]` entry. It also means that once formatted in your log messages, the `{name}` token will be equals to `"None"`. This can be worked around by manually overriding the `record["name"]` value using [`patch()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch) from inside the faulty module:
 
-```
+```python
 # If Loguru fails to retrieve the proper "name" value, assign it manually
 logger = logger.patch(lambda record: record.update(name="my_module"))
 ```
@@ -2986,7 +3000,7 @@ You probably should not worry about all of this except if you noticed that your 
 
 Trying to use the Loguru’s `logger` during an iteration wrapped by the `tqdm` library may disturb the displayed progress bar. As a workaround, one can use the `tqdm.write()` function instead of writings logs directly to `sys.stderr`:
 
-```
+```python
 import time
 
 from loguru import logger
@@ -3010,13 +3024,13 @@ Loguru and Cython do not interoperate very well. This is because Loguru (and log
 
 Calling the `logger` from code compiled with Cython may raise this kind of exception:
 
-```
+```python
 ValueError: call stack is not deep enough
 ```
 
 This error happens when Loguru tries to access a stack frame which has been suppressed by Cython. There is no way for Loguru to retrieve contextual information of the logged message, but there exists a workaround that will at least prevent your application to crash:
 
-```
+```python
 # Add this at the start of your file
 logger = logger.opt(depth=-1)
 ```
@@ -3029,7 +3043,7 @@ Loguru is fundamentally designed to be usable with exactly one global `logger` o
 
 For example, supposing you want to split your logs in two files based on an arbitrary identifier, you can achieve that by combining [`bind()`](https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind) and `filter`:
 
-```
+```python
 from loguru import logger
 
 def task_A():
@@ -3055,7 +3069,7 @@ That way, `"file_A.log"` and `"file_B.log"` will only contains logs from respect
 
 Now, supposing that you have a lot of these tasks. It may be a bit cumbersome to configure every handlers like this. Most importantly, it may unnecessarily slow down your application as each log will need to be checked by the `filter` function of each handler. In such case, it is recommended to rely on the [`copy.deepcopy()`](https://docs.python.org/3/library/copy.html#copy.deepcopy) built-in method that will create an independent `logger` object. If you add a handler to a deep copied `logger`, it will not be shared with others functions using the original `logger`:
 
-```
+```python
 import copy
 from loguru import logger
 
@@ -3078,7 +3092,7 @@ Note that you may encounter errors if you try to copy a `logger` to which non-pi
 
 On Linux, thanks to [`os.fork()`](https://docs.python.org/3/library/os.html#os.fork) there is no pitfall while using the `logger` inside another process started by the [`multiprocessing`](https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing) module. The child process will automatically inherit added handlers, the `enqueue=True` parameter is optional but is recommended as it would avoid concurrent access of your sink:
 
-```
+```python
 # Linux implementation
 import multiprocessing
 from loguru import logger
@@ -3099,7 +3113,7 @@ if __name__ == "__main__":
 
 Things get a little more complicated on Windows. Indeed, this operating system does not support forking, so Python has to use an alternative method to create sub-processes called “spawning”. This procedure requires the whole file where the child process is created to be reloaded from scratch. This does not interoperate very well with Loguru, causing handlers to be added twice without any synchronization or, on the contrary, not being added at all (depending on `add()` and `remove()` being called inside or outside the `__main__` branch). For this reason, the `logger` object need to be explicitly passed as an initializer argument of your child process:
 
-```
+```python
 # Windows implementation
 import multiprocessing
 from loguru import logger
@@ -3123,7 +3137,7 @@ Windows requires the added sinks to be picklable or otherwise will raise an erro
 
 The [`multiprocessing`](https://docs.python.org/3/library/multiprocessing.html#module-multiprocessing) library is also commonly used to start a pool of workers using for example [`map()`](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool.map) or [`apply()`](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool.apply). Again, it will work flawlessly on Linux, but it will require some tinkering on Windows. You will probably not be able to pass the `logger` as an argument for your worker functions because it needs to be picklable, but altough handlers added using `enqueue=True` are “inheritable”, they are not “picklable”. Instead, you will need to make use of the `initializer` and `initargs` parameters while creating the [`Pool`](https://docs.python.org/3/library/multiprocessing.html#multiprocessing.pool.Pool) object in a way allowing your workers to access the shared `logger`. You can either assign it to a class attribute or override the global logger of your child processes:
 
-```
+```python
 # workers_a.py
 class Worker:
 
@@ -3136,6 +3150,9 @@ class Worker:
     def work(self, x):
         self._logger.info("Square rooting {}", x)
         return x**0.5
+```
+
+```python
 # workers_b.py
 from loguru import logger
 
@@ -3146,6 +3163,9 @@ def set_logger(logger_):
 def work(x):
     logger.info("Square rooting {}", x)
     return x**0.5
+```
+
+```python
 # main.py
 from multiprocessing import Pool
 from loguru import logger
