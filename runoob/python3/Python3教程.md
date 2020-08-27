@@ -42,9 +42,13 @@ Type "copyright", "credits" or "license()" for more information.
 
 对于大多数程序语言，第一个入门编程代码便是"Hello World！"，以下代码为使用Python输出"Hello World！"：
 
-## 实例(Python 3.0+)
+git@github.com:xSumner/data-analyzer.git
 
-\#!/usr/bin/python3  print("Hello, World!")
+```python
+#!/usr/bin/python3
+ 
+print("Hello, World!")
+```
 
 
 [运行实例 »](https://www.runoob.com/try/runcode.php?filename=HelloWorld&type=python3)
@@ -91,10 +95,6 @@ python script.py
 
 **#!/usr/bin/python** 指定解释器的路径。
 
-再解释一下第一行代码`**#!/usr/bin/python3**`
-
-这句话仅仅在linux或unix系统下有作用，在windows下无论在代码里加什么都无法直接运行一个文件名后缀为.py的脚本，因为在windows下文件名对文件的打开方式起了决定性作用。
-
 再解释一下第一行代码 **#!/usr/bin/python3**
 
 这句话仅仅在 linux 或 unix 系统下有作用，在 windows 下无论在代码里加什么都无法直接运行一个文件名后缀为 .py 的脚本，因为在 windows 下文件名对文件的打开方式起了决定性作用。
@@ -126,8 +126,6 @@ Python 的设计具有很强的可读性，相比其他语言经常使用英文�
 - **Python 是面向对象语言:** 这意味着Python支持面向对象的风格或代码封装在对象的编程技术。
 - **Python 是初学者的语言：**Python 对初级程序员而言，是一种伟大的语言，它支持广泛的应用程序开发，从简单的文字处理到 WWW 浏览器再到游戏。
 
-
-
 ------
 
 ## Python 发展历史
@@ -147,8 +145,6 @@ Python 3.0 于 2008 年 12 月 3 日发布，此版不完全兼容之前的 Pyth
 Python 3.0 版本，常被称为 Python 3000，或简称 Py3k。相对于 Python 的早期版本，这是一个较大的升级。
 
 Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2.x 语法外，还支持部分 Python 3.1 语法。
-
-
 
 ------
 
@@ -224,8 +220,8 @@ Python 2.7 被确定为最后一个 Python 2.x 版本，它除了支持 Python 2
 -  **Instagram**：美国最大的照片共享社交网站，每天有 3000 多万张照片被共享，所有这些都是用 Python 开发的。
 -  **Facebook**：大量的基本库是通过 Python 实现的
 -  **Red Hat/Centos**：世界上最流行的 Linux 发行版中的 Yum 包管理工具是用 Python 开发的
--  Douban：几乎所有公司的业务都是通过 Python 开发的。
--  知乎：中国最大的 Q＆A 社区，通过 Python 开发（国外 Quora）
+-  **Douban**：几乎所有公司的业务都是通过 Python 开发的。
+-  **知乎**：中国最大的 Q＆A 社区，通过 Python 开发（国外 Quora）
 
 除此之外，还有搜狐、金山、腾讯、盛大、网易、百度、阿里、淘宝、土豆、新浪、果壳等公司正在使用 Python 来完成各种任务。
 
@@ -327,7 +323,7 @@ Python 3.6.1
 
 ![img](img/20180226150011548.png)
 
-按 **Win+R** 键，输入 cmd 调出命令提示符，输入 python:
+按 <kbd>**Win+R**</kbd> 键，输入 cmd 调出命令提示符，输入 python:
 
 ![img](img/20170707155742110.png)
 
@@ -357,41 +353,23 @@ Unix或Windows中路径变量为PATH（UNIX区分大小写，Windows不区分大
 
 ### 在 Unix/Linux 设置环境变量
 
-- 在 csh shell:
-
-   
-
-  输入
+- **在 csh shell: 输入**
 
   ```
-  setenv PATH "$PATH:/usr/local/bin/python"
+setenv PATH "$PATH:/usr/local/bin/python"
   ```
 
-  , 按下
-
-   
-
-  Enter
-
-  。
-
-- 在 bash shell (Linux) 输入 :
+  , 按下 **Enter**。
+  
+- **在 bash shell (Linux) 输入** :
 
   ```
   export PATH="$PATH:/usr/local/bin/python" 
   ```
 
-  按下
+  按下 **Enter** 。
 
-   
-
-  Enter
-
-   
-
-  。
-
-- 在 sh 或者 ksh shell 输入:
+- **在 sh 或者 ksh shell 输入**:
 
   ```
   PATH="$PATH:/usr/local/bin/python" 
@@ -413,8 +391,6 @@ path=%path%;C:\Python
 
 按下"Enter"。
 
-
-
 **注意:** C:\Python 是Python的安装目录。
 
 也可以通过以下方式设置：
@@ -422,7 +398,6 @@ path=%path%;C:\Python
 - 右键点击"计算机"，然后点击"属性"
 - 然后点击"高级系统设置"
 - 选择"系统变量"窗口下面的"Path",双击即可！
-- 
 - 然后在"Path"行，添加python安装路径即可(我的D:\Python32)，所以在后面，添加该路径即可。 **ps：记住，路径直接用分号"；"隔开！**
 - 最后设置成功以后，在cmd命令行，输入命令"python"，就可以有相关显示。
 
@@ -441,8 +416,6 @@ path=%path%;C:\Python
 | PYTHONCASEOK  | 加入PYTHONCASEOK的环境变量, 就会使python导入模块的时候不区分大小写. |
 | PYTHONHOME    | 另一种模块搜索路径。它通常内嵌于的PYTHONSTARTUP或PYTHONPATH目录中，使得两个模块库更容易切换。 |
 
-
-
 ------
 
 ## 运行Python
@@ -455,11 +428,13 @@ path=%path%;C:\Python
 
 你可以在Unix，DOS或任何其他提供了命令行或者shell的系统进行python编码工作。
 
+```
 $ python # Unix/Linux
 
 或者
 
 C:>python # Windows/DOS
+```
 
 以下为Python命令行参数：
 
@@ -477,11 +452,13 @@ C:>python # Windows/DOS
 
 在你的应用程序中通过引入解释器可以在命令行中执行Python脚本，如下所示：
 
+```
 $ python script.py # Unix/Linux
 
 或者
 
 C:>python script.py # Windows/DOS
+```
 
 **注意：**在执行脚本时，请检查脚本是否有可执行权限。
 
@@ -501,7 +478,7 @@ PyCharm 安装地址：[http://www.runoob.com/w3cnote/pycharm-windows-install.ht
 
 ## 笔记
 
-**使用交互式 ipython 运行 Python**
+### 使用交互式 ipython 运行 Python
 
 ipython 是一个 python 的交互式 shell，比默认的 python shell 好用得多，支持变量自动补全，自动缩进，支持 bash shell 命令，内置了许多很有用的功能和函数。
 
@@ -531,17 +508,19 @@ yum  install ipython
 ipython
 ```
 
-**如何在 cygwin 模拟器中安装 python3**
+### 如何在 cygwin 模拟器中安装 python3
 
 Cygwin 是一个在 windows 平台上运行的类 UNIX 模拟环境，是 cygnus solutions 公司开发的自由软件（该公司开发的著名工具还有 eCos，不过现已被 Redhat 收购）。它对于学习 UNIX/Linux 操作环境，或者从 UNIX 到 Windows 的应用程序移植，或者进行某些特殊的开发工作，尤其是使用 GNU 工具集在 Windows 上进行嵌入式系统开发，非常有用。
 
 安装 cygwin：
 
-**1.下载可执行文件 http://www.cygwin.com/setup-x86.exe**
+1. 下载可执行文件 http://www.cygwin.com/setup-x86.exe
 
-\2. 选择 "Install from internet", 点击 Next。
+2. 选择 "Install from internet", 点击 Next。
 
-\3. 根目录 C:\cygwin (不建议其他目录，特别带有空格的目录名）。 4. 选择下载网站，http://sourceware.mirror.tds.net 下载比较稳定。 5. 在 "Select Packages" 菜单中选择 "Category",添加以下包:
+3. 根目录 C:\cygwin (不建议其他目录，特别带有空格的目录名）。 
+4. 选择下载网站，http://sourceware.mirror.tds.net 下载比较稳定。 
+5. 在 "Select Packages" 菜单中选择 "Category",添加以下包:
 
 ```
 under Archive select zip and unzip
@@ -555,11 +534,11 @@ under Python select python2
 under Tcl select expect
 ```
 
-\6. 点击 Next, 开始安装。
+6. 点击 Next, 开始安装。
 
-\7. 复制文件 moshell/examples/cygwin_install/cygwin_install.txt 到 C:/Cygwin (也可以在这个地址下载：http://newtran01.au.ao.ericsson.se/moshell/cygwin_install.txt)。
+7. 复制文件 moshell/examples/cygwin_install/cygwin_install.txt 到 C:/Cygwin (也可以在这个地址下载：http://newtran01.au.ao.ericsson.se/moshell/cygwin_install.txt)。
 
-\8. Windows 下点击 开始 –> 运行。
+8. Windows 下点击 开始 –> 运行。
 
 在 "运行" 窗口, 输入 cmd , 然后按下回车键。
 
@@ -589,7 +568,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-mac安装py3 (身为一个优秀的程序员必须要配个mac)
+### mac安装py3
 
 1、安装/更新 brew [不知道brew的点进去了解一下](https://brew.sh/index_zh-cn)
 
@@ -636,7 +615,7 @@ python2 --version      # Python 2.7.10
 
 再推荐一个开发工具vscode [官方下载地址]( https://code.visualstudio.com/ ) 
 
-优点: **强大、开源、免费(狠重要)、插件多**
+优点: **强大、开源、免费、插件多**
 
 
 
@@ -668,7 +647,7 @@ python2 --version      # Python 2.7.10
 
 保留字即关键字，我们不能把它们用作任何标识符名称。Python 的标准库提供了一个 keyword 模块，可以输出当前版本的所有关键字：
 
-```
+```python
 >>> import keyword
 >>> keyword.kwlist
 ['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
@@ -680,9 +659,14 @@ python2 --version      # Python 2.7.10
 
 Python中单行注释以 **#** 开头，实例如下：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  # 第一个注释 print ("Hello, Python!") # 第二个注释
+```python
+#!/usr/bin/python3
+ 
+# 第一个注释
+print ("Hello, Python!") # 第二个注释
+```
 
 执行以上代码，输出结果为：
 
@@ -692,9 +676,25 @@ Hello, Python!
 
 多行注释可以用多个 **#** 号，还有 **'''** 和 **"""**：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  # 第一个注释 # 第二个注释  ''' 第三注释 第四注释 '''  """ 第五注释 第六注释 """ print ("Hello, Python!")
+```python
+#!/usr/bin/python3
+ 
+# 第一个注释
+# 第二个注释
+ 
+'''
+第三注释
+第四注释
+'''
+ 
+"""
+第五注释
+第六注释
+"""
+print ("Hello, Python!")
+```
 
 执行以上代码，输出结果为：
 
@@ -710,13 +710,18 @@ python最具特色的就是使用缩进来表示代码块，不需要使用大�
 
 缩进的空格数是可变的，但是同一个代码块的语句必须包含相同的缩进空格数。实例如下：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-if True:    print ("True") else:    print ("False")
+```python
+if True:
+    print ("True")
+else:
+    print ("False")
+```
 
 以下代码最后一行语句缩进数的空格数不一致，会导致运行错误：
 
-```
+```python
 if True:
     print ("Answer")
     print ("True")
@@ -727,7 +732,7 @@ else:
 
 以上程序由于缩进不一致，执行后会出现类似以下错误：
 
-```
+```python
  File "test.py", line 6
     print ("False")    # 缩进不一致，会导致运行错误
                                       ^
@@ -740,7 +745,7 @@ IndentationError: unindent does not match any outer indentation level
 
 Python 通常是一行写完一条语句，但如果语句很长，我们可以使用反斜杠(\)来实现多行语句，例如：
 
-```
+```python
 total = item_one + \
         item_two + \
         item_three
@@ -748,7 +753,7 @@ total = item_one + \
 
 在 [], {}, 或 () 中的多行语句，不需要使用反斜杠(\)，例如：
 
-```
+```python
 total = ['item_one', 'item_two', 'item_three',
         'item_four', 'item_five']
 ```
@@ -769,32 +774,49 @@ python中数字有四种类型：整数、布尔型、浮点数和复数。
 ## 字符串(String)
 
 - python中单引号和双引号使用完全相同。
-- 使用三引号('''或""")可以指定一个多行字符串。
-- 转义符 '\'
-- 反斜杠可以用来转义，使用r可以让反斜杠不发生转义。。 如 r"this is a line with \n" 则\n会显示，并不是换行。
+- 使用三引号(`'''`或`"""`)可以指定一个多行字符串。
+- 转义符 `\`
+- 反斜杠可以用来转义，使用r可以让反斜杠不发生转义。。 如 `r"this is a line with \n"`  则 `\n` 会显示，并不是换行。
 - 按字面意义级联字符串，如"this " "is " "string"会被自动转换为this is string。
-- 字符串可以用 + 运算符连接在一起，用 * 运算符重复。
+- 字符串可以用 `+` 运算符连接在一起，用 `*` 运算符重复。
 - Python 中的字符串有两种索引方式，从左往右以 0 开始，从右往左以 -1 开始。
 - Python中的字符串不能改变。
 - Python 没有单独的字符类型，一个字符就是长度为 1 的字符串。
 - 字符串的截取的语法格式如下：**变量[头下标:尾下标:步长]**
 
-```
+```python
 word = '字符串'
 sentence = "这是一个句子。"
 paragraph = """这是一个段落，
 可以由多行组成"""
 ```
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  str='Runoob'  print(str)                 # 输出字符串 print(str[0:-1])           # 输出第一个到倒数第二个的所有字符 print(str[0])              # 输出字符串第一个字符 print(str[2:5])            # 输出从第三个开始到第五个的字符 print(str[2:])             # 输出从第三个开始后的所有字符 print(str * 2)             # 输出字符串两次 print(str + '你好')        # 连接字符串  print('------------------------------')  print('hello\nrunoob')      # 使用反斜杠(\)+n转义特殊字符 print(r'hello\nrunoob')     # 在字符串前面添加一个 r，表示原始字符串，不会发生转义
+```python
+#!/usr/bin/python3
+ 
+str='Runoob'
+ 
+print(str)                 # 输出字符串
+print(str[0:-1])           # 输出第一个到倒数第二个的所有字符
+print(str[0])              # 输出字符串第一个字符
+print(str[2:5])            # 输出从第三个开始到第五个的字符
+print(str[2:])             # 输出从第三个开始后的所有字符
+print(str * 2)             # 输出字符串两次
+print(str + '你好')        # 连接字符串
+ 
+print('------------------------------')
+ 
+print('hello\nrunoob')      # 使用反斜杠(\)+n转义特殊字符
+print(r'hello\nrunoob')     # 在字符串前面添加一个 r，表示原始字符串，不会发生转义
+```
 
 这里的 r 指 raw，即 raw string。
 
 输出结果为：
 
-```
+```python
 Runoob
 Runoo
 R
@@ -824,9 +846,13 @@ hello\nrunoob
 
 执行下面的程序在按回车键后就会等待用户输入：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  input("\n\n按下 enter 键后退出。")
+```python
+#!/usr/bin/python3
+ 
+input("\n\n按下 enter 键后退出。")
+```
 
 以上代码中 ，"\n\n"在结果输出前会输出两个新的空行。一旦用户按下 enter 键时，程序将退出。
 
@@ -836,11 +862,13 @@ hello\nrunoob
 
 Python可以在同一行中使用多条语句，语句之间使用分号(;)分割，以下是一个简单的实例：
 
+**实例(Python 3.0+)**
 
-
-## 实例(Python 3.0+)
-
-\#!/usr/bin/python3  import sys; x = 'runoob'; sys.stdout.write(x + '\n')
+```python
+#!/usr/bin/python3
+ 
+import sys; x = 'runoob'; sys.stdout.write(x + '\n')
+```
 
 使用脚本执行以上代码，输出结果为：
 
@@ -850,7 +878,7 @@ runoob
 
 使用交互式命令行执行，输出结果为：
 
-```
+```python
 >>> import sys; x = 'runoob'; sys.stdout.write(x + '\n')
 runoob
 7
@@ -870,7 +898,7 @@ runoob
 
 如下实例：
 
-```
+```python
 if expression : 
    suite
 elif expression : 
@@ -885,13 +913,27 @@ else :
 
 print 默认输出是换行的，如果要实现不换行需要在变量末尾加上 **end=""**：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  x="a" y="b" # 换行输出 print( x ) print( y )  print('---------') # 不换行输出 print( x, end=" " ) print( y, end=" " ) print()
+```python
+#!/usr/bin/python3
+ 
+x="a"
+y="b"
+# 换行输出
+print( x )
+print( y )
+ 
+print('---------')
+# 不换行输出
+print( x, end=" " )
+print( y, end=" " )
+print()
+```
 
 以上实例执行结果为：
 
-```
+```python
 a
 b
 ---------
@@ -902,23 +944,35 @@ a b
 
 ## import 与 from...import
 
-在 python 用 **import** 或者 **from...import** 来导入相应的模块。
+在 python 用 `import` 或者 `from...import` 来导入相应的模块。
 
-将整个模块(somemodule)导入，格式为： **import somemodule**
+将整个模块(somemodule)导入，格式为： `import somemodule`
 
-从某个模块中导入某个函数,格式为： **from somemodule import somefunction**
+从某个模块中导入某个函数,格式为： `from somemodule import somefunction`
 
-从某个模块中导入多个函数,格式为： **from somemodule import firstfunc, secondfunc, thirdfunc**
+从某个模块中导入多个函数,格式为： `from somemodule import firstfunc, secondfunc, thirdfunc`
 
-将某个模块中的全部函数导入，格式为： **from somemodule import \***
+将某个模块中的全部函数导入，格式为： `from somemodule import *`
 
-## 导入 sys 模块
+**导入 sys 模块**
 
-import sys print('================Python import mode==========================') print ('命令行参数为:') for i in sys.argv:    print (i) print ('\n python 路径为',sys.path)
+```python
+import sys
+print('================Python import mode==========================')
+print ('命令行参数为:')
+for i in sys.argv:
+    print (i)
+print ('\n python 路径为',sys.path)
+```
 
-## 导入 sys 模块的 argv,path 成员
+**导入 sys 模块的 argv,path 成员**
 
-from sys import argv,path  #  导入特定的成员  print('================python from import===================================') print('path:',path) # 因为已经导入path成员，所以此处引用时不需要加sys.path
+```python
+from sys import argv,path  #  导入特定的成员
+ 
+print('================python from import===================================')
+print('path:',path) # 因为已经导入path成员，所以此处引用时不需要加sys.path
+```
 
 ------
 
@@ -960,11 +1014,11 @@ Options and arguments (and corresponding environment variables):
 
 这种用法先在 env（环境变量）设置里查找 python 的安装路径，再调用对应路径下的解释器程序完成操作。
 
-关于注释，也可以使用 **''' '''** 的格式在三引号之间书写较长的注释；
+关于注释，也可以使用 `''' '''` 的格式在三引号之间书写较长的注释；
 
-**''' '''** 还可以用于在函数的首部对函数进行一个说明：
+`''' '''` 还可以用于在函数的首部对函数进行一个说明：
 
-```
+```python
 def example(anything):
     '''形参为任意类型的对象，
        这个示例函数会将其原样返回。
@@ -972,21 +1026,21 @@ def example(anything):
     return anything
 ```
 
-## help() 函数
+### help() 函数
 
 调用 python 的 help() 函数可以打印输出一个函数的文档字符串：
 
-```
+```python
 # 如下实例，查看 max 内置函数的参数列表和规范的文档
 >>> help(max)
 ……显示帮助信息……
 ```
 
-按下 **: q** 两个按键即退出说明文档
+按下 `: q` 两个按键即退出说明文档
 
 如果仅仅想得到文档字符串：
 
-```
+```python
 >>> print(max.__doc__)    # 注意，doc的前后分别是两个下划线
 max(iterable, *[, default=obj, key=func]) -> value
 max(arg1, arg2, *args, *[, key=func]) -> value
@@ -1003,7 +1057,7 @@ With two or more arguments, return the largest argument.
 
 代码实例：
 
-```
+```python
 print("Hello'World!")
 ```
 
@@ -1011,7 +1065,7 @@ print("Hello'World!")
 
 输出：
 
-```
+```python
 Hello'World!
 print('Hello"World!')
 ```
@@ -1020,7 +1074,7 @@ print('Hello"World!')
 
 输出：
 
-```
+```python
 Hello"World!
 ```
 
@@ -1030,7 +1084,7 @@ Hello"World!
 
 这里表示我们使用分隔符为一个空格。
 
-```
+```python
 >>> help("print")
 Help on built-in function print in module builtins:
 print(...)
@@ -1045,7 +1099,7 @@ print(...)
 
 所以在打印 dict 类的使用, 可以这样写:
 
-```
+```python
 >>> def getPairs(dict):
 ...     for k,v in dict.items() :
 ...             print(k,v,sep=':')
@@ -1054,7 +1108,7 @@ print(...)
 
 测试代码:
 
-```
+```python
 >>> getPairs({ x : x ** 3 for x in (1,2,3,4)})
 1:1
 2:8
@@ -1067,14 +1121,14 @@ print(...)
 
 第一种方法，在命令行窗口输入：
 
-```
+```python
 >>> import os
 >>> i=os.system("cls")
 ```
 
 第二种方法，在命令行窗口输入：
 
-```
+```python
 >>> import subprocess
 >>> i=subprocess.call("cls", shell=True)
 ```
@@ -1091,7 +1145,7 @@ print(...)
 
 当字符串内容为浮点型要转换为整型时，无法直接用 int() 转换：
 
-```
+```python
 a='2.1'  # 这是一个字符串
 print(int(a))
 ```
@@ -1100,12 +1154,14 @@ print(int(a))
 
 需要把字符串先转化成 float 型再转换成 int 型：
 
-```
+```python
 a='2.1'
 print(int(float(a)))
 ```
 
 输出 **2**。
+
+
 
 # Python3 基本数据类型
 
@@ -1445,10 +1501,10 @@ Python 列表截取可以接收第三个参数，参数作用是截取的步长�
 ## 实例
 
 **def** reverseWords(input):
-   
+
   \# 通过空格将字符串分隔符，把各个单词分隔为列表
   inputWords = input.split(" ")
- 
+
   \# 翻转字符串
   \# 假设列表 list = [1,2,3,4],  
   \# list[0]=1, list[1]=2 ，而 -1 表示最后一个元素 list[-1]=4 ( 与 list[3]=4 一样)
@@ -1457,12 +1513,12 @@ Python 列表截取可以接收第三个参数，参数作用是截取的步长�
   \# 第二个参数为空，表示移动到列表末尾
   \# 第三个参数为步长，-1 表示逆向
   inputWords=inputWords[-1::-1]
- 
+
   \# 重新组合字符串
   output = ' '.join(inputWords)
-   
+
   **return** output
- 
+
 **if** __name__ == "__main__":
   input = 'I like runoob'
   rw = reverseWords(input)
@@ -10994,12 +11050,12 @@ else 子句将在 try 子句没有发生任何异常的时候执行。
 
 \>>> **def** this_fails():
     x = 1/0
-  
+
 \>>> **try**:
     this_fails()
   **except** ZeroDivisionError **as** err:
     **print**('Handling run-time error:', err)
-  
+
 Handling run-time error: int division **or** modulo by zero
 
 ### try-finally 语句
@@ -11063,7 +11119,7 @@ raise 唯一的一个参数指定了要被抛出的异常。它必须是一个�
   **except** NameError:
     **print**('An exception flew by!')
     **raise**
-  
+
 An exception flew by!
 Traceback (most recent call last):
  File "<stdin>", line 2, **in** ?
@@ -11080,12 +11136,12 @@ NameError: HiThere
       self.value = value
     **def** __str__(self):
       **return** repr(self.value)
-  
+
 \>>> **try**:
     **raise** MyError(2*2)
   **except** MyError **as** e:
     **print**('My exception occurred, value:', e.value)
-  
+
 My exception occurred, value: 4
 \>>> **raise** MyError('oops!')
 Traceback (most recent call last):
@@ -11160,7 +11216,7 @@ KeyboardInterrupt
       **print**("result is", result)
     **finally**:
       **print**("executing finally clause")
-  
+
 \>>> divide(2, 1)
 result **is** 2.0
 executing **finally** clause
@@ -12202,11 +12258,11 @@ NameError: name 'runoob' is not defined。
 \# var1 是全局名称
 var1 = 5
 **def** some_func():
- 
+
   \# var2 是局部名称
   var2 = 6
   **def** some_inner_func():
- 
+
     \# var3 是内嵌的局部名称
     var3 = 7
 
