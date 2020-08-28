@@ -176,7 +176,7 @@ https://github.com/fastnlp/fastHan
 
 [zaoqi-Python - 早起Python代码库](https://github.com/liuhuanshuo/zaoqi-Python)
 
-
+[python-examples Python 代码实例](https://github.com/JustDoPython/python-examples)
 
 
 
@@ -191,6 +191,22 @@ https://github.com/fastnlp/fastHan
 
 
 [Go语言圣经（中文版）](https://books.studygolang.com/gopl-zh/)
+
+
+
+[谷歌开源NLP模型可视化工具LIT，模型训练不再「黑箱」](https://mp.weixin.qq.com/s/uv-WaLOjqOvGbyx1J81wRQ)
+
+
+
+[Graph Representation Learning Book](https://www.cs.mcgill.ca/~wlh/grl_book/)
+
+
+
+
+
+
+
+
 
 
 
