@@ -802,7 +802,7 @@ logger.add("file_{time}.log")
 
 It is also [easily configurable](https://loguru.readthedocs.io/en/stable/api/logger.html#file) if you need rotating logger, if you want to remove older logs, or if you wish to compress your files at closure.
 
-```
+```python
 logger.add("file_1.log", rotation="500 MB")    # Automatically rotate too big file
 logger.add("file_2.log", rotation="12:00")     # New file is created each day at noon
 logger.add("file_3.log", rotation="1 week")    # Once the file is too old, it's rotated
