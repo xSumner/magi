@@ -1772,6 +1772,694 @@ dict_values(['runoob', 1, 'www.runoob.com'])
 | [hex(x)](https://www.runoob.com/python3/python-func-hex.html) | 将一个整数转换为一个十六进制字符串                  |
 | [oct(x)](https://www.runoob.com/python3/python-func-oct.html) | 将一个整数转换为一个八进制字符串                    |
 
+### Python int() 函数
+
+#### 描述
+
+int() 函数用于将一个字符串或数字转换为整型。
+
+#### 语法
+
+以下是 int() 方法的语法:
+
+```python
+class int(x, base=10)
+```
+
+#### 参数
+
+- x -- 字符串或数字。
+- base -- 进制数，默认十进制。
+
+#### 返回值
+
+返回整型数据。
+
+------
+
+**实例**
+
+以下展示了使用 int() 方法的实例：
+
+```python
+>>>int()               # 不传入参数时，得到结果0
+0
+>>> int(3)
+3
+>>> int(3.6)
+3
+>>> int('12',16)        # 如果是带参数base的话，12要以字符串的形式进行输入，12 为 16进制
+18
+>>> int('0xa',16)  
+10  
+>>> int('10',8)  
+8
+```
+
+x 有两种：**str / int**
+
+1、若 x 为纯数字，则不能有 base 参数，否则报错；其作用为对入参 x 取整
+
+```python
+>>> int(3.1415926)
+3
+
+>>> int(-11.123)
+-11
+
+>>> int(2.5,10)
+#报错
+>>> int(2.5)
+2
+```
+
+2、若 x 为 str，则 base 可略可有。
+
+base 存在时，视 x 为 base 类型数字，并将其转换为 10 进制数字。
+
+若 x 不符合 base 规则，则报错。如:
+
+```python
+>>>int("9",2)  #报错，因为2进制无9
+>>> int("9")
+9 
+#默认10进制
+
+>>> int("3.14",8)
+>>> int("1.2")
+#均报错，str须为整数
+>>>int("1001",2)
+9
+# "1001"才是2进制格式，并转化为十进制数字9
+>>> int("0xa",16)
+10
+# ≥16进制才会允许入参为a,b,c...
+>>> int("b",8) #报错
+>>> int("123",8)
+83
+#视123为8进制数字，对应的10进制为83
+```
+
+### Python float() 函数
+
+#### 描述
+
+**float()** 函数用于将整数和字符串转换成浮点数。
+
+#### 语法
+
+float()方法语法：
+
+```python
+class float([x])
+```
+
+#### 参数
+
+- x -- 整数或字符串
+
+#### 返回值
+
+返回浮点数。
+
+**实例**
+
+以下实例展示了 float() 的使用方法：
+
+```python
+>>>float(1)
+1.0
+>>> float(112)
+112.0
+>>> float(-123.6)
+-123.6
+>>> float('123')     # 字符串
+123.0
+```
+
+### Python complex() 函数
+
+#### 描述
+
+**complex()** 函数用于创建一个值为 real + imag * j 的复数或者转化一个字符串或数为复数。如果第一个参数为字符串，则不需要指定第二个参数。。
+
+#### 语法
+
+complex 语法：
+
+```python
+class complex([real[, imag]])
+```
+
+参数说明：
+
+- real -- int, long, float或字符串；
+- imag -- int, long, float；
+
+#### 返回值
+
+返回一个复数。
+
+**实例**
+
+以下实例展示了 complex 的使用方法：
+
+```python
+>>>complex(1, 2)
+(1 + 2j)
+ 
+>>> complex(1)    # 数字
+(1 + 0j)
+ 
+>>> complex("1")  # 当做字符串处理
+(1 + 0j)
+ 
+# 注意：这个地方在"+"号两边不能有空格，也就是不能写成"1 + 2j"，应该是"1+2j"，否则会报错
+>>> complex("1+2j")
+(1 + 2j)
+```
+
+### Python str() 函数
+
+#### 描述
+
+str() 函数将对象转化为适于人阅读的形式。
+
+#### 语法
+
+以下是 str() 方法的语法:
+
+```python
+class str(object='')
+```
+
+#### 参数
+
+- object -- 对象。
+
+#### 返回值
+
+返回一个对象的string格式。
+
+------
+
+**实例**
+
+以下展示了使用 str() 方法的实例：
+
+```python
+>>>s = 'RUNOOB'
+>>> str(s)
+'RUNOOB'
+>>> dict = {'runoob': 'runoob.com', 'google': 'google.com'};
+>>> str(dict)
+"{'google': 'google.com', 'runoob': 'runoob.com'}"
+>>>
+```
+
+### Python repr() 函数
+
+#### 描述
+
+repr() 函数将对象转化为供解释器读取的形式。
+
+#### 语法
+
+以下是 repr() 方法的语法:
+
+```
+repr(object)
+```
+
+#### 参数
+
+- object -- 对象。
+
+#### 返回值
+
+返回一个对象的 string 格式。
+
+------
+
+实例
+
+以下展示了使用 repr() 方法的实例：
+
+```python
+>>>s = 'RUNOOB'
+>>> repr(s)
+"'RUNOOB'"
+>>> dict = {'runoob': 'runoob.com', 'google': 'google.com'};
+>>> repr(dict)
+"{'google': 'google.com', 'runoob': 'runoob.com'}"
+>>>
+```
+
+### Python eval() 函数
+
+#### 描述
+
+eval() 函数用来执行一个字符串表达式，并返回表达式的值。
+
+#### 语法
+
+以下是 eval() 方法的语法:
+
+```python
+eval(expression[, globals[, locals]])
+```
+
+#### 参数
+
+- expression -- 表达式。
+- globals -- 变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。
+- locals -- 变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+
+#### 返回值
+
+返回表达式计算结果。
+
+------
+
+**实例**
+
+以下展示了使用 eval() 方法的实例：
+
+```python
+>>>x = 7
+>>> eval( '3 * x' )
+21
+>>> eval('pow(2,2)')
+4
+>>> eval('2 + 2')
+4
+>>> n=81
+>>> eval("n + 4")
+85
+```
+
+### Python3 tuple 函数
+
+#### 描述
+
+tuple 函数将可迭代系列（如列表）转换为元组。
+
+#### 语法
+
+以下是 tuple 的语法:
+
+```python
+tuple( iterable )
+```
+
+#### 参数
+
+- iterable -- 要转换为元组的可迭代序列。
+
+#### 返回值
+
+返回元组。
+
+------
+
+**实例**
+
+以下展示了使用 tuple 的实例：
+
+```python
+>>>list1= ['Google', 'Taobao', 'Runoob', 'Baidu']
+>>> tuple1=tuple(list1)
+>>> tuple1
+('Google', 'Taobao', 'Runoob', 'Baidu')
+```
+
+### Python3 List list()方法
+
+#### 描述
+
+list() 方法用于将元组或字符串转换为列表。
+
+**注：**元组与列表是非常类似的，区别在于元组的元素值不能修改，元组是放在括号中，列表是放于方括号中。
+
+#### 语法
+
+list()方法语法：
+
+```python
+list( seq )
+```
+
+#### 参数
+
+- seq -- 要转换为列表的元组或字符串。
+
+#### 返回值
+
+返回列表。
+
+**实例**
+
+以下实例展示了 list()函数的使用方法：
+
+```python
+#!/usr/bin/python3
+
+aTuple = (123, 'Google', 'Runoob', 'Taobao')
+list1 = list(aTuple)
+print ("列表元素 : ", list1)
+
+str="Hello World"
+list2=list(str)
+print ("列表元素 : ", list2)
+```
+
+以上实例输出结果如下：
+
+```python
+列表元素 :  [123, 'Google', 'Runoob', 'Taobao']
+列表元素 :  ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd']
+```
+
+### Python set() 函数
+
+#### 描述
+
+**set()** 函数创建一个无序不重复元素集，可进行关系测试，删除重复数据，还可以计算交集、差集、并集等。
+
+#### 语法
+
+set 语法：
+
+```python
+class set([iterable])
+```
+
+参数说明：
+
+- iterable -- 可迭代对象对象；
+
+#### 返回值
+
+返回新的集合对象。
+
+**实例**
+
+以下实例展示了 set 的使用方法：
+
+```python
+>>>x = set('runoob')
+>>> y = set('google')
+>>> x, y
+(set(['b', 'r', 'u', 'o', 'n']), set(['e', 'o', 'g', 'l']))   # 重复的被删除
+>>> x & y         # 交集
+set(['o'])
+>>> x | y         # 并集
+set(['b', 'e', 'g', 'l', 'o', 'n', 'r', 'u'])
+>>> x - y         # 差集
+set(['r', 'b', 'u', 'n'])
+>>>
+```
+
+### Python dict() 函数
+
+#### 描述
+
+**dict()** 函数用于创建一个字典。
+
+#### 语法
+
+dict 语法：
+
+```python
+class dict(**kwarg)
+class dict(mapping, **kwarg)
+class dict(iterable, **kwarg)
+```
+
+参数说明：
+
+- `**kwargs` -- 关键字
+- `mapping` -- 元素的容器。
+- `iterable` -- 可迭代对象。
+
+#### 返回值
+
+返回一个字典。
+
+**实例**
+
+以下实例展示了 dict 的使用方法：
+
+```python
+>>>dict()                        # 创建空字典
+{}
+>>> dict(a='a', b='b', t='t')     # 传入关键字
+{'a': 'a', 'b': 'b', 't': 't'}
+>>> dict(zip(['one', 'two', 'three'], [1, 2, 3]))   # 映射函数方式来构造字典
+{'three': 3, 'two': 2, 'one': 1} 
+>>> dict([('one', 1), ('two', 2), ('three', 3)])    # 可迭代对象方式来构造字典
+{'three': 3, 'two': 2, 'one': 1}
+>>>
+```
+
+利用 **dict(([key,value],[key,value]))** 的方式创建字典：
+
+```python
+>>> dict((['a',2],['b',3]))
+{'a': 2, 'b': 3}
+```
+
+dict()创建字典的6种方式。
+
+方式 1：
+
+```python
+>>> dict1 = {}
+>>> dict1['firstname'] = 'ma'
+>>> dict1['lastname'] = 'yun'
+```
+
+方式 2：
+
+```python
+>>> dict1 = {'firstname':'ma', 'lastname':'yun'}
+```
+
+方式 3：
+
+```python
+>>> dict1 = dict(firstname = 'ma', lastname = 'yun')
+```
+
+方式 4：
+
+```python
+>>> dict1 = dict([('firstname','ma'), ('lastname', 'yun')])
+```
+
+方式 5：
+
+```python
+>>> dict1 = dict((['firstname','ma'], ['lastname', 'yun']))
+```
+
+方式6：
+
+```python
+>>> dict1 = dict(zip(['firstname', 'lastname'], ['ma', 'yun']))
+```
+
+### Python frozenset() 函数
+
+#### 描述
+
+**frozenset()** 返回一个冻结的集合，冻结后集合不能再添加或删除任何元素。
+
+#### 语法
+
+frozenset() 函数语法：
+
+```python
+class frozenset([iterable])
+```
+
+#### 参数
+
+- iterable -- 可迭代的对象，比如列表、字典、元组等等。
+
+#### 返回值
+
+返回新的 frozenset 对象，如果不提供任何参数，默认会生成空集合。
+
+**实例**
+
+以下实例展示了 frozenset() 的使用方法：
+
+```python
+>>>a = frozenset(range(10))     # 生成一个新的不可变集合
+>>> a
+frozenset([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+>>> b = frozenset('runoob') 
+>>> b
+frozenset(['b', 'r', 'u', 'o', 'n'])   # 创建不可变集合
+>>>
+```
+
+为什么需要冻结的集合（即**不可变的集合**）呢？因为在集合的关系中，有**集合的中的元素是另一个集合**的情况，但是**普通集合（set）本身是可变的**，那么它的实例就**不能放在另一个集合中**（set中的元素必须是不可变类型）。
+
+所以，frozenset提供了不可变的集合的功能，当**集合不可变**时，它就**满足了作为集合中的元素的要求**，就可以放在另一个集合中了。
+
+### Python chr() 函数
+
+#### 描述
+
+chr() 用一个范围在 range（256）内的（就是0～255）整数作参数，返回一个对应的字符。
+
+#### 语法
+
+以下是 chr() 方法的语法:
+
+```python
+chr(i)
+```
+
+#### 参数
+
+- i -- 可以是10进制也可以是16进制的形式的数字。
+
+#### 返回值
+
+返回值是当前整数对应的 ASCII 字符。
+
+------
+
+**实例**
+
+以下展示了使用 chr() 方法的实例：
+
+```python
+>>>print(chr(0x30), chr(0x31), chr(0x61))   # 十六进制
+0 1 a
+>>> print(chr(48), chr(49), chr(97))         # 十进制
+0 1 a
+```
+
+### Python ord() 函数
+
+#### 描述
+
+ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。
+
+#### 语法
+
+以下是 ord() 方法的语法:
+
+```python
+ord(c)
+```
+
+#### 参数
+
+- c -- 字符。
+
+#### 返回值
+
+返回值是对应的十进制整数。
+
+------
+
+**实例**
+
+以下展示了使用 ord() 方法的实例：
+
+```python
+>>>ord('a')
+97
+>>> ord('b')
+98
+>>> ord('c')
+99
+```
+
+### Python hex() 函数
+
+#### 描述
+
+**hex()** 函数用于将10进制整数转换成16进制，以字符串形式表示。
+
+#### 语法
+
+hex 语法：
+
+```
+hex(x)
+```
+
+参数说明：
+
+- x -- 10进制整数
+
+#### 返回值
+
+返回16进制数，以字符串形式表示。
+
+**实例**
+
+以下实例展示了 hex 的使用方法：
+
+```python
+>>>hex(255)
+'0xff'
+>>> hex(-42)
+'-0x2a'
+>>> hex(1L)
+'0x1L'
+>>> hex(12)
+'0xc'
+>>> type(hex(12))
+<class 'str'>      # 字符串
+```
+
+### Python oct() 函数
+
+#### 描述
+
+**oct()** 函数将一个整数转换成 8 进制字符串。
+
+- Python2.x 版本的 8 进制以 **0** 作为前缀表示。
+- Python3.x 版本的 8 进制以 **0o** 作为前缀表示。
+
+#### 语法
+
+oct 语法：
+
+```python
+oct(x)
+```
+
+参数说明：
+
+- x -- 整数。
+
+#### 返回值
+
+返回 8 进制字符串。
+
+**实例**
+
+以下实例展示了 oct 的使用方法：
+
+**实例(Python 3.0+)**
+
+```python
+>>> oct(10)
+'0o12'
+>>> oct(20)
+'0o24'
+>>> oct(15)
+'0o17'
+```
+
 ## 笔记
 
 ### 元组（小拓展）
@@ -2174,7 +2862,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 在 python 提示符中输入以下语句，然后按回车键查看运行效果：
 
-```
+```python
 print ("Hello, Python!");
 ```
 
@@ -2186,7 +2874,7 @@ Hello, Python!
 
 当键入一个多行结构时，续行是必须的。我们可以看下如下 if 语句：
 
-```
+```python
 >>> flag = True
 >>> if flag :
 ...     print("flag 条件为 True!")
@@ -2200,31 +2888,31 @@ flag 条件为 True!
 
 将如下代码拷贝至 **hello.py**文件中：
 
-```
+```python
 print ("Hello, Python!");
 ```
 
 通过以下命令执行该脚本：
 
-```
+```shell
 python3 hello.py
 ```
 
 输出结果为：
 
-```
+```python
 Hello, Python!
 ```
 
 在Linux/Unix系统中，你可以在脚本顶部添加以下命令让Python脚本可以像SHELL脚本一样可直接执行：
 
-```
+```python
 #! /usr/bin/env python3
 ```
 
 然后修改脚本权限，使其有执行权限，命令如下：
 
-```
+```shell
 $ chmod +x hello.py
 ```
 
@@ -2239,6 +2927,8 @@ $ chmod +x hello.py
 ```
 Hello, Python!
 ```
+
+## 笔记
 
 Python 解释器可不止一种哦，有 CPython、IPython、Jython、PyPy 等。
 
@@ -2266,9 +2956,9 @@ PyPy 是 Python 语言（2.7.13和3.5.3）的一种快速、兼容的替代实�
 
 以下是简单的补充：
 cmd 窗口打开方式：右键开始菜单，选择‘命令提示符（管理员）’即可。或者从开始菜单->运行->输入cmd，回车。
-关于 cd 命令：用于改变当前目录路径。使用方式：cd[空格][路径]
-例如 cd d:/Python27/Mytest 转到该路径下
-注意：如果当前盘符不是 D 盘，需要先转到 D 盘，输入 d: 回车即可。然后才可以使用 cd d:/Python27/Mytest
+关于 cd 命令：用于改变当前目录路径。使用方式：`cd[空格][路径]`
+例如 `cd d:/Python27/Mytest` 转到该路径下
+注意：如果当前盘符不是 D 盘，需要先转到 D 盘，输入 d: 回车即可。然后才可以使用 `cd d:/Python27/Mytest`
 
 ![img](img/8683310-d9297c7283d814e2.webp)
 
@@ -2280,21 +2970,42 @@ Python中的注释有单行注释和多行注释：
 
 Python中单行注释以 **#** 开头，例如：：
 
-\# 这是一个注释 print("Hello, World!")
+```python
+# 这是一个注释
+print("Hello, World!")
+```
 
 多行注释用三个单引号 **'''** 或者三个双引号 **"""** 将注释括起来，例如:
 
 ### 1、单引号（'''）
 
-\#!/usr/bin/python3  ''' 这是多行注释，用三个单引号 这是多行注释，用三个单引号  这是多行注释，用三个单引号 ''' print("Hello, World!")
+```python
+#!/usr/bin/python3 
+'''
+这是多行注释，用三个单引号
+这是多行注释，用三个单引号 
+这是多行注释，用三个单引号
+'''
+print("Hello, World!")
+```
 
 ### 2、双引号（"""）
 
-\#!/usr/bin/python3  """ 这是多行注释，用三个双引号 这是多行注释，用三个双引号  这是多行注释，用三个双引号 """ print("Hello, World!")
+```python
+#!/usr/bin/python3 
+"""
+这是多行注释，用三个双引号
+这是多行注释，用三个双引号 
+这是多行注释，用三个双引号
+"""
+print("Hello, World!")
+```
+
+### 笔记
 
 以下实例我们可以输出函数的注释：
 
-```
+```python
 def a():
     '''这是文档字符串'''
     pass
@@ -2309,7 +3020,7 @@ print(a.__doc__)
 
 三个双引号赋值给字符串变量时，表示一种字符串的特殊写法。
 
-```
+```python
 >>> str="""I
 ... want
 ... you"""
@@ -2362,13 +3073,45 @@ Python语言支持以下类型的运算符:
 
 以下实例演示了Python所有算术运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 21 b = 10 c = 0  c = a + b print ("1 - c 的值为：", c)  c = a - b print ("2 - c 的值为：", c)  c = a * b print ("3 - c 的值为：", c)  c = a / b print ("4 - c 的值为：", c)  c = a % b print ("5 - c 的值为：", c)  # 修改变量 a 、b 、c a = 2 b = 3 c = a**b  print ("6 - c 的值为：", c)  a = 10 b = 5 c = a//b  print ("7 - c 的值为：", c)
+```python
+#!/usr/bin/python3
+ 
+a = 21
+b = 10
+c = 0
+ 
+c = a + b
+print ("1 - c 的值为：", c)
+ 
+c = a - b
+print ("2 - c 的值为：", c)
+ 
+c = a * b
+print ("3 - c 的值为：", c)
+ 
+c = a / b
+print ("4 - c 的值为：", c)
+ 
+c = a % b
+print ("5 - c 的值为：", c)
+ 
+# 修改变量 a 、b 、c
+a = 2
+b = 3
+c = a**b 
+print ("6 - c 的值为：", c)
+ 
+a = 10
+b = 5
+c = a//b 
+print ("7 - c 的值为：", c)
+```
 
 以上实例输出结果：
 
-```
+```python
 1 - c 的值为： 31
 2 - c 的值为： 11
 3 - c 的值为： 210
@@ -2395,9 +3138,48 @@ Python语言支持以下类型的运算符:
 
 以下实例演示了Python所有比较运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 21 b = 10 c = 0  if ( a == b ):   print ("1 - a 等于 b") else:   print ("1 - a 不等于 b")  if ( a != b ):   print ("2 - a 不等于 b") else:   print ("2 - a 等于 b")  if ( a < b ):   print ("3 - a 小于 b") else:   print ("3 - a 大于等于 b")  if ( a > b ):   print ("4 - a 大于 b") else:   print ("4 - a 小于等于 b")  # 修改变量 a 和 b 的值 a = 5; b = 20; if ( a <= b ):   print ("5 - a 小于等于 b") else:   print ("5 - a 大于  b")  if ( b >= a ):   print ("6 - b 大于等于 a") else:   print ("6 - b 小于 a")
+```python
+#!/usr/bin/python3
+ 
+a = 21
+b = 10
+c = 0
+ 
+if ( a == b ):
+   print ("1 - a 等于 b")
+else:
+   print ("1 - a 不等于 b")
+ 
+if ( a != b ):
+   print ("2 - a 不等于 b")
+else:
+   print ("2 - a 等于 b")
+ 
+if ( a < b ):
+   print ("3 - a 小于 b")
+else:
+   print ("3 - a 大于等于 b")
+ 
+if ( a > b ):
+   print ("4 - a 大于 b")
+else:
+   print ("4 - a 小于等于 b")
+ 
+# 修改变量 a 和 b 的值
+a = 5;
+b = 20;
+if ( a <= b ):
+   print ("5 - a 小于等于 b")
+else:
+   print ("5 - a 大于  b")
+ 
+if ( b >= a ):
+   print ("6 - b 大于等于 a")
+else:
+   print ("6 - b 小于 a")
+```
 
 以上实例输出结果：
 
@@ -2424,15 +3206,43 @@ Python语言支持以下类型的运算符:
 | *=     | 乘法赋值运算符                                               | c *= a 等效于 c = c * a                                      |
 | /=     | 除法赋值运算符                                               | c /= a 等效于 c = c / a                                      |
 | %=     | 取模赋值运算符                                               | c %= a 等效于 c = c % a                                      |
-| **=    | 幂赋值运算符                                                 | c **= a 等效于 c = c ** a                                    |
+| **=    | 幂赋值运算符                                                 | `c **= a` 等效于 `c = c ** a`                                |
 | //=    | 取整除赋值运算符                                             | c //= a 等效于 c = c // a                                    |
 | :=     | 海象运算符，可在表达式内部为变量赋值。**Python3.8 版本新增运算符**。 | 在这个示例中，赋值表达式可以避免调用 len() 两次:`if (n := len(a)) > 10:    print(f"List is too long ({n} elements, expected <= 10)")` |
 
 以下实例演示了Python所有赋值运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 21 b = 10 c = 0  c = a + b print ("1 - c 的值为：", c)  c += a print ("2 - c 的值为：", c)  c *= a print ("3 - c 的值为：", c)  c /= a  print ("4 - c 的值为：", c)  c = 2 c %= a print ("5 - c 的值为：", c)  c **= a print ("6 - c 的值为：", c)  c //= a print ("7 - c 的值为：", c)
+```python
+#!/usr/bin/python3
+ 
+a = 21
+b = 10
+c = 0
+ 
+c = a + b
+print ("1 - c 的值为：", c)
+ 
+c += a
+print ("2 - c 的值为：", c)
+ 
+c *= a
+print ("3 - c 的值为：", c)
+ 
+c /= a 
+print ("4 - c 的值为：", c)
+ 
+c = 2
+c %= a
+print ("5 - c 的值为：", c)
+ 
+c **= a
+print ("6 - c 的值为：", c)
+ 
+c //= a
+print ("7 - c 的值为：", c)
+```
 
 以上实例输出结果：
 
@@ -2454,7 +3264,7 @@ Python语言支持以下类型的运算符:
 
 下表中变量 a 为 60，b 为 13二进制格式如下：
 
-```
+```python
 a = 0011 1100
 
 b = 0000 1101
@@ -2481,13 +3291,37 @@ a^b = 0011 0001
 
 以下实例演示了Python所有位运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 60            # 60 = 0011 1100  b = 13            # 13 = 0000 1101  c = 0  c = a & b;        # 12 = 0000 1100 print ("1 - c 的值为：", c)  c = a | b;        # 61 = 0011 1101  print ("2 - c 的值为：", c)  c = a ^ b;        # 49 = 0011 0001 print ("3 - c 的值为：", c)  c = ~a;           # -61 = 1100 0011 print ("4 - c 的值为：", c)  c = a << 2;       # 240 = 1111 0000 print ("5 - c 的值为：", c)  c = a >> 2;       # 15 = 0000 1111 print ("6 - c 的值为：", c)
+```python
+#!/usr/bin/python3
+ 
+a = 60            # 60 = 0011 1100 
+b = 13            # 13 = 0000 1101 
+c = 0
+ 
+c = a & b;        # 12 = 0000 1100
+print ("1 - c 的值为：", c)
+ 
+c = a | b;        # 61 = 0011 1101 
+print ("2 - c 的值为：", c)
+ 
+c = a ^ b;        # 49 = 0011 0001
+print ("3 - c 的值为：", c)
+ 
+c = ~a;           # -61 = 1100 0011
+print ("4 - c 的值为：", c)
+ 
+c = a << 2;       # 240 = 1111 0000
+print ("5 - c 的值为：", c)
+ 
+c = a >> 2;       # 15 = 0000 1111
+print ("6 - c 的值为：", c)
+```
 
 以上实例输出结果：
 
-```
+```python
 1 - c 的值为： 12
 2 - c 的值为： 61
 3 - c 的值为： 49
@@ -2510,13 +3344,45 @@ Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
 
 以上实例输出结果：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 10 b = 20  if ( a and b ):   print ("1 - 变量 a 和 b 都为 true") else:   print ("1 - 变量 a 和 b 有一个不为 true")  if ( a or b ):   print ("2 - 变量 a 和 b 都为 true，或其中一个变量为 true") else:   print ("2 - 变量 a 和 b 都不为 true")  # 修改变量 a 的值 a = 0 if ( a and b ):   print ("3 - 变量 a 和 b 都为 true") else:   print ("3 - 变量 a 和 b 有一个不为 true")  if ( a or b ):   print ("4 - 变量 a 和 b 都为 true，或其中一个变量为 true") else:   print ("4 - 变量 a 和 b 都不为 true")  if not( a and b ):   print ("5 - 变量 a 和 b 都为 false，或其中一个变量为 false") else:   print ("5 - 变量 a 和 b 都为 true")
+```python
+#!/usr/bin/python3
+ 
+a = 10
+b = 20
+ 
+if ( a and b ):
+   print ("1 - 变量 a 和 b 都为 true")
+else:
+   print ("1 - 变量 a 和 b 有一个不为 true")
+ 
+if ( a or b ):
+   print ("2 - 变量 a 和 b 都为 true，或其中一个变量为 true")
+else:
+   print ("2 - 变量 a 和 b 都不为 true")
+ 
+# 修改变量 a 的值
+a = 0
+if ( a and b ):
+   print ("3 - 变量 a 和 b 都为 true")
+else:
+   print ("3 - 变量 a 和 b 有一个不为 true")
+ 
+if ( a or b ):
+   print ("4 - 变量 a 和 b 都为 true，或其中一个变量为 true")
+else:
+   print ("4 - 变量 a 和 b 都不为 true")
+ 
+if not( a and b ):
+   print ("5 - 变量 a 和 b 都为 false，或其中一个变量为 false")
+else:
+   print ("5 - 变量 a 和 b 都为 true")
+```
 
 以上实例输出结果：
 
-```
+```python
 1 - 变量 a 和 b 都为 true
 2 - 变量 a 和 b 都为 true，或其中一个变量为 true
 3 - 变量 a 和 b 有一个不为 true
@@ -2537,9 +3403,32 @@ Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
 
 以下实例演示了Python所有成员运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 10 b = 20 list = [1, 2, 3, 4, 5 ];  if ( a in list ):   print ("1 - 变量 a 在给定的列表中 list 中") else:   print ("1 - 变量 a 不在给定的列表中 list 中")  if ( b not in list ):   print ("2 - 变量 b 不在给定的列表中 list 中") else:   print ("2 - 变量 b 在给定的列表中 list 中")  # 修改变量 a 的值 a = 2 if ( a in list ):   print ("3 - 变量 a 在给定的列表中 list 中") else:   print ("3 - 变量 a 不在给定的列表中 list 中")
+```python
+#!/usr/bin/python3
+ 
+a = 10
+b = 20
+list = [1, 2, 3, 4, 5 ];
+ 
+if ( a in list ):
+   print ("1 - 变量 a 在给定的列表中 list 中")
+else:
+   print ("1 - 变量 a 不在给定的列表中 list 中")
+ 
+if ( b not in list ):
+   print ("2 - 变量 b 不在给定的列表中 list 中")
+else:
+   print ("2 - 变量 b 在给定的列表中 list 中")
+ 
+# 修改变量 a 的值
+a = 2
+if ( a in list ):
+   print ("3 - 变量 a 在给定的列表中 list 中")
+else:
+   print ("3 - 变量 a 不在给定的列表中 list 中")
+```
 
 以上实例输出结果：
 
@@ -2564,9 +3453,36 @@ Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
 
 以下实例演示了Python所有身份运算符的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 20 b = 20  if ( a is b ):   print ("1 - a 和 b 有相同的标识") else:   print ("1 - a 和 b 没有相同的标识")  if ( id(a) == id(b) ):   print ("2 - a 和 b 有相同的标识") else:   print ("2 - a 和 b 没有相同的标识")  # 修改变量 b 的值 b = 30 if ( a is b ):   print ("3 - a 和 b 有相同的标识") else:   print ("3 - a 和 b 没有相同的标识")  if ( a is not b ):   print ("4 - a 和 b 没有相同的标识") else:   print ("4 - a 和 b 有相同的标识")
+```python
+#!/usr/bin/python3
+ 
+a = 20
+b = 20
+ 
+if ( a is b ):
+   print ("1 - a 和 b 有相同的标识")
+else:
+   print ("1 - a 和 b 没有相同的标识")
+ 
+if ( id(a) == id(b) ):
+   print ("2 - a 和 b 有相同的标识")
+else:
+   print ("2 - a 和 b 没有相同的标识")
+ 
+# 修改变量 b 的值
+b = 30
+if ( a is b ):
+   print ("3 - a 和 b 有相同的标识")
+else:
+   print ("3 - a 和 b 没有相同的标识")
+ 
+if ( a is not b ):
+   print ("4 - a 和 b 没有相同的标识")
+else:
+   print ("4 - a 和 b 有相同的标识")
+```
 
 以上实例输出结果：
 
@@ -2581,7 +3497,19 @@ Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
 >
 > is 用于判断两个变量引用对象是否为同一个， == 用于判断引用变量的值是否相等。
 >
-> \>>>a = [1, 2, 3] >>> b = a >>> b is a  True >>> b == a True >>> b = a[:] >>> b is a False >>> b == a True
+> ```python
+> >>>a = [1, 2, 3]
+> >>> b = a
+> >>> b is a 
+> True
+> >>> b == a
+> True
+> >>> b = a[:]
+> >>> b is a
+> False
+> >>> b == a
+> True
+> ```
 
 ------
 
@@ -2607,13 +3535,33 @@ Python语言支持逻辑运算符，以下假设变量 a 为 10, b为 20:
 
 以下实例演示了Python所有运算符优先级的操作：
 
-## 实例(Python 3.0+)
+**实例(Python 3.0+)**
 
-\#!/usr/bin/python3  a = 20 b = 10 c = 15 d = 5 e = 0  e = (a + b) * c / d       #( 30 * 15 ) / 5 print ("(a + b) * c / d 运算结果为：",  e)  e = ((a + b) * c) / d     # (30 * 15 ) / 5 print ("((a + b) * c) / d 运算结果为：",  e)  e = (a + b) * (c / d);    # (30) * (15/5) print ("(a + b) * (c / d) 运算结果为：",  e)  e = a + (b * c) / d;      #  20 + (150/5) print ("a + (b * c) / d 运算结果为：",  e)
+```python
+#!/usr/bin/python3
+ 
+a = 20
+b = 10
+c = 15
+d = 5
+e = 0
+ 
+e = (a + b) * c / d       #( 30 * 15 ) / 5
+print ("(a + b) * c / d 运算结果为：",  e)
+ 
+e = ((a + b) * c) / d     # (30 * 15 ) / 5
+print ("((a + b) * c) / d 运算结果为：",  e)
+ 
+e = (a + b) * (c / d);    # (30) * (15/5)
+print ("(a + b) * (c / d) 运算结果为：",  e)
+ 
+e = a + (b * c) / d;      #  20 + (150/5)
+print ("a + (b * c) / d 运算结果为：",  e)
+```
 
 以上实例输出结果：
 
-```
+```python
 (a + b) * c / d 运算结果为： 90.0
 ((a + b) * c) / d 运算结果为： 90.0
 (a + b) * (c / d) 运算结果为： 90.0
@@ -2622,9 +3570,18 @@ a + (b * c) / d 运算结果为： 50.0
 
 and 拥有更高优先级:
 
-## 实例
+**实例**
 
-x = True y = False z = False  if x or y and z:    print("yes") else:    print("no")
+```python
+x = True
+y = False
+z = False
+ 
+if x or y and z:
+    print("yes")
+else:
+    print("no")
+```
 
 以上实例输出结果：
 
@@ -2636,11 +3593,107 @@ yes
 >
 > Pyhton3 已不支持 <> 运算符，可以使用 != 代替，如果你一定要使用这种比较运算符，可以使用以下的方式：
 >
-> ```
+> ```python
 > >>> from __future__ import barry_as_FLUFL
 > >>> 1 <> 2
 > True
 > ```
+
+## 笔记
+
+### is 和 ==
+
+**is** 判断两个变量是否是引用同一个内存地址。
+
+**==** 判断两个变量是否相等。
+
+如果不用 a = b 赋值，int 型时，在数值为 **-5~256（64位系统）**时，两个变量引用的是同一个内存地址，其他的数值就不是同一个内存地址了。
+
+也就是，a b 在 -5~256（64位系统）时：
+
+```
+a = 100
+b = 100
+a is b # 返回 True
+```
+
+其他类型如列表、元祖、字典让 a、b 分别赋值一样的时：
+
+```
+a is b  # 返回False
+```
+
+**is** 判断两个对象是否为同一对象, 是通过 id 来判断的; 当两个基本类型数据(或元组)内容相同时, id 会相同, 但并不代表 a 会随 b 的改变而改变。
+
+**==** 判断两个对象的内容是否相同, 是通过调用 **__eq__()** 来判断的。
+
+1、当列表，元组，字典中的值都引用 a,b 时，总是返回 True，不受 a,b 值大小的影响
+
+```python
+a=1000
+b=1000
+list1=[a,3,5]
+list2=[b,4,5]
+print(list1[0] is list2[0])
+tuple1=(a,3,5)
+tuple2=(b,4,5)
+print(tuple1[0] is tuple2[0])
+dict1={6:a,2:3,3:5}
+dict2={1:b,2:4,3:7}
+print(dict1[6] is dict2[1])
+```
+
+输出结果为：
+
+```
+True
+True
+True
+```
+
+2、当不引用a,b，直接用具体值来测试时，列表，字典，不受值大小影响，返回True，元组则受 256 值范围的影响，超出范围则地址改变，返回 False。
+
+```python
+list1=[1000,3,5]
+list2=[1000,4,5]
+print(list1[0] is list2[0])
+tuple1=(1000,3,5)
+tuple2=(1000,4,5)
+print(tuple1[0] is tuple2[0])
+dict1={6:1000,2:3,3:5}
+dict2={1:1000,2:4,3:7}
+print(dict1[6] is dict2[1])
+```
+
+输出结果为：
+
+```
+True
+False
+True
+```
+
+3、当直接用列表、元组、字典本身来测试时，刚好相反，元组返回 True，列表，字典返回 False。
+
+```python
+list1=[1000,3,5]
+list2=[1000,3,5]
+print(list1 is list2)
+tuple1=(1000,3,5)
+tuple2=(1000,3,5)
+print(tuple1 is tuple2)
+dict1={1:1000,2:3,3:5}
+dict2={1:1000,2:3,3:5}
+print(dict1 is dict2)
+```
+
+输出结果为：
+
+```
+False
+True
+False
+```
 
 
 
@@ -2652,7 +3705,7 @@ Python 数字数据类型用于存储数值。
 
 以下实例在变量赋值时 Number 对象将被创建：
 
-```
+```python
 var1 = 1
 var2 = 10
 ```
@@ -2661,7 +3714,7 @@ var2 = 10
 
 del语句的语法是：
 
-```
+```python
 del var1[,var2[,var3[....,varN]]]
 ```
 
@@ -2680,7 +3733,7 @@ Python 支持三种不同的数值类型：
 
 我们可以使用十六进制和八进制来代表整数：
 
-```
+```python
 >>> number = 0xA0F # 十六进制
 >>> number
 2575
@@ -2717,7 +3770,7 @@ Python 支持三种不同的数值类型：
 
 以下实例将浮点数变量 a 转换为整数：
 
-```
+```python
 >>> a = 1.0
 >>> int(a)
 1
@@ -2731,7 +3784,7 @@ Python 解释器可以作为一个简单的计算器，您可以在解释器里�
 
 表达式的语法很直白： **+**, **-**, ***** 和 **/**, 和其它语言（如Pascal或C）里一样。例如：
 
-```
+```python
 >>> 2 + 2
 4
 >>> 50 - 5*6
@@ -2746,7 +3799,7 @@ Python 解释器可以作为一个简单的计算器，您可以在解释器里�
 
 在整数除法中，除法 **/** 总是返回一个浮点数，如果只想得到整数的结果，丢弃可能的分数部分，可以使用运算符 **//** ：
 
-```
+```python
 >>> 17 / 3  # 整数除法返回浮点型
 5.666666666666667
 >>>
@@ -2758,9 +3811,9 @@ Python 解释器可以作为一个简单的计算器，您可以在解释器里�
 17
 ```
 
-**注意：****//** 得到的并不一定是整数类型的数，它与分母分子的数据类型有关系。
+**注意：** `//` 得到的并不一定是整数类型的数，它与分母分子的数据类型有关系。
 
-```
+```python
 >>> 7//2
 3
 >>> 7.0//2
@@ -2772,7 +3825,7 @@ Python 解释器可以作为一个简单的计算器，您可以在解释器里�
 
 等号 **=** 用于给变量赋值。赋值之后，除了下一个提示符，解释器不会显示任何结果。
 
-```
+```python
 >>> width = 20
 >>> height = 5*9
 >>> width * height
@@ -2781,7 +3834,7 @@ Python 解释器可以作为一个简单的计算器，您可以在解释器里�
 
 Python 可以使用 ***\*** 操作来进行幂运算：
 
-```
+```python
 >>> 5 ** 2  # 5 的平方
 25
 >>> 2 ** 7  # 2的7次方
@@ -2790,7 +3843,7 @@ Python 可以使用 ***\*** 操作来进行幂运算：
 
 变量在使用前必须先"定义"（即赋予变量一个值），否则会出现错误：
 
-```
+```python
 >>> n   # 尝试访问一个未定义的变量
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -2799,7 +3852,7 @@ NameError: name 'n' is not defined
 
 不同类型的数混合运算时会将整数转换为浮点数：
 
-```
+```python
 >>> 3 * 3.75 / 1.5
 7.5
 >>> 7.0 / 2
@@ -2808,7 +3861,7 @@ NameError: name 'n' is not defined
 
 在交互模式中，最后被输出的表达式结果被赋值给变量 **_** 。例如：
 
-```
+```python
 >>> tax = 12.5 / 100
 >>> price = 100.50
 >>> price * tax
@@ -2844,6 +3897,780 @@ NameError: name 'n' is not defined
 | [round(x [,n\])](https://www.runoob.com/python3/python3-func-number-round.html) | 返回浮点数 x 的四舍五入值，如给出 n 值，则代表舍入到小数点后的位数。**其实准确的说是保留值将保留到离上一位更近的一端。** |
 | [sqrt(x)](https://www.runoob.com/python3/python3-func-number-sqrt.html) | 返回数字x的平方根。                                          |
 
+### Python3 abs() 函数
+
+#### 描述
+
+abs() 函数返回数字的绝对值。
+
+------
+
+#### 语法
+
+以下是 abs() 方法的语法:
+
+```python
+abs( x )
+```
+
+------
+
+#### 参数
+
+- x -- 数值表达式，可以是整数，浮点数，复数。
+
+------
+
+#### 返回值
+
+函数返回 x（数字）的绝对值，如果参数是一个复数，则返回它的大小。
+
+------
+
+**实例**
+
+以下展示了使用 abs() 方法的实例：
+
+```python
+#!/usr/bin/python3
+
+print ("abs(-40) : ", abs(-40))
+print ("abs(100.10) : ", abs(100.10))
+```
+
+以上实例运行后输出结果为：
+
+```python
+abs(-40) :  40
+abs(100.10) :  100.1
+```
+
+**相关文章：[Python fabs() 与 abs() 区别](https://www.runoob.com/note/26621)**
+
+输入是复数（complex number）时， 返回这个复数的模。
+
+```python
+>>>v = Vecter(3, 4)
+>>>abs(v)
+5.0
+```
+
+### Python3 ceil() 函数
+
+#### 描述
+
+ceil(x) 函数返回一个大于或等于 x 的的最小整数。
+
+------
+
+#### 语法
+
+以下是 ceil() 方法的语法:
+
+```python
+import math
+
+math.ceil( x )
+```
+
+**注意：**ceil()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+x -- 数值表达式。
+
+------
+
+#### 返回值
+
+函数返回返回一个大于或等于 x 的的最小整数。
+
+------
+
+**实例**
+
+以下展示了使用 ceil() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.ceil(-45.17) : ", math.ceil(-45.17))
+print ("math.ceil(100.12) : ", math.ceil(100.12))
+print ("math.ceil(100.72) : ", math.ceil(100.72))
+print ("math.ceil(math.pi) : ", math.ceil(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.ceil(-45.17) :  -45
+math.ceil(100.12) :  101
+math.ceil(100.72) :  101
+math.ceil(math.pi) :  4
+```
+
+### Python3 exp() 函数
+
+#### 描述
+
+exp() 方法返回x的指数,ex。
+
+------
+
+#### 语法
+
+以下是 exp() 方法的语法:
+
+```
+import math
+
+math.exp( x )
+```
+
+**注意：**exp()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回x的指数,ex。
+
+------
+
+**实例**
+
+以下展示了使用 exp() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.exp(-45.17) : ", math.exp(-45.17))
+print ("math.exp(100.12) : ", math.exp(100.12))
+print ("math.exp(100.72) : ", math.exp(100.72))
+print ("math.exp(math.pi) : ", math.exp(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.exp(-45.17) :  2.4150062132629406e-20
+math.exp(100.12) :  3.0308436140742566e+43
+math.exp(100.72) :  5.522557130248187e+43
+math.exp(math.pi) :  23.140692632779267
+```
+
+### Python3 fabs() 函数
+
+#### 描述
+
+fabs() 方法返回数字的绝对值，如math.fabs(-10) 返回10.0。
+
+fabs() 函数类似于 abs() 函数，但是他有两点区别:
+
+- abs() 是内置函数。 fabs() 函数在 math 模块中定义。
+- fabs() 函数只对浮点型跟整型数值有效。 abs() 还可以运用在复数中。
+
+------
+
+#### 语法
+
+以下是 fabs() 方法的语法:
+
+```python
+import math
+
+math.fabs( x )
+```
+
+**注意：**fabs()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回数字的绝对值。
+
+------
+
+**实例**
+
+以下展示了使用 fabs() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.fabs(-45.17) : ", math.fabs(-45.17))
+print ("math.fabs(100.12) : ", math.fabs(100.12))
+print ("math.fabs(100.72) : ", math.fabs(100.72))
+print ("math.fabs(math.pi) : ", math.fabs(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.fabs(-45.17) :  45.17
+math.fabs(100.12) :  100.12
+math.fabs(100.72) :  100.72
+math.fabs(math.pi) :  3.141592653589793
+```
+
+### Python3 floor() 函数
+
+#### 描述
+
+floor(x) 返回数字的下舍整数，小于或等于 x。
+
+------
+
+#### 语法
+
+以下是 floor() 方法的语法:
+
+```python
+import math
+
+math.floor( x )
+```
+
+**注意：**floor()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回小于或等于 x 的整数。
+
+------
+
+**实例**
+
+以下展示了使用 floor() 方法的实例：
+
+```python
+#!/usr/bin/python
+import math   # 导入 math 模块
+
+print ("math.floor(-45.17) : ", math.floor(-45.17))
+print ("math.floor(100.12) : ", math.floor(100.12))
+print ("math.floor(100.72) : ", math.floor(100.72))
+print ("math.floor(math.pi) : ", math.floor(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.floor(-45.17) :  -46
+math.floor(100.12) :  100
+math.floor(100.72) :  100
+math.floor(math.pi) :  3
+```
+
+### Python3 log() 函数
+
+#### 描述
+
+log() 方法返回x的自然对数，x > 0。
+
+------
+
+#### 语法
+
+以下是 log() 方法的语法:
+
+```python
+import math
+
+math.log( x )
+```
+
+**注意：**log()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回x的自然对数，x>0。
+
+------
+
+**实例**
+
+以下展示了使用 log() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.log(100.12) : ", math.log(100.12))
+print ("math.log(100.72) : ", math.log(100.72))
+print ("math.log(math.pi) : ", math.log(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.log(100.12) :  4.6063694665635735
+math.log(100.72) :  4.612344389736092
+math.log(math.pi) :  1.1447298858494002
+```
+
+### Python3 log10() 函数
+
+#### 描述
+
+log10() 方法返回以10为基数的x对数，x>0。
+
+------
+
+#### 语法
+
+以下是 log10() 方法的语法:
+
+```python
+import math
+
+math.log10( x )
+```
+
+**注意：**log10()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回以10为基数的x对数，x>0。
+
+------
+
+**实例**
+
+以下展示了使用 log10() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.log10(100.12) : ", math.log10(100.12))
+print ("math.log10(100.72) : ", math.log10(100.72))
+print ("math.log10(119) : ", math.log10(119))
+print ("math.log10(math.pi) : ", math.log10(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.log10(100.12) :  2.0005208409361854
+math.log10(100.72) :  2.003115717099806
+math.log10(119) :  2.075546961392531
+math.log10(math.pi) :  0.4971498726941338
+```
+
+### Python3 max() 函数
+
+#### 描述
+
+max() 方法返回给定参数的最大值，参数可以为序列。
+
+------
+
+#### 语法
+
+以下是 max() 方法的语法:
+
+```python
+max( x, y, z, .... )
+```
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+- y -- 数值表达式。
+- z -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回给定参数的最大值。
+
+------
+
+**实例**
+
+以下展示了使用 max() 方法的实例：
+
+```python
+#!/usr/bin/python3
+
+print ("max(80, 100, 1000) : ", max(80, 100, 1000))
+print ("max(-20, 100, 400) : ", max(-20, 100, 400))
+print ("max(-80, -20, -10) : ", max(-80, -20, -10))
+print ("max(0, 100, -400) : ", max(0, 100, -400))
+```
+
+以上实例运行后输出结果为：
+
+```python
+max(80, 100, 1000) :  1000
+max(-20, 100, 400) :  400
+max(-80, -20, -10) :  -10
+max(0, 100, -400) :  100
+```
+
+### Python3 min() 函数
+
+#### 描述
+
+min() 方法返回给定参数的最小值，参数可以为序列。
+
+------
+
+#### 语法
+
+以下是 min() 方法的语法:
+
+```python
+min( x, y, z, .... )
+```
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+- y -- 数值表达式。
+- z -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回给定参数的最小值。
+
+------
+
+**实例**
+
+以下展示了使用 min() 方法的实例：
+
+```python
+#!/usr/bin/python3
+
+print ("min(80, 100, 1000) : ", min(80, 100, 1000))
+print ("min(-20, 100, 400) : ", min(-20, 100, 400))
+print ("min(-80, -20, -10) : ", min(-80, -20, -10))
+print ("min(0, 100, -400) : ", min(0, 100, -400))
+```
+
+以上实例运行后输出结果为：
+
+```python
+min(80, 100, 1000) :  80
+min(-20, 100, 400) :  -20
+min(-80, -20, -10) :  -80
+min(0, 100, -400) :  -400
+```
+
+### Python3 modf() 函数
+
+#### 描述
+
+modf() 方法返回x的整数部分与小数部分，两部分的数值符号与x相同，整数部分以浮点型表示。
+
+------
+
+#### 语法
+
+以下是 modf() 方法的语法:
+
+```python
+import math
+
+math.modf( x )
+```
+
+**注意：**modf()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回x的整数部分与小数部分，
+
+------
+
+**实例**
+
+以下展示了使用 modf() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.modf(100.12) : ", math.modf(100.12))
+print ("math.modf(100.72) : ", math.modf(100.72))
+print ("math.modf(119) : ", math.modf(119))
+print ("math.modf(math.pi) : ", math.modf(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```
+math.modf(100.12) :  (0.12000000000000455, 100.0)
+math.modf(100.72) :  (0.7199999999999989, 100.0)
+math.modf(119) :  (0.0, 119.0)
+math.modf(math.pi) :  (0.14159265358979312, 3.0)
+```
+
+### Python3 pow() 函数
+
+#### 描述
+
+**pow()** 方法返回 $x^y$（x的y次方） 的值。
+
+------
+
+#### 语法
+
+以下是 math 模块 pow() 方法的语法:
+
+```python
+import math
+
+math.pow( x, y )
+```
+
+内置的 pow() 方法
+
+```python
+pow(x, y[, z])
+```
+
+函数是计算x的y次方，如果z在存在，则再对结果进行取模，其结果等效于pow(x,y) %z
+
+**注意：**pow() 通过内置的方法直接调用，内置方法会把参数作为整型，而 math 模块则会把参数转换为 float。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+- y -- 数值表达式。
+- z -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回 xy（x的y次方） 的值。
+
+------
+
+**实例**
+
+以下展示了使用 pow() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+
+print ("math.pow(100, 2) : ", math.pow(100, 2))
+# 使用内置，查看输出结果区别
+print ("pow(100, 2) : ", pow(100, 2))
+print ("math.pow(100, -2) : ", math.pow(100, -2))
+print ("math.pow(2, 4) : ", math.pow(2, 4))
+print ("math.pow(3, 0) : ", math.pow(3, 0))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.pow(100, 2) :  10000.0
+pow(100, 2) :  10000
+math.pow(100, -2) :  0.0001
+math.pow(2, 4) :  16.0
+math.pow(3, 0) :  1.0
+```
+
+### Python3 round() 函数
+
+#### 描述
+
+**round()** 方法返回浮点数 x 的四舍五入值，准确的说保留值将保留到离上一位更近的一端（四舍六入）。
+
+精度要求高的，不建议使用该函数。
+
+------
+
+#### 语法
+
+以下是 round() 方法的语法:
+
+```
+round( x [, n]  )
+```
+
+------
+
+#### 参数
+
+- x -- 数字表达式。
+- n -- 表示从小数点位数，其中 x 需要四舍五入，默认值为 0。
+
+------
+
+#### 返回值
+
+返回浮点数x的四舍五入值。
+
+------
+
+**实例**
+
+以下展示了使用 round() 方法的实例：
+
+```python
+#!/usr/bin/python3
+
+print ("round(70.23456) : ", round(70.23456))
+print ("round(56.659,1) : ", round(56.659,1))
+print ("round(80.264, 2) : ", round(80.264, 2))
+print ("round(100.000056, 3) : ", round(100.000056, 3))
+print ("round(-100.000056, 3) : ", round(-100.000056, 3))
+```
+
+以上实例运行后输出结果为：
+
+```python
+round(70.23456) :  70
+round(56.659,1) :  56.7
+round(80.264, 2) :  80.26
+round(100.000056, 3) :  100.0
+round(-100.000056, 3) :  -100.0
+```
+
+看下官网给的一个例子：
+
+```python
+>>> round(2.675, 2) 
+2.67
+```
+
+**按我们的想法返回结果应该是 2.68，可结果却是 2.67，为什么？**
+
+这跟浮点数的精度有关。我们知道在机器中浮点数不一定能精确表达，因为换算成一串 1 和 0 后可能是无限位数的，机器已经做出了截断处理。那么在机器中保存的2.675这个数字就比实际数字要小那么一点点。这一点点就导致了它离 2.67 要更近一点点，所以保留两位小数时就近似到了 2.67。
+
+在实际使用中发现round函数并不总是如上所说的四舍五入。如：
+
+```
+In [14]: round(2.355, 2)
+Out[14]: 2.35
+```
+
+注：环境为 python3.5.2
+
+因为该函数对于返回的浮点数并不是按照四舍五入的规则来计算，而会收到计算机表示精度的影响。
+
+关于该问题搜索后解释比较清楚的文章地址如下：http://www.runoob.com/w3cnote/python-round-func-note.html
+
+### Python3 sqrt() 函数
+
+#### 描述
+
+**sqrt()** 方法返回数字x的平方根。
+
+------
+
+#### 语法
+
+以下是 sqrt() 方法的语法:
+
+```python
+import math
+
+math.sqrt( x )
+```
+
+**注意：**sqrt()是不能直接访问的，需要导入 math 模块，通过静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 数值表达式。
+
+------
+
+#### 返回值
+
+返回数字x的平方根。
+
+------
+
+**实例**
+
+以下展示了使用 sqrt() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math   # 导入 math 模块
+ 
+print ("math.sqrt(100) : ", math.sqrt(100))
+print ("math.sqrt(7) : ", math.sqrt(7))
+print ("math.sqrt(math.pi) : ", math.sqrt(math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+math.sqrt(100) :  10.0
+math.sqrt(7) :  2.6457513110645907
+math.sqrt(math.pi) :  1.7724538509055159
+```
+
 
 
 ------
@@ -2859,9 +4686,499 @@ Python包含以下常用随机数函数：
 | [choice(seq)](https://www.runoob.com/python3/python3-func-number-choice.html) | 从序列的元素中随机挑选一个元素，比如random.choice(range(10))，从0到9中随机挑选一个整数。 |
 | [randrange ([start,\] stop [,step])](https://www.runoob.com/python3/python3-func-number-randrange.html) | 从指定范围内，按指定基数递增的集合中获取一个随机数，基数默认值为 1 |
 | [random()](https://www.runoob.com/python3/python3-func-number-random.html) | 随机生成下一个实数，它在[0,1)范围内。                        |
-| [seed([x\])](https://www.runoob.com/python3/python3-func-number-seed.html) | 改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed。 |
+| [`seed([x])`](https://www.runoob.com/python3/python3-func-number-seed.html) | 改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed。 |
 | [shuffle(lst)](https://www.runoob.com/python3/python3-func-number-shuffle.html) | 将序列的所有元素随机排序                                     |
 | [uniform(x, y)](https://www.runoob.com/python3/python3-func-number-uniform.html) | 随机生成下一个实数，它在[x,y]范围内。                        |
+
+### Python3 choice() 函数
+
+#### 描述
+
+**choice()** 方法返回一个列表，元组或字符串的随机项。
+
+------
+
+#### 语法
+
+以下是 choice() 方法的语法:
+
+```python
+import random
+
+random.choice( seq  )
+```
+
+**注意：**choice()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- seq -- 可以是一个列表，元组或字符串。
+
+------
+
+#### 返回值
+
+返回随机项。
+
+------
+
+**实例**
+
+以下展示了使用 choice() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import random
+
+print ("从 range(100) 返回一个随机数 : ",random.choice(range(100)))
+print ("从列表中 [1, 2, 3, 5, 9]) 返回一个随机元素 : ", random.choice([1, 2, 3, 5, 9]))
+print ("从字符串中 'Runoob' 返回一个随机字符 : ", random.choice('Runoob'))
+```
+
+以上实例运行后输出结果为：
+
+```python
+从 range(100) 返回一个随机数 :  68
+从列表中 [1, 2, 3, 5, 9]) 返回一个随机元素 :  2
+从字符串中 'Runoob' 返回一个随机字符 :  u
+```
+
+创建随机密码组合:
+
+```python
+import string #string module里包含了阿拉伯数字,ascii码,特殊符号
+import random #需要利用到choice
+
+a = int(input('请输入要求的密码长度'))
+b = string.digits + string.ascii_letters + string.punctuation #构建密码池
+password = "" #命名一个字符串
+
+for i in range(0,a):  #for loop 指定重复次数
+    password = password + random.choice(b)   #从密码池中随机挑选内容构建密码
+print(password)   #输出密码
+```
+
+### Python3 randrange() 函数
+
+#### 描述
+
+**randrange()** 方法返回指定递增基数集合中的一个随机数，基数默认值为1。
+
+------
+
+#### 语法
+
+以下是 randrange() 方法的语法:
+
+```python
+import random
+
+random.randrange ([start,] stop [,step])
+```
+
+**注意：**randrange()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- start -- 指定范围内的开始值，包含在范围内。
+- stop -- 指定范围内的结束值，不包含在范围内。
+- step -- 指定递增基数。
+
+------
+
+#### 返回值
+
+从给定的范围返回随机项。
+
+------
+
+**实例**
+
+以下展示了使用 randrange() 方法的实例：
+
+```python
+#!/usr/bin/python3
+#!/usr/bin/python3
+import random
+ 
+# 从 1-100 中选取一个奇数
+print ("randrange(1,100, 2) : ", random.randrange(1, 100, 2))
+ 
+# 从 0-99 选取一个随机数
+print ("randrange(100) : ", random.randrange(100))
+```
+
+以上实例运行后输出结果为：
+
+```python
+randrange(1,100, 2) :  97
+randrange(100) :  42
+```
+
+```python
+randrange(0,100, 2)   # 从0-100中随机选取一个偶数
+randrange(0,100, 4)  # 从0-100中随机选取一个能被4整除的整数
+randrange(1,100, 3)  # 从0-100中随机选取一个能被3整除后余1的数
+```
+
+以此类推。
+
+### Python3 random() 函数
+
+#### 描述
+
+**random()** 方法返回随机生成的一个实数，它在[0,1)范围内。
+
+------
+
+#### 语法
+
+以下是 random() 方法的语法:
+
+```python
+import random
+
+random.random()
+```
+
+**注意：**random()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- 无
+
+------
+
+#### 返回值
+
+返回随机生成的一个实数，它在[0,1)范围内。
+
+------
+
+**实例**
+
+以下展示了使用 random() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import random
+
+# 第一个随机数
+print ("random() : ", random.random())
+
+# 第二个随机数
+print ("random() : ", random.random())
+```
+
+以上实例运行后输出结果为：
+
+```python
+random() :  0.09690599908884856
+random() :  0.8732120512570916
+```
+
+```python
+import random
+
+# 实现 100-120 随机小数（1）
+print((random.random()*21)+100)
+# 实现 100-101 随机小数（2）
+print(random.uniform(100, 101))
+```
+
+随机从字典中抽取数据
+
+```python
+import random
+
+listb = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '王麻子', 6: '包子', 7: '豆浆'}
+lista = {1: '张三', 2: '李四', 3: '王五', 4: '赵六', 5: '王麻子', 6: '包子', 7: '豆浆'}
+
+for c in listb.keys():
+    a = random.sample(lista.keys(), 1)  # 随机一个字典中的key，第二个参数为限制个数
+    b = a[0] 
+    print(lista[b]) # 打印随机抽取的值
+    del lista[b] # 删除已抽取的键值对
+    print(lista) # 打印剩余的键值对
+```
+
+测试结果：
+
+```python
+王五
+{1: '张三', 2: '李四', 4: '赵六', 5: '王麻子', 6: '包子', 7: '豆浆'}
+李四
+{1: '张三', 4: '赵六', 5: '王麻子', 6: '包子', 7: '豆浆'}
+赵六
+{1: '张三', 5: '王麻子', 6: '包子', 7: '豆浆'}
+豆浆
+{1: '张三', 5: '王麻子', 6: '包子'}
+张三
+{5: '王麻子', 6: '包子'}
+包子
+{5: '王麻子'}
+王麻子
+{}
+```
+
+写一个猜数字游戏:
+
+```python
+import random # 导入 random 模块
+
+n = 0
+while n < 5: # 循环
+    a = random.randint(0,10) # 产生 1 到 10 的一个整数型随机数
+    b = int(input("请输入一个整数（0-10）："))
+    if a == b:
+        print("恭喜您猜对了！",sep='')
+        break
+    elif b > a:
+        print("您猜大了，请重新猜吧！",sep='')
+        print("答案是：",a,sep='')
+    elif a > b:
+        print("您猜小了，请重新猜吧！")
+        print("答案是：",a,sep='')
+    n += 1#计数
+else:
+    print("您已经输入5次了！",sep='')
+```
+
+### Python3 seed() 函数
+
+#### 描述
+
+**seed()** 方法改变随机数生成器的种子，可以在调用其他随机模块函数之前调用此函数。。
+
+------
+
+#### 语法
+
+以下是 seed() 方法的语法:
+
+```python
+import random
+
+random.seed ( [x] )
+```
+
+我们调用 random.random() 生成随机数时，每一次生成的数都是随机的。但是，当我们预先使用 random.seed(x) 设定好种子之后，其中的 x 可以是任意数字，如10，这个时候，先调用它的情况下，使用 random() 生成的随机数将会是同一个。
+
+**注意：**seed()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 改变随机数生成器的种子seed。如果你不了解其原理，你不必特别去设定seed，Python会帮你选择seed。
+
+------
+
+#### 返回值
+
+本函数没有返回值。
+
+------
+
+**实例**
+
+以下展示了使用 seed(() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import random
+
+random.seed()
+print ("使用默认种子生成随机数：", random.random())
+print ("使用默认种子生成随机数：", random.random())
+
+random.seed(10)
+print ("使用整数 10 种子生成随机数：", random.random())
+random.seed(10)
+print ("使用整数 10 种子生成随机数：", random.random())
+
+random.seed("hello",2)
+print ("使用字符串种子生成随机数：", random.random())
+```
+
+以上实例运行后输出结果为：
+
+```python
+使用默认种子生成随机数： 0.7908102856355441
+使用默认种子生成随机数： 0.81038961519195
+使用整数 10 种子生成随机数： 0.5714025946899135
+使用整数 10 种子生成随机数： 0.5714025946899135
+使用字符串种子生成随机数： 0.3537754404730722
+```
+
+### Python3 shuffle() 函数
+
+#### 描述
+
+**shuffle()** 方法将序列的所有元素随机排序。
+
+------
+
+#### 语法
+
+以下是 shuffle() 方法的语法:
+
+import random  random.shuffle (lst )
+
+**注意：**shuffle() 是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- lst -- 列表。
+
+------
+
+#### 返回值
+
+返回 None。
+
+------
+
+**实例**
+
+以下展示了使用 shuffle() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import random
+ 
+list = [20, 16, 10, 5];
+random.shuffle(list)
+print ("随机排序列表 : ",  list)
+ 
+random.shuffle(list)
+print ("随机排序列表 : ",  list)
+```
+
+以上实例运行后输出结果为：
+
+```python
+随机排序列表 :  [20, 5, 16, 10]
+随机排序列表 :  [5, 20, 10, 16]
+```
+
+本来想使用相同种子使得随机排序后结果相同：
+
+```python
+#!/usr/bin/python3
+
+import randomlist = [20, 16, 10, 5]
+random.seed(10)
+random.shuffle(list)
+print("随机排序列表 : ", list)
+random.seed(10)
+random.shuffle(list)
+print("随机排序列表 : ", list)
+```
+
+输出结果：
+
+```python
+随机排序列表 :  [5, 10, 16, 20]
+随机排序列表 :  [20, 16, 10, 5]
+```
+
+查阅得知：因为 random.shuffle 具有破坏性，需要每次都重置列表。
+
+下列代码才可以得到相同的随机排序列表。
+
+```python
+import random
+
+SEED = 10
+original_list = ['list', 'elements', 'go', 'here']
+random.seed(SEED)
+my_list = original_list[:]
+random.shuffle(my_list)
+print("RUN1: ", my_list)
+random.seed(SEED)
+my_list = original_list[:]
+random.shuffle(my_list)
+print("RUN2: ", my_list)
+```
+
+输出结果：
+
+```python
+RUN1:  ['here', 'go', 'elements', 'list']
+RUN2:  ['here', 'go', 'elements', 'list']
+```
+
+### Python3 uniform() 函数
+
+#### 描述
+
+**uniform()** 方法将随机生成下一个实数，它在 **[x,y]** 范围内。
+
+------
+
+#### 语法
+
+以下是 uniform() 方法的语法:
+
+```python
+import random
+
+random.uniform(x, y)
+```
+
+**注意：**uniform()是不能直接访问的，需要导入 random 模块，然后通过 random 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 随机数的最小值。
+- y -- 随机数的最大值。
+
+------
+
+#### 返回值
+
+返回一个浮点数 N，取值范围为如果 **x<y** 则 **x <= N <= y**，如果 **y<x** 则**y <= N <= x**。
+
+------
+
+**实例**
+
+以下展示了使用 uniform() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import random
+ 
+print ("uniform(5, 10) 的随机浮点数 : ",  random.uniform(5, 10))
+ 
+print ("uniform(7, 14) 的随机浮点数 : ",  random.uniform(7, 14))
+```
+
+以上实例运行后输出结果为：
+
+```python
+uniform(5, 10) 的随机浮点数 :  7.054602800254241
+uniform(7, 14) 的随机浮点数 :  12.552229882744296
+```
+
+生成两位小数的浮点数：
+
+```python
+>>> import random
+>>> round(random.uniform(5, 10), 2)
+6.63
+```
 
 
 
@@ -2884,6 +5201,604 @@ Python包括以下三角函数：
 | [degrees(x)](https://www.runoob.com/python3/python3-func-number-degrees.html) | 将弧度转换为角度,如degrees(math.pi/2) ， 返回90.0 |
 | [radians(x)](https://www.runoob.com/python3/python3-func-number-radians.html) | 将角度转换为弧度                                  |
 
+### Python3 acos() 函数
+
+#### 描述
+
+**acos()** 返回x的反余弦弧度值。
+
+------
+
+#### 语法
+
+以下是 acos() 方法的语法:
+
+```python
+import math
+
+math.acos(x)
+```
+
+**注意：**acos()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- -1到1之间的数值。如果x是大于1，会产生一个错误。
+
+------
+
+#### 返回值
+
+返回x的反余弦弧度值。
+
+------
+
+**实例**
+
+以下展示了使用 acos() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("acos(0.64) : ",  math.acos(0.64))
+print ("acos(0) : ",  math.acos(0))
+print ("acos(-1) : ",  math.acos(-1))
+print ("acos(1) : ",  math.acos(1))
+```
+
+以上实例运行后输出结果为：
+
+```python
+acos(0.64) :  0.8762980611683406
+acos(0) :  1.5707963267948966
+acos(-1) :  3.141592653589793
+acos(1) :  0.0
+```
+
+### Python3 asin() 函数
+
+#### 描述
+
+**asin()** 返回x的反正弦弧度值。
+
+------
+
+#### 语法
+
+以下是 asin() 方法的语法:
+
+```python
+import math
+
+math.asin(x)
+```
+
+**注意：**asin()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- -1到1之间的数值。如果x是大于1，会产生一个错误。
+
+------
+
+#### 返回值
+
+返回x的反正弦弧度值。
+
+------
+
+**实例**
+
+以下展示了使用 asin() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("asin(0.64) : ",  math.asin(0.64))
+print ("asin(0) : ",  math.asin(0))
+print ("asin(-1) : ",  math.asin(-1))
+print ("asin(1) : ",  math.asin(1))
+```
+
+以上实例运行后输出结果为：
+
+```python
+asin(0.64) :  0.694498265626556
+asin(0) :  0.0
+asin(-1) :  -1.5707963267948966
+asin(1) :  1.5707963267948966
+```
+
+### Python3 atan() 函数
+
+#### 描述
+
+**atan()** 返回x的反正切弧度值。
+
+------
+
+#### 语法
+
+以下是 atan() 方法的语法:
+
+```python
+import math
+
+math.atan(x)
+```
+
+**注意：**atan()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回x的反正切弧度值。
+
+------
+
+**实例**
+
+以下展示了使用 atan() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("atan(0.64) : ",  math.atan(0.64))
+print ("atan(0) : ",  math.atan(0))
+print ("atan(10) : ",  math.atan(10))
+print ("atan(-1) : ",  math.atan(-1))
+print ("atan(1) : ",  math.atan(1))
+```
+
+以上实例运行后输出结果为：
+
+```python
+atan(0.64) :  0.5693131911006619
+atan(0) :  0.0
+atan(10) :  1.4711276743037347
+atan(-1) :  -0.7853981633974483
+atan(1) :  0.7853981633974483
+```
+
+### Python3 atan2() 函数
+
+#### 描述
+
+**atan2()** 返回给定的 X 及 Y 坐标值的反正切值。
+
+------
+
+#### 语法
+
+以下是 atan2() 方法的语法:
+
+```python
+import math
+
+math.atan2(y, x)
+```
+
+**注意：**atan2()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+- y -- 一个数值。
+
+------
+
+#### 返回值
+
+返回给定的 X 及 Y 坐标值的反正切值。
+
+------
+
+**实例**
+
+以下展示了使用 atan2() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("atan2(-0.50,-0.50) : ",  math.atan2(-0.50,-0.50))
+print ("atan2(0.50,0.50) : ",  math.atan2(0.50,0.50))
+print ("atan2(5,5) : ",  math.atan2(5,5))
+print ("atan2(-10,10) : ",  math.atan2(-10,10))
+print ("atan2(10,20) : ",  math.atan2(10,20))
+```
+
+以上实例运行后输出结果为：
+
+```python
+atan2(-0.50,-0.50) :  -2.356194490192345
+atan2(0.50,0.50) :  0.7853981633974483
+atan2(5,5) :  0.7853981633974483
+atan2(-10,10) :  -0.7853981633974483
+atan2(10,20) :  0.4636476090008061
+```
+
+### Python3 cos() 函数
+
+#### 描述
+
+**cos()** 返回x的弧度的余弦值。
+
+------
+
+#### 语法
+
+以下是 cos() 方法的语法:
+
+```python
+import math
+
+math.cos(x)
+```
+
+**注意：**cos()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回x的弧度的余弦值,-1 到 1 之间。
+
+------
+
+**实例**
+
+以下展示了使用 cos() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("cos(3) : ",  math.cos(3))
+print ("cos(-3) : ",  math.cos(-3))
+print ("cos(0) : ",  math.cos(0))
+print ("cos(math.pi) : ",  math.cos(math.pi))
+print ("cos(2*math.pi) : ",  math.cos(2*math.pi))
+```
+
+以上实例运行后输出结果为：
+
+```python
+cos(3) :  -0.9899924966004454
+cos(-3) :  -0.9899924966004454
+cos(0) :  1.0
+cos(math.pi) :  -1.0
+cos(2*math.pi) :  1.0
+```
+
+### Python3 hypot() 函数
+
+#### 描述
+
+**hypot()** 返回欧几里德范数 sqrt(x*x + y*y)。
+
+------
+
+#### 语法
+
+以下是 hypot() 方法的语法:
+
+```
+import math
+
+math.hypot(x, y)
+```
+
+**注意：**hypot()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+- y -- 一个数值。
+
+------
+
+#### 返回值
+
+返回欧几里德范数 sqrt(x*x + y*y)。
+
+------
+
+**实例**
+
+以下展示了使用 hypot() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("hypot(3, 2) : ",  math.hypot(3, 2))
+print ("hypot(-3, 3) : ",  math.hypot(-3, 3))
+print ("hypot(0, 2) : ",  math.hypot(0, 2))
+```
+
+以上实例运行后输出结果为：
+
+```python
+hypot(3, 2) :  3.605551275463989
+hypot(-3, 3) :  4.242640687119285
+hypot(0, 2) :  2.0
+```
+
+### Python3 sin() 函数
+
+#### 描述
+
+**sin()** 返回的x弧度的正弦值。
+
+------
+
+#### 语法
+
+以下是 sin() 方法的语法:
+
+```python
+import math
+
+math.sin(x)
+```
+
+**注意：**sin()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回的x弧度的正弦值，数值在 -1 到 1 之间。
+
+------
+
+**实例**
+
+以下展示了使用 sin() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("sin(3) : ",  math.sin(3))
+print ("sin(-3) : ",  math.sin(-3))
+print ("sin(0) : ",  math.sin(0))
+print ("sin(math.pi) : ",  math.sin(math.pi))
+print ("sin(math.pi/2) : ",  math.sin(math.pi/2))
+```
+
+以上实例运行后输出结果为：
+
+```python
+sin(3) :  0.1411200080598672
+sin(-3) :  -0.1411200080598672
+sin(0) :  0.0
+sin(math.pi) :  1.2246467991473532e-16
+sin(math.pi/2) :  1.0
+```
+
+### Python3 tan() 函数
+
+#### 描述
+
+**tan()** 返回 x 弧度的正切值。
+
+------
+
+#### 语法
+
+以下是 tan() 方法的语法:
+
+```python
+import math
+
+math.tan(x)
+```
+
+**注意：**tan()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回 x 弧度的正切值，数值在 -1 到 1 之间。
+
+------
+
+**实例**
+
+以下展示了使用 tan() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+ 
+print ("(tan(3) : ",  math.tan(3))
+print ("tan(-3) : ",  math.tan(-3))
+print ("tan(0) : ",  math.tan(0))
+print ("tan(math.pi) : ",  math.tan(math.pi))
+print ("tan(math.pi/2) : ",  math.tan(math.pi/2))
+print ("tan(math.pi/4) : ",  math.tan(math.pi/4))
+```
+
+以上实例运行后输出结果为：
+
+```python
+(tan(3) :  -0.1425465430742778
+tan(-3) :  0.1425465430742778
+tan(0) :  0.0
+tan(math.pi) :  -1.2246467991473532e-16
+tan(math.pi/2) :  1.633123935319537e+16
+tan(math.pi/4) :  0.9999999999999999
+```
+
+### Python3 degrees() 函数
+
+#### 描述
+
+**degrees()** 将弧度转换为角度。
+
+------
+
+#### 语法
+
+以下是 degrees() 方法的语法:
+
+```python
+import math
+
+math.degrees(x)
+```
+
+**注意：**degrees()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回一个角度值。
+
+------
+
+**实例**
+
+以下展示了使用 degrees() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("degrees(3) : ",  math.degrees(3))
+print ("degrees(-3) : ",  math.degrees(-3))
+print ("degrees(0) : ",  math.degrees(0))
+print ("degrees(math.pi) : ",  math.degrees(math.pi))
+print ("degrees(math.pi/2) : ",  math.degrees(math.pi/2))
+print ("degrees(math.pi/4) : ",  math.degrees(math.pi/4))
+```
+
+以上实例运行后输出结果为：
+
+```python
+degrees(3) :  171.88733853924697
+degrees(-3) :  -171.88733853924697
+degrees(0) :  0.0
+degrees(math.pi) :  180.0
+degrees(math.pi/2) :  90.0
+degrees(math.pi/4) :  45.0
+```
+
+### Python3 radians() 函数
+
+#### 描述
+
+**radians()** 方法将角度转换为弧度。
+
+------
+
+#### 语法
+
+以下是 radians() 方法的语法:
+
+```python
+import math
+
+math.radians(x)
+```
+
+**注意：**radians()是不能直接访问的，需要导入 math 模块，然后通过 math 静态对象调用该方法。
+
+------
+
+#### 参数
+
+- x -- 一个数值。
+
+------
+
+#### 返回值
+
+返回一个角度的弧度值。
+
+------
+
+**实例**
+
+以下展示了使用 radians() 方法的实例：
+
+```python
+#!/usr/bin/python3
+import math
+
+print ("radians(3) : ",  math.radians(3))
+print ("radians(-3) : ",  math.radians(-3))
+print ("radians(0) : ",  math.radians(0))
+print ("radians(math.pi) : ",  math.radians(math.pi))
+print ("radians(math.pi/2) : ",  math.radians(math.pi/2))
+print ("radians(math.pi/4) : ",  math.radians(math.pi/4))
+```
+
+以上实例运行后输出结果为：
+
+```python
+radians(3) :  0.05235987755982989
+radians(-3) :  -0.05235987755982989
+radians(0) :  0.0
+radians(math.pi) :  0.05483113556160755
+radians(math.pi/2) :  0.027415567780803774
+radians(math.pi/4) :  0.013707783890401887
+```
+
+实例中 x 填的是常见弧度数值，而这函数是角度转弧度。
+
+x 应填数字，默认单位是角度 **°**，即：
+
+```python
+math.radians(90)=math.pi/2
+```
+
 
 
 ------
@@ -2903,7 +5818,7 @@ Python包括以下三角函数：
 
 **对于round:**
 
-```
+```python
 >>> round(10.5)
 10
 >>> round(11.5)
@@ -2911,15 +5826,13 @@ Python包括以下三角函数：
 >>>
 ```
 
-**Python 所谓的\**奇进偶弃\**，因为浮点数的表示在计算机中并不准确，用的时候可能要注意一下。**
-
-
+**Python 所谓的奇进偶弃，因为浮点数的表示在计算机中并不准确，用的时候可能要注意一下。**
 
 **还可以参考这篇文章: [Python 中关于 round 函数的小坑](http://w3cnote/python-round-func-note.html)**
 
 python 不支持复数转换为整数或浮点数
 
-```
+```python
 >>> float(4.5+0j)
 Traceback (most recent call last):
   File "<pyshell#5>", line 1, in <module>
@@ -2940,7 +5853,7 @@ TypeError: can't convert complex to int
 
 实例
 
-```
+```python
 >>> random.randint(1000,9999)
 8449
 ```
@@ -2949,7 +5862,7 @@ TypeError: can't convert complex to int
 
 实例
 
-```
+```python
 >>> lst = random.sample('abcd1234',4)
 >>> strs = ''.join(lst)
 >>> strs
@@ -2957,9 +5870,9 @@ TypeError: can't convert complex to int
 >>>
 ```
 
-由于上面大神的提出，我又看了一下
 
-```
+
+```python
 print(round(10.4)) #10
 print(round(10.5)) #10
 print(round(10.6)) #11
@@ -2988,7 +5901,7 @@ print(round(11.6)) #12
 
 交互模式下的 example:
 
-```
+```python
 >>> round(10.49)
 10
 >>> round(10.50)
@@ -3013,16 +5926,12 @@ print(round(11.6)) #12
 
 -  （2）如果保留位数的后一位如果是6或者6以上的数字，则进上去， 例如5.216保留两位小数为5.22。
 
-- 
+- （3）如果保留位数是保留整数部分或保留一位小数，则要根据保留位来决定奇进偶舍：
 
-   
-
-  （3）如果保留位数是保留整数部分或保留一位小数，则要根据保留位来决定奇进偶舍：
-
-  ```
-  >>> round(5.215,2)#实际并没有进位
+  ```python
+>>> round(5.215,2)#实际并没有进位
   5.21
-  >>> round(5.225,2)
+>>> round(5.225,2)
   5.22
   >>>
   >>> round(1.5)#此处进位
@@ -3038,7 +5947,7 @@ print(round(11.6)) #12
   >>> round(1.251,1)
   1.3
   ```
-
+  
 -  (4) 如果保留位数的后一位如果是5，且该位数后有数字。则进上去，例如5.2152保留两位小数为5.22，5.2252保留两位小数为5.23，5.22500001保留两位小数为5.23。
 
 从统计学的角度，“奇进偶舍”比“四舍五入”要科学，在大量运算时，它使舍入后的结果误差的均值趋于零，而不是像四舍五入那样逢五就入，导致结果偏向大数，使得误差产生积累进而产生系统误差，“奇进偶舍”使测量结果受到舍入误差的影响降到最低。
@@ -3047,7 +5956,7 @@ print(round(11.6)) #12
 
 其实在Python中，复数提供了2个函数，一个函数是real，返回复数的实数部分，另一个函数是imag，返回复数的虚数部分。因为实数跟复数是差异很大的类型，所以不支持强制转换是可以理解的。因为在强制转换过程中，虚数部分到底该怎么转换，是没有定义的，而int和float只有实数部分，虚数部分该如何取舍？
 
-```
+```python
 >>> a = 4.1+0.3j
 >>> a
 (4.1+0.3j)
@@ -3059,7 +5968,7 @@ print(round(11.6)) #12
 
 Python3中已经不能使用cmp()函数了，被如下五个函数替代:
 
-```
+```python
 import operator       #首先要导入运算符模块
 
 operator.gt(1,2)      #意思是greater than（大于）
@@ -3073,7 +5982,7 @@ fractions 模块提供了分数类型的支持。
 
 构造函数：
 
-```
+```python
 class fractions.Fraction(numerator=0, denominator=1) 
 class fractions.Fraction(int|float|str|Decimal|Fraction)
 ```
@@ -3082,7 +5991,7 @@ class fractions.Fraction(int|float|str|Decimal|Fraction)
 
 **分数类型：**
 
-```
+```python
 from fractions import Fraction
 
 >>> x=Fraction(1,3)
@@ -3096,7 +6005,7 @@ Fraction(1, 4)
 
 **浮点数与分数的转换：**
 
-```
+```python
 >>> f=2.5
 >>> z=Fraction(*f.as_integer_ratio())
 >>> z
@@ -3111,7 +6020,7 @@ Fraction(5, 2)
 
 decimal 模块提供了一个 Decimal 数据类型用于浮点数计算，拥有更高的精度。
 
-```
+```python
 >>> import decimal
 >>> decimal.getcontext().prec=4              # 指定精度（4位小数）
 >>> decimal.Decimal(1) / decimal.Decimal(7)
@@ -3128,11 +6037,11 @@ Decimal('0.33')
 
 Python中一切都是对象，对象比较可以用 **==** 或者 **is**。
 
-**==** 比较的是两个对象的内容是否相等，默认会调用对象的 **__eq__()** 方法。
+**==** 比较的是两个对象的内容是否相等，默认会调用对象的 `__eq__()` 方法。
 
 **is** 比较的是两个对象的 id 是否相等，也就是是否是同一个对象，是否指向同一个内存地址。
 
-```
+```python
 >>> a = 4
 >>> b = 4
 >>> a == b
@@ -3161,7 +6070,7 @@ False
 
 再看下面这个例子 ：
 
-```
+```python
 >>> a = 259
 >>> def foo () :
 ...     b = 259
@@ -3212,14 +6121,14 @@ True
 
 **10/3=3.3333333333333335** 而不是约等于 **3.3333……**:
 
-```
+```python
 >>> 10/3
 3.3333333333333335
 ```
 
 还有就是 **0.1+0.1+0.1-0.3** 不会等于 **0**，而是等于 **5.551115123125783e-17**:
 
-```
+```python
 >>> 0.1+0.1+0.1-0.3
 5.551115123125783e-17
 ```
@@ -3228,7 +6137,7 @@ True
 
 补充上面关于round()函数的问题，注意下面例子：
 
-```
+```python
 >>> round(1.05,1)
 1.1
 >>> round(1.15,1)
@@ -3245,7 +6154,7 @@ True
 
 官方的解释是：这不是bug，而事关浮点数存储：
 
-```
+```python
 >>> from decimal import Decimal
 >>> Decimal.from_float(1.05)
 Decimal('1.0500000000000000444089209850062616169452667236328125')
@@ -3267,14 +6176,14 @@ Decimal('2.54999999999999982236431605997495353221893310546875')
 
 1、字符转为数字
 
-```
+```python
 var='1234'
 num=int(var) # 如果是小数可用 float
 ```
 
 2、字符转为列表
 
-```
+```python
 num_list=list(var)
 ```
 
@@ -3282,7 +6191,7 @@ num_list=list(var)
 
 可以用 numpy 模块：
 
-```
+```python
 import numpy as np
 
 num_array=np.array(num_list)
@@ -3294,7 +6203,7 @@ num_array=np.array(num_list)
 
 实例 1：
 
-```
+```python
 >>> a = 5
 >>> a += 6
 >>> a
@@ -3303,7 +6212,7 @@ num_array=np.array(num_list)
 
 以上实例与下面实例的效果一样：
 
-```
+```python
 >>> a = 5
 >>> a = a + 6
 >>> a
@@ -3312,7 +6221,7 @@ num_array=np.array(num_list)
 
 实例2：
 
-```
+```python
 >>> b = 5
 >>> b =+ 6
 >>> b
@@ -3321,7 +6230,7 @@ num_array=np.array(num_list)
 
 为什么会是 6 而不是 11 呢? 因为实例2与下面代码一样：
 
-```
+```python
 >>> b = 5
 >>> b = +6  # 其实就是正数，只是一个赋值操作，+ 6 即为 +6，+6 为 6
 >>> b
@@ -3332,7 +6241,7 @@ num_array=np.array(num_list)
 
 其实准确的进位规则是二进制浮点数的:
 
-```
+```python
 >>> round(1.5,0) # 1.5d -> 0x3FF8000000000000 -> 1.5, 按照5后为0处理，奇进偶不进
 2.0
 >>> round(2.5,0) # 2.5 -> 0x4004000000000000 -> 2.5,  按照5后为0处理，奇进偶不进
@@ -3346,7 +6255,7 @@ num_array=np.array(num_list)
 
 可以认为进位首先计算的是与整数间的差距，如果差距相等，才会出现奇进偶不进。注意其中1.15由于进制问题到1.1和1.2距离不同，所以不是十进制的round结果。
 
-```
+```python
 >>> abs(1.25-1.2)==abs(1.25-1.2)
 True
 >>> abs(1.15-1.2)==abs(1.15-1.1)
