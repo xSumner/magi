@@ -1,0 +1,29 @@
+北京大学2020最新公开课：数据结构与算法Python版（更新中）
+https://www.bilibili.com/video/BV1h7411m7BK?zw
+
+机器学习2020李宏毅(有PPT) 完整版-强烈推荐-Machine Learning 2020
+https://www.bilibili.com/video/BV1eE411T7BS?from=search&seid=17614365751864221647
+
+李宏毅2020机器学习深度学习(完整版)国语
+https://www.bilibili.com/video/BV1JE411g7XF?from=search&seid=17614365751864221647
+https://github.com/Iallen520/lhy_DL_Hw
+
+The Algorithms - Python
+https://github.com/TheAlgorithms/Python
+
+Awesome-Chinese-NLP
+https://github.com/crownpku/awesome-chinese-nlp#toolkits-%E7%BB%BC%E5%90%88nlp%E5%B7%A5%E5%85%B7%E5%8C%85-1
+
+python数据结构与算法总结
+https://blog.csdn.net/weixin_41624982/article/details/89486592
+
+数据结构和算法对python意味着什么？
+https://mp.weixin.qq.com/s?__biz=MzI2OTQ1NzEyMQ==&mid=2247484309&idx=1&sn=cd33c8b3f56de2ad33079a9fdd9e31ed&chksm=eae1401bdd96c90dc3d4a3a7fc227555f522c1143632c5be88e825eb2e9bb234ad01994a8dca&scene=21#wechat_redirect
+
+
+
+
+
+
+
+
