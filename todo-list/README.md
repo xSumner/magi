@@ -180,13 +180,21 @@ https://github.com/fastnlp/fastHan
 
 
 
+**学习Python编程的开源库**
+
+- [**learn-python3**](https://github.com/jerry-git/learn-python3)
+- [**learn-python**](https://github.com/trekhleb/learn-python/blob/master/src/control_flow/test_if.py)
+- [**full-speed-python**](https://github.com/joaoventura/full-speed-python)
+- [**python_reference**](https://github.com/rasbt/python_reference/)
+- [**Python-programming-exercises**](https://github.com/zhiwehu/Python-programming-exercises)
+- [**coding-problems**](https://github.com/MTrajK/coding-problems/)
+- [**TheAlgorithms**](https://github.com/TheAlgorithms/Python/)
 
 
 
 
 
-
-
+[Machine-Learning-with-Python](https://github.com/tirthajyoti/Machine-Learning-with-Python)
 
 
 
@@ -199,6 +207,14 @@ https://github.com/fastnlp/fastHan
 
 
 [Graph Representation Learning Book](https://www.cs.mcgill.ca/~wlh/grl_book/)
+
+
+
+[Kickstarting Flask on Ubuntu – Setup and Deployment](https://realpython.com/kickstarting-flask-on-ubuntu-setup-and-deployment/)
+
+
+
+
 
 
 
