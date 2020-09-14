@@ -214,21 +214,91 @@ https://github.com/fastnlp/fastHan
 
 
 
+[2019新型冠状病毒疫情时间序列数据仓库](https://github.com/BlankerL/DXY-COVID-19-Data)
 
 
 
+[疫情当前，我们聊聊谣言的自动化鉴别【附代码和资料】](https://mp.weixin.qq.com/s/v1GGypjk_uyLIMsrj9Fblw)
 
 
 
+[如何用简单的位操作实现高级算法](https://mp.weixin.qq.com/s?__biz=MzI2MzEwNTY3OQ==&mid=2648978550&idx=1&sn=488024647919d43e610c7f8a5ecf4fad&chksm=f2506996c527e08006f76d10a2a32be0138091d1a6504e3bc3e0edcdeeed021fb3a994597eeb&xtrack=1&scene=90&subscene=93&sessionid=1589598373&clicktime=1589598421&enterid=1589598421&ascene=56&devicetype=android-29&version=27000e37&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=Aqlu03ZC7OIPeZUgrWct01E%3D&pass_ticket=CdkBfTepvkRiJKRhMyE0E0UOoQTSjBUgvUlNy45h7g4%3D&wx_header=1)
 
 
 
+[第一次Python创建grpc微服务](https://www.jianshu.com/p/cc74e21059b7)
+
+[电磁炉不只是更安全点：看gRPC和RESTful](https://zhuanlan.zhihu.com/p/113125410)
 
 
 
+[送你一份概率图模型笔记](https://mp.weixin.qq.com/s?__biz=MzI1MjQ2OTQ3Ng==&mid=2247501562&idx=2&sn=43477f8d3af816d4f2ddefc5d69d0966&chksm=e9e1cf71de9646675e9cfd350497cbeafbaf77d22182b408102a69685346ecc58c6e61d5fa7a&xtrack=1&scene=90&subscene=93&sessionid=1590318865&clicktime=1590319137&enterid=1590319137&ascene=56&devicetype=android-29&version=27000e37&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AjmVk9p3BgXXH8KYeld7Xjc%3D&pass_ticket=qcd%2FTSvmNfUTAVCx0oiKXmg2kiZVwDQoMzypSJbk8Vc%3D&wx_header=1)
 
 
 
+[你好！PyTorch —— PyTorch安装 & 与Numpy比较](https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&mid=2456344495&idx=1&sn=485251dbe26328e51b99f0c9af8a57b9&chksm=8c2fada1bb5824b78cf828ea02634c147694d808634ccbd8487bf4ee7425edfbc69cb061a295&xtrack=1&scene=90&subscene=93&sessionid=1589595937&clicktime=1589597518&enterid=1589597518&ascene=56&devicetype=android-29&version=27000e37&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=ArZ2qF3BMLF1YcsidNW3YII%3D&pass_ticket=CdkBfTepvkRiJKRhMyE0E0UOoQTSjBUgvUlNy45h7g4%3D&wx_header=1)
+
+
+
+[程序员要搞明白Nginx，这篇应该够了！](https://mp.weixin.qq.com/s?__biz=MzA3ODIxNjYxNQ==&mid=2247489632&idx=1&sn=d962ec8c9ecc96b56ceea73212d918c7&chksm=9f4774a8a830fdbe8226b83ce2ece16447cebccfe18bed42d9f1dde01d8e11f387a18916f578&xtrack=1&scene=90&subscene=93&sessionid=1589508318&clicktime=1589508380&enterid=1589508380&ascene=56&devicetype=android-29&version=27000e37&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=ApG%2BcGgeImGoEZzS0e2Q%2FJQ%3D&pass_ticket=T41o1A2ruW99dLTztqebyKbyGK8ZvYB0JdquMiNr8pM%3D&wx_header=1)
+
+
+
+[Docker 入门看这一篇就够了！](https://mp.weixin.qq.com/s?__biz=MzA5NDIzNzY1OQ==&mid=2735616594&idx=1&sn=f0d3c619c4cac5947f599ee4837bbf76&chksm=b6ab34e681dcbdf0bff740f068c08cfd1cd84029e1c62ac323a27b6166c3bc139b8b7b4220eb&xtrack=1&scene=90&subscene=93&sessionid=1590639846&clicktime=1590640475&enterid=1590640475&ascene=56&devicetype=android-29&version=27000e37&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AoKAEwXWUxYTudnxxPNPKbw%3D&pass_ticket=GKWUNb%2B9o%2BtbueuQxGO16ak4xlW7rTDkpn8XXwyDeMI%3D&wx_header=1)
+
+
+
+[程序员必备网站之一：API Coding](https://mp.weixin.qq.com/s?__biz=MzAxOTcxNTIwNQ==&mid=2457922794&idx=3&sn=05bd81227856311a82891acb37de8ce4&chksm=8cb68900bbc10016a911cff430c6f91a0be7d77c56c046f9d1447404562bbf38cbd7139e818f&xtrack=1&scene=90&subscene=93&sessionid=1591072982&clicktime=1591073190&enterid=1591073190&ascene=56&devicetype=android-29&version=27000f37&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=Arolxtu0mO6Kp74EDDzvye8%3D&pass_ticket=Qz6VmOXjsVKwE%2FJSqe3jg9x%2BXH6L%2Fa%2BhUZcOprA0DSs%3D&wx_header=1)
+
+
+
+[PyTorch Cookbook（常用代码段集锦）](https://mp.weixin.qq.com/s?__biz=MzAxMjMwODMyMQ==&mid=2456345834&idx=1&sn=4ef69b6fe8f21d81ac635d43aa19b8d8&ascene=1&devicetype=android-29&version=27000eae&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AlltTtcDleYx0pSDMim32PM%3D&pass_ticket=sAX3Lifm915c2asrjE5yKYAUgXo3m8GkTHQHPaGyguI%3D&wx_header=1)
+
+
+
+[最新《数据因果性学习: 问题与方法》2020综述论文，36页pdf](https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&mid=2247534860&idx=2&sn=8b09edaa60ae47dfb19d8139d1fb0570&chksm=fc86a81fcbf12109712cbd0cd20d12c2e3aa030db85a9713a34295476d3511c9d941935ea28d&xtrack=1&scene=90&subscene=93&sessionid=1597565402&clicktime=1597565443&enterid=1597565443&ascene=56&devicetype=android-29&version=2700113b&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AhiiAEYdajscUrnIOl%2BtZ0U%3D&pass_ticket=dBuDjJpPI99LmexT7dgqJUReTM38xztD%2BQzd07z6yfc%3D&wx_header=1)
+
+
+
+[常见的世界地图数据来源](https://mp.weixin.qq.com/s?__biz=MzA4ODk4NzgyNA==&mid=2649737392&idx=2&sn=2ad23e52ac858cd3322be20886481449&chksm=883aa96fbf4d20796d9e681c4d6fd5573e11536b8b65b6859e32b4965b8cb1a860c473fcf8ce&xtrack=1&scene=90&subscene=93&sessionid=1599564396&clicktime=1599565241&enterid=1599565241&ascene=56&devicetype=android-29&version=27001237&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AmYhPbopvlIdjjI%2FFtIyDpM%3D&pass_ticket=poUYfwN5rZ0nX448rAkzSq8K5F1DF9Xnc5Kv3tIa4oY%3D&wx_header=1)
+
+
+
+[到底多大并发才算高并发？一文带你全面认识高并发！](https://mp.weixin.qq.com/s?__biz=MzA5NDIzNzY1OQ==&mid=2735617820&idx=1&sn=ab541c714e938c31527719f7aa5b1c44&chksm=b6ab31a881dcb8be21af902ec07ff35411fea5d882fa87b733e16a416f61349d27210b237b7c&xtrack=1&scene=90&subscene=93&sessionid=1599904820&clicktime=1599905129&enterid=1599905129&ascene=56&devicetype=android-29&version=27001239&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AhtVLec6QLqd%2FLSguPeA1sQ%3D&pass_ticket=I9zpzLpdaUMUS01h27DLq4ycL69JDzuI8SEr1RP1zdM%3D&wx_header=1)
+
+
+
+[基于 Python 项目的 GitLab-CI 演示](https://mp.weixin.qq.com/s?__biz=MzAxMjUyNDQ5OA==&mid=2653564226&idx=2&sn=ee4181ba8c7f08229ecdacea8dd601aa&chksm=806e03ffb7198ae9d477d7c86a337fbdd4abcb3bba717a06e0c2e7f37185658e549665c5e79c&xtrack=1&scene=90&subscene=93&sessionid=1599804905&clicktime=1599805534&enterid=1599805534&ascene=56&devicetype=android-29&version=27001239&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=Ao%2Fnmo%2FroX6XIA7JswlmC4M%3D&pass_ticket=PRgqcZjDsuhITF4fJiaW7V52LRO8lbLHWSCSFM9SLXY%3D&wx_header=1)
+
+
+
+[当今网络罪犯洗钱经](https://mp.weixin.qq.com/s?__biz=MzAxOTM1MDQ1NA==&mid=2451181720&idx=1&sn=e25501face89196ebb4f66a66d971d1e&chksm=8c26e641bb516f573f3dae3ca2ba5e7654a544be816251dd32a0d8a4743ed11971e8fa3e4c29&mpshare=1&srcid=0909JvHCC4QiwrIMGtNeoGmh&sharer_sharetime=1599653165972&sharer_shareid=d0c30d06c4d10f0d7af0a599cd587eb3&scene=2&subscene=1&clicktime=1599656909&enterid=1599656909&ascene=2&devicetype=android-29&version=27001239&nettype=cmnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=Ai11cF89%2BlnvT8Smr0H62ho%3D&pass_ticket=1dpDSNrAL55HBzD5W%2B%2FtEUThU2G9hzCi2D5Mmwei%2F6o%3D&wx_header=1)
+
+
+
+[新规！公安机关内部职能部门职责新变化！公安部发布2020版刑事案件管辖分工规定（2020.9.1）](https://mp.weixin.qq.com/s/MPztClI6EyffLOozOEE4Ug)
+
+
+
+[使用Pyhon+Flux+Julia实现手写数字识别](https://mp.weixin.qq.com/s?__biz=MzU2NTUwNjQ1Mw==&mid=2247489684&idx=1&sn=bf58b36319e993e4cdf2448223f9b2ab&chksm=fcbbe06ecbcc6978d2890be77a8f2508464450bd8321fb8ac2e337945de45f2a9a848f3df70d&xtrack=1&scene=90&subscene=93&sessionid=1599930251&clicktime=1599930257&enterid=1599930257&ascene=56&devicetype=android-29&version=27001239&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AidDhb1u%2BImLiLaX1igmtc0%3D&pass_ticket=L1Vy%2BlOknuRnrNG6RsM7qqlc%2F8kTQ22SZVVw8Ab2Cfs%3D&wx_header=1)
+
+
+
+[最全总结！一张图整理了 Python 所有内置异常](https://mp.weixin.qq.com/s?__biz=MzU1OTI0NjI1NQ==&mid=2247486444&idx=1&sn=ac2d8e4f21ec8308ea56125f30346c18&chksm=fc1b752ccb6cfc3aaa80824723ec34c7aa691e2949016aeac95bc4fab5bffc2f6e622de164b2&xtrack=1&scene=90&subscene=93&sessionid=1599973514&clicktime=1599973939&enterid=1599973939&ascene=56&devicetype=android-29&version=27001239&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=Ag6dw%2Fl0ae%2BN7W%2FoNsRARbE%3D&pass_ticket=L1Vy%2BlOknuRnrNG6RsM7qqlc%2F8kTQ22SZVVw8Ab2Cfs%3D&wx_header=1)
+
+
+
+[深入了解Spark：如同你亲自设计出它一样](https://mp.weixin.qq.com/s/eUezdgqVhUm10bopdD9b3w)
+
+
+
+[networkx + Cytoscape 构建及可视化网络图](https://www.jianshu.com/p/f62991aa1f8a#)
+
+[Cytoscape史上最全攻略](https://cloud.tencent.com/developer/news/96301)
+
+
+
+[ML模型太多该咋用？CMU-邢波教授视频报告《标准化与可组合机器学习》乐高式构建机器学习系统（附视频与报告）](https://mp.weixin.qq.com/s?__biz=MzU2OTA0NzE2NA==&mid=2247534860&idx=1&sn=2685584cc7aaab65c0cf8cb3fbb27e2f&chksm=fc86a81fcbf12109af702d844f53d1203eb92e64fda6f7a23b703ba1fae173f337b2c6b25a88&xtrack=1&scene=90&subscene=93&sessionid=1597565402&clicktime=1597565407&enterid=1597565407&ascene=56&devicetype=android-29&version=2700113b&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AtPzCEJxvTLHsr55lSxLUV0%3D&pass_ticket=dBuDjJpPI99LmexT7dgqJUReTM38xztD%2BQzd07z6yfc%3D&wx_header=1)
 
 
 

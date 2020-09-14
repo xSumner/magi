@@ -47,7 +47,7 @@
 
 ### 九月写作计划
 
-```
+```mermaid
 gantt
        dateFormat  YYYY-MM-DD
        title 公众号文章撰写时刻表
